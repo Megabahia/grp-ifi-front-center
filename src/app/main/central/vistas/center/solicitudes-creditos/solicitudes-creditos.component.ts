@@ -26,7 +26,7 @@ export class SolicitudesCreditosComponent implements OnInit {
 
     // public
     public page = 1;
-    public page_size: any = 10;
+    public page_size: any = 4;
     public maxSize;
     public collectionSize;
     public contentHeader: object;
