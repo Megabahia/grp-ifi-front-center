@@ -1,5 +1,5 @@
-import { CoreMenu } from '@core/types'
-import { Role } from '../auth/models/role';
+import {CoreMenu} from '@core/types';
+import {Role} from '../auth/models/role';
 
 export const menu: CoreMenu[] = [
   {
@@ -156,6 +156,15 @@ export const menu: CoreMenu[] = [
         url: 'central/center/solicitudesCreditos',
       },
       {
+        id: 'consumoCreditos',
+        title: 'Consumos de créditos',
+        // translate: 'MENU.HOME',
+        // role: [Role.SuperMonedas],
+        type: 'item',
+        icon: 'package',
+        url: 'central/center/consumosCreditos',
+      },
+      {
         id: 'publicaciones',
         title: 'Publicaciones',
         // translate: 'MENU.HOME',
@@ -166,4 +175,4 @@ export const menu: CoreMenu[] = [
       },
     ]
   },
-]
+];
