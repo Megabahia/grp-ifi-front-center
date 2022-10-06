@@ -1,0 +1,38 @@
+<div class="content-wrapper">
+    <div class="content-header row">
+        <div class="col-12 mb-2">
+            <div class="row breadcrumbs-top">
+                <div class="col-12">
+                    <h2 class="content-header-title float-left mb-0">REVISIÓN DE DOCUMENTOS</h2>
+                    <div class="breadcrumb-wrapper">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a class="text-primary" href="index.html">Inicio</a>
+                            </li>
+                            <li class="breadcrumb-item"><a class="text-primary" href="mis-premios.html">REVISIÓN DE
+                                DOCUMENTOS</a>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content-body">
+        <section class="app-user-list">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-control-sm" *ngFor="let requisito of checks">
+                        <label>{{requisito.label}}</label>
+                         
+                        <img *ngIf="requisito.valor; else content" src="/assets/fonts/feather/check-green.png"/>
+                        <ng-template #content>
+                            <img src="/assets/fonts/feather/mark-red.png"/>
+                        </ng-template>
+                    </div>
+                    <button class="btn btn-primary" (click)="completar()">Completar</button>
+                    <button *ngIf="completado">Enviar</button>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
