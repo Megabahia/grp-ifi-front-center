@@ -36,6 +36,8 @@ import { ListarComponent as ProductosMensajeListar } from './vistas/center/produ
 import { ListarComponent as ProductosNuestraFamiliaListar } from './vistas/center/productos-nuestra-familia-sm/listar/listar.component';
 import { ListarComponent as CorreosLandingListar } from './vistas/center/Correos-landing/listar/listar.component';
 import { ConsumoCreditosComponent } from './vistas/center/consumo-creditos/consumo-creditos.component';
+import { EmpleadosComponent } from './vistas/center/solicitudes-creditos/empleados/empleados.component';
+import { RevisionDocumentosComponent } from './vistas/center/solicitudes-creditos/revision-documentos/revision-documentos.component';
 
 const routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -98,7 +100,22 @@ const routes = [
         path: 'reporte-correos-landing', component: CorreosLandingListar, canActivate: [AuthGuard]
       },
       {
-        path: 'solicitudesCreditos', component: SolicitudesCreditosComponent, canActivate: [AuthGuard]
+        path: 'solicitudes-creditos',
+        children: [
+          {path: '', redirectTo: 'empleados', pathMatch: 'full'},
+          {
+            path: 'empleados',
+            component: EmpleadosComponent,
+            // data: {roles: [Role.BigPuntos]},
+            canActivate: [AuthGuard]
+          },
+          {
+            path: 'negocios',
+            component: SolicitudesCreditosComponent,
+            // data: {roles: [Role.BigPuntos]},
+            canActivate: [AuthGuard]
+          },
+        ]
       },
       {
         path: 'consumosCreditos', component: ConsumoCreditosComponent, canActivate: [AuthGuard]
@@ -132,6 +149,8 @@ const routes = [
     ProductosNuestraFamiliaListar,
     CorreosLandingListar,
     ConsumoCreditosComponent,
+    EmpleadosComponent,
+    RevisionDocumentosComponent,
   ],
   imports: [
     CoreCommonModule,

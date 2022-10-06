@@ -150,10 +150,27 @@ export const menu: CoreMenu[] = [
         id: 'solicitudesCreditos',
         title: 'Solicitudes de créditos',
         // translate: 'MENU.HOME',
-        // role: [Role.SuperMonedas],
-        type: 'item',
-        icon: 'package',
-        url: 'central/center/solicitudesCreditos',
+        // role: [Role.BigPuntos],
+        type: 'collapsible',
+        icon: 'credit-card',
+        children: [
+          {
+            id: 'negocios',
+            title: 'Créditos empleados',
+            // translate: 'MENU.APPS.EMAIL',
+            type: 'item',
+            icon: 'circle',
+            url: 'central/center/solicitudes-creditos/empleados'
+          },
+          {
+            id: 'empleados',
+            title: 'Créditos negocios',
+            // translate: 'MENU.APPS.EMAIL',
+            type: 'item',
+            icon: 'circle',
+            url: 'central/center/solicitudes-creditos/negocios'
+          },
+        ]
       },
       {
         id: 'consumoCreditos',
