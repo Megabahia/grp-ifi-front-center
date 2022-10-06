@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "grp-sanjose"
+  },
+  "targets": {
+    "grp-sanjose": {
+      "hosting": {
+        "vuexy": [
+          "grp-sanjose"
+        ]
+      }
+    }
+  }
+}

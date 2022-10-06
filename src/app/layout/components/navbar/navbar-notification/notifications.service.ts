@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
 
-import { BehaviorSubject } from 'rxjs';
+import {BehaviorSubject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class NotificationsService {
    *
    * @param {HttpClient} _httpClient
    */
-  constructor(private _httpClient: HttpClient) {
+  constructor(private _httpClient: HttpClient, private firestore: AngularFirestore) {
     this.onApiDataChange = new BehaviorSubject('');
     this.getNotificationsData();
   }
@@ -32,7 +33,10 @@ export class NotificationsService {
   //     }, reject);
   //   });
   // }
-  getNotificationsData(){
+  getNotificationsData() {
+  }
 
+  getCreditosPersonas() {
+    return this.firestore.collection('creditosPersonas').snapshotChanges();
   }
 }

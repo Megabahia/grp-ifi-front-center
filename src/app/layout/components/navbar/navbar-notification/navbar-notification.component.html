@@ -1,16 +1,15 @@
 <li ngbDropdown class="nav-item dropdown-notification mr-25">
-    <a class="nav-link" ngbDropdownToggle id="navbarNotificationDropdown"><i class="ficon" data-feather="bell"></i
-    ></a
-  >
+  <a class="nav-link" ngbDropdownToggle id="navbarNotificationDropdown"><i class="ficon" data-feather="bell"></i><span
+          class="badge badge-pill badge-danger badge-up">{{ notificaciones?.length }}</span></a>
   <ul
-    ngbDropdownMenu
-    aria-labelledby="navbarNotificationDropdown"
-    class="dropdown-menu dropdown-menu-media dropdown-menu-right"
+          ngbDropdownMenu
+          aria-labelledby="navbarNotificationDropdown"
+          class="dropdown-menu dropdown-menu-media dropdown-menu-right"
   >
     <!-- Notifications header -->
     <li class="dropdown-menu-header">
       <div class="dropdown-header d-flex">
-        <h4 class="notification-title mb-0 mr-auto">Notifications</h4>
+        <h4 class="notification-title mb-0 mr-auto">Notificaciones</h4>
         <div class="badge badge-pill badge-light-primary">
           <!-- {{ notifications.messages.length + notifications.systemMessages.length }} New -->
         </div>
@@ -20,31 +19,31 @@
 
     <!-- Notifications content -->
     <li class="scrollable-container media-list" [perfectScrollbar]>
-      <a class="d-flex" href="javascript:void(0)" *ngFor="let message of notifications.messages">
+      <a class="d-flex" routerLink="central/center/solicitudesCreditos" *ngIf="notificaciones.length > 0">
         <div class="media d-flex align-items-start">
           <div class="media-left">
             <div class="avatar">
-              <img [src]="message.image" alt="avatar" width="32" height="32" />
+              <!-- <img [src]="message.image" alt="avatar" width="32" height="32" /> -->
             </div>
           </div>
           <div class="media-body">
-            <p class="media-heading" [innerHTML]="message.heading"></p>
-            <small class="notification-text">{{ message.text }}</small>
+            <p class="media-heading"><span class="font-weight-bolder">Creditos preaprobados</span></p>
+            <small class="notification-text">Haga click aquí para ver los creditos.</small>
           </div>
-        </div></a
-      >
-      <div class="media d-flex align-items-center">
-        <h6 class="font-weight-bolder mr-auto mb-0">System Notifications</h6>
-        <div class="custom-control custom-control-primary custom-switch">
-          <input
-            class="custom-control-input"
-            id="systemNotification"
-            type="checkbox"
-            [checked]="notifications.system"
-          />
-          <label class="custom-control-label" for="systemNotification"></label>
         </div>
-      </div>
+      </a>
+<!--      <div class="media d-flex align-items-center">-->
+<!--        <h6 class="font-weight-bolder mr-auto mb-0">System Notifications</h6>-->
+<!--        <div class="custom-control custom-control-primary custom-switch">-->
+<!--          <input-->
+<!--            class="custom-control-input"-->
+<!--            id="systemNotification"-->
+<!--            type="checkbox"-->
+<!--            [checked]="notifications.system"-->
+<!--          />-->
+<!--          <label class="custom-control-label" for="systemNotification"></label>-->
+<!--        </div>-->
+<!--      </div>-->
       <a class="d-flex" href="javascript:void(0)" *ngFor="let systemMessage of notifications.systemMessages">
         <div class="media d-flex align-items-start">
           <div class="media-left">

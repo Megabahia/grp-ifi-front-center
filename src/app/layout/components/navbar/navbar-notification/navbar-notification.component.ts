@@ -16,6 +16,7 @@ interface notification {
 export class NavbarNotificationComponent implements OnInit {
   // Public
   public notifications: notification;
+  public notificaciones = [];
 
   /**
    *
@@ -33,5 +34,6 @@ export class NavbarNotificationComponent implements OnInit {
     this._notificationsService.onApiDataChange.subscribe(res => {
       this.notifications = res;
     });
+    this._notificationsService.getCreditosPersonas().subscribe(res => this.notificaciones = res);
   }
 }
