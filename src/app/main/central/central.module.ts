@@ -38,6 +38,7 @@ import { ListarComponent as CorreosLandingListar } from './vistas/center/Correos
 import { ConsumoCreditosComponent } from './vistas/center/consumo-creditos/consumo-creditos.component';
 import { EmpleadosComponent } from './vistas/center/solicitudes-creditos/empleados/empleados.component';
 import { RevisionDocumentosComponent } from './vistas/center/solicitudes-creditos/revision-documentos/revision-documentos.component';
+import { NegocioPropioComponent } from './vistas/center/solicitudes-creditos/negocio-propio/negocio-propio.component';
 
 const routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -111,7 +112,7 @@ const routes = [
           },
           {
             path: 'negocios',
-            component: SolicitudesCreditosComponent,
+            component: NegocioPropioComponent,
             // data: {roles: [Role.BigPuntos]},
             canActivate: [AuthGuard]
           },
@@ -151,6 +152,7 @@ const routes = [
     ConsumoCreditosComponent,
     EmpleadosComponent,
     RevisionDocumentosComponent,
+    NegocioPropioComponent,
   ],
   imports: [
     CoreCommonModule,
