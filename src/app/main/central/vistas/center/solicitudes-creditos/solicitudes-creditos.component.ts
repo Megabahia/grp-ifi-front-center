@@ -69,7 +69,7 @@ export class SolicitudesCreditosComponent implements OnInit {
         private datePipe: DatePipe
     ) {
         this._unsubscribeAll = new Subject();
-        this.usuario = this._coreMenuService.grpCenterUser;
+        this.usuario = this._coreMenuService.grpSanjoseCenterUser;
         this.actualizarCredito = this.inicializarActualizarCredito();
     }
 

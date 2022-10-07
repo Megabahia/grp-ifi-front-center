@@ -30,7 +30,7 @@ export class ConsumoCreditosComponent implements OnInit {
     private _coreMenuService: CoreMenuService,
   ) {
     this._unsubscribeAll = new Subject();
-    this.usuario = this._coreMenuService.grpCenterUser;
+    this.usuario = this._coreMenuService.grpSanjoseCenterUser;
   }
 
   ngOnInit(): void {

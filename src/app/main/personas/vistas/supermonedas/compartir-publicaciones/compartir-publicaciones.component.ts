@@ -28,7 +28,7 @@ export class CompartirPublicacionesComponent implements OnInit {
 
   ) {
     this._unsubscribeAll = new Subject();
-    this.usuario = this._coreMenuService.grpCenterUser;
+    this.usuario = this._coreMenuService.grpSanjoseCenterUser;
   }
 
   ngOnInit(): void {

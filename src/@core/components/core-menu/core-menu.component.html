@@ -1,5 +1,5 @@
 <!-- Vertical Menu -->
-<ng-container *ngIf="layout === 'vertical' && grpCenterUser">
+<ng-container *ngIf="layout === 'vertical' && grpSanjoseCenterUser">
     <ng-container *ngFor="let item of menu">
         <!-- section -->
         <li core-menu-vertical-section *ngIf="item.type == 'section' && (item.role ? encontrarRol(item.role) : false || item.role == undefined)" [item]="item" class="navigation-header"></li>

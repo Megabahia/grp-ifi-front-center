@@ -104,7 +104,7 @@ export class BienvenidoComponent implements OnInit {
   }
 
   completarPerfil() {
-    let usuario = this._coreMenuService.grpCenterUser;
+    let usuario = this._coreMenuService.grpSanjoseCenterUser;
     this._bienvenidoService.cambioDeEstado(
       {
         estado: "2",
@@ -112,7 +112,7 @@ export class BienvenidoComponent implements OnInit {
       }
     ).subscribe((info) => {
       usuario.estado = "2";
-      localStorage.setItem('grpCenterUser', JSON.stringify(usuario));
+      localStorage.setItem('grpSanjoseCenterUser', JSON.stringify(usuario));
       setTimeout(() => {
         this._router.navigate(['/']);
       }, 100);

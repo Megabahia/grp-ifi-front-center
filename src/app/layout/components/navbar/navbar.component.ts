@@ -29,7 +29,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   public currentSkin: string;
   public prevSkin: string;
 
-  public grpCenterUser: User;
+  public grpSanjoseCenterUser: User;
 
   public languageOptions: any;
   public navigation: any;
@@ -81,7 +81,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private _mediaObserver: MediaObserver,
     public _translateService: TranslateService
   ) {
-    this._authenticationService.grpCenterUser.subscribe(x => (this.grpCenterUser = x));
+    this._authenticationService.grpSanjoseCenterUser.subscribe(x => (this.grpSanjoseCenterUser = x));
 
     this.languageOptions = {
       en: {
@@ -172,8 +172,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
    * On init
    */
   ngOnInit(): void {
-    // get the grpCenterUser details from localStorage
-    this.grpCenterUser = JSON.parse(localStorage.getItem('grpCenterUser'));
+    // get the grpSanjoseCenterUser details from localStorage
+    this.grpSanjoseCenterUser = JSON.parse(localStorage.getItem('grpSanjoseCenterUser'));
 
     // Subscribe to the config changes
     this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe(config => {

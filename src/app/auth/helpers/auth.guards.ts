@@ -15,12 +15,12 @@ export class AuthGuard implements CanActivate {
 
   // canActivate
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    const grpCenterUser = this._authenticationService.grpCenterUserValue;
+    const grpSanjoseCenterUser = this._authenticationService.grpSanjoseCenterUserValue;
     let activacion = false;
-    if (grpCenterUser) {
+    if (grpSanjoseCenterUser) {
       // check if route is restricted by role
       let rolEncontrado = false;
-      let expiracionToken = Number(grpCenterUser.tokenExpiracion);
+      let expiracionToken = Number(grpSanjoseCenterUser.tokenExpiracion);
       let fechaActual = Date.now();
       if (expiracionToken - fechaActual <= 0) {
         this._authenticationService.logout();
@@ -29,7 +29,7 @@ export class AuthGuard implements CanActivate {
 
       // console.log(fechaActual.diff());
 
-      grpCenterUser.roles.map(rol => {
+      grpSanjoseCenterUser.roles.map(rol => {
         if (route.data.roles && route.data.roles.indexOf(rol.nombre) != -1) {
           rolEncontrado = true;
         }
@@ -37,11 +37,11 @@ export class AuthGuard implements CanActivate {
 
 
       // if (route.data.activacion) {
-      //   if (route.data.activacion.indexOf(Number(grpCenterUser.estado)) != -1) {
+      //   if (route.data.activacion.indexOf(Number(grpSanjoseCenterUser.estado)) != -1) {
       //     activacion = true;
       //   }
       // }
-      // switch (Number(grpCenterUser.estado)) {
+      // switch (Number(grpSanjoseCenterUser.estado)) {
       //   case 1: {
       //     if (!activacion) {
       //       this._router.navigate(['/personas/bienvenido']);

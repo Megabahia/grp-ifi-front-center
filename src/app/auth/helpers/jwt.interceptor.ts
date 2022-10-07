@@ -19,13 +19,13 @@ export class JwtInterceptor implements HttpInterceptor {
    * @param next
    */
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const grpCenterUser = this._authenticationService.grpCenterUserValue;
-    const isLoggedIn = grpCenterUser && grpCenterUser.token;
+    const grpSanjoseCenterUser = this._authenticationService.grpSanjoseCenterUserValue;
+    const isLoggedIn = grpSanjoseCenterUser && grpSanjoseCenterUser.token;
     const isApiUrl = request.url.startsWith(environment.apiUrl);
     if (isLoggedIn && isApiUrl) {
       request = request.clone({
         setHeaders: {
-          Authorization: `Bearer ${grpCenterUser.token}`
+          Authorization: `Bearer ${grpSanjoseCenterUser.token}`
         }
       });
     }

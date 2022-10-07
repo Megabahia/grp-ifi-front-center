@@ -13,7 +13,7 @@ import { CoreMenuService } from '@core/components/core-menu/core-menu.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CoreMenuComponent implements OnInit {
-  grpCenterUser: any;
+  grpSanjoseCenterUser: any;
 
   @Input()
   layout = 'vertical';
@@ -46,7 +46,7 @@ export class CoreMenuComponent implements OnInit {
 
     // Subscribe to the current menu changes
     this._coreMenuService.onMenuChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(() => {
-      this.grpCenterUser = this._coreMenuService.grpCenterUser;
+      this.grpSanjoseCenterUser = this._coreMenuService.grpSanjoseCenterUser;
       // Load menu
       this.menu = this._coreMenuService.getCurrentMenu();
 
@@ -56,7 +56,7 @@ export class CoreMenuComponent implements OnInit {
   encontrarRol(rol){
     let encontrado = false;
     rol.map(rol=>{
-     let rolEncontrado =  this.grpCenterUser.roles.find(x => x.nombre === rol);
+     let rolEncontrado =  this.grpSanjoseCenterUser.roles.find(x => x.nombre === rol);
       if(rolEncontrado){
         encontrado = true;
       }

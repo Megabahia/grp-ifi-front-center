@@ -11,10 +11,10 @@ import moment from 'moment';
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
   //public
-  public grpCenterUser: Observable<User>;
+  public grpSanjoseCenterUser: Observable<User>;
 
   //private
-  private grpCenterUserSubject: BehaviorSubject<User>;
+  private grpSanjoseCenterUserSubject: BehaviorSubject<User>;
 
   /**
    *
@@ -22,27 +22,27 @@ export class AuthenticationService {
    * @param {ToastrService} _toastrService
    */
   constructor(private _http: HttpClient, private _toastrService: ToastrService) {
-    this.grpCenterUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('grpCenterUser')));
-    this.grpCenterUser = this.grpCenterUserSubject.asObservable();
+    this.grpSanjoseCenterUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('grpSanjoseCenterUser')));
+    this.grpSanjoseCenterUser = this.grpSanjoseCenterUserSubject.asObservable();
   }
 
-  // getter: grpCenterUserValue
-  public get grpCenterUserValue(): User {
-    return this.grpCenterUserSubject.value;
+  // getter: grpSanjoseCenterUserValue
+  public get grpSanjoseCenterUserValue(): User {
+    return this.grpSanjoseCenterUserSubject.value;
   }
 
   /**
    *  Confirms if user is admin
    */
   // get isAdmin() {
-  //   return this.grpCenterUser && this.grpCenterUserSubject.value.role === Role.Admin;
+  //   return this.grpSanjoseCenterUser && this.grpSanjoseCenterUserSubject.value.role === Role.Admin;
   // }
 
   // /**
   //  *  Confirms if user is client
   //  */
   // get isClient() {
-  //   return this.grpCenterUser && this.grpCenterUserSubject.value.role === Role.Client;
+  //   return this.grpSanjoseCenterUser && this.grpSanjoseCenterUserSubject.value.role === Role.Client;
   // }
 
   /**
@@ -61,7 +61,7 @@ export class AuthenticationService {
           if (user && user.token) {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
             user.tokenExpiracion = Date.now() + (Number(user.tokenExpiracion) * 1000);
-            localStorage.setItem('grpCenterUser', JSON.stringify(user));
+            localStorage.setItem('grpSanjoseCenterUser', JSON.stringify(user));
             // Display welcome toast!
             setTimeout(() => {
               this._toastrService.success(
@@ -74,7 +74,7 @@ export class AuthenticationService {
             }, 2500);
 
             // notify
-            this.grpCenterUserSubject.next(user);
+            this.grpSanjoseCenterUserSubject.next(user);
           }
 
           return user;
@@ -88,8 +88,8 @@ export class AuthenticationService {
    */
   logout() {
     // remove user from local storage to log user out
-    localStorage.removeItem('grpCenterUser');
+    localStorage.removeItem('grpSanjoseCenterUser');
     // notify
-    this.grpCenterUserSubject.next(null);
+    this.grpSanjoseCenterUserSubject.next(null);
   }
 }

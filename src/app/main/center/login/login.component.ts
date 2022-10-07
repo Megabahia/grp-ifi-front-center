@@ -60,7 +60,7 @@ export class LoginComponent implements OnInit {
         enableLocalStorage: false
       }
     };
-    if (this._authenticationService.grpCenterUserValue) {
+    if (this._authenticationService.grpSanjoseCenterUserValue) {
       this._router.navigate(['/']);
     }
   }

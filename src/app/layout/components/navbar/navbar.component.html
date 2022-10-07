@@ -54,12 +54,12 @@
         <app-navbar-notification></app-navbar-notification>
 
         <li ngbDropdown class="nav-item dropdown-user">
-            <a class="nav-link dropdown-toggle dropdown-user-link" id="dropdown-user" ngbDropdownToggle id="navbarUserDropdown" aria-haspopup="true" aria-expanded="false" *ngIf="grpCenterUser">
+            <a class="nav-link dropdown-toggle dropdown-user-link" id="dropdown-user" ngbDropdownToggle id="navbarUserDropdown" aria-haspopup="true" aria-expanded="false" *ngIf="grpSanjoseCenterUser">
                 <div class="user-nav d-sm-flex d-none">
-                    <span class="user-name font-weight-bolder">{{grpCenterUser.persona.nombres}}
-            {{grpCenterUser.persona.apellidos}}</span><span class="user-status" *ngFor="let rol of grpCenterUser.roles">{{rol.nombre}}</span>
+                    <span class="user-name font-weight-bolder">{{grpSanjoseCenterUser.persona.nombres}}
+            {{grpSanjoseCenterUser.persona.apellidos}}</span><span class="user-status" *ngFor="let rol of grpSanjoseCenterUser.roles">{{rol.nombre}}</span>
                 </div>
-                <span class="avatar"><img class="round" src="{{grpCenterUser.persona.imagen}}" alt="avatar" height="40"
+                <span class="avatar"><img class="round" src="{{grpSanjoseCenterUser.persona.imagen}}" alt="avatar" height="40"
             width="40" /><span class="avatar-status-online"></span></span>
             </a>
             <div ngbDropdownMenu aria-labelledby="navbarUserDropdown" class="dropdown-menu dropdown-menu-right">

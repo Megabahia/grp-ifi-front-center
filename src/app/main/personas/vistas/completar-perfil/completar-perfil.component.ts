@@ -95,7 +95,7 @@ export class CompletarPerfilComponent implements OnInit {
    */
   ngOnInit(): void {
 
-    this.usuario = this._coreMenuService.grpCenterUser;
+    this.usuario = this._coreMenuService.grpSanjoseCenterUser;
 
     this.registerForm = this._formBuilder.group({
       identificacion: ['', [Validators.required]],
@@ -179,7 +179,7 @@ export class CompletarPerfilComponent implements OnInit {
       ).subscribe(infoCambio => {
         this.usuario.estado = "3";
         this.usuario.persona = info;
-        localStorage.setItem('grpCenterUser', JSON.stringify(this.usuario));
+        localStorage.setItem('grpSanjoseCenterUser', JSON.stringify(this.usuario));
         this.modalWhatsapp(this.whatsapp);
       });
     });
@@ -200,7 +200,7 @@ export class CompletarPerfilComponent implements OnInit {
           }
         ).subscribe(infoCambio => {
           this.usuario.estado = "4";
-          localStorage.setItem('grpCenterUser', JSON.stringify(this.usuario));
+          localStorage.setItem('grpSanjoseCenterUser', JSON.stringify(this.usuario));
           this.modalService.dismissAll();
           setTimeout(() => {
             this._router.navigate(['/']);
