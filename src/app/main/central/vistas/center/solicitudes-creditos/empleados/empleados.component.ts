@@ -30,6 +30,7 @@ export class EmpleadosComponent implements OnInit, AfterViewInit {
     public ingresosSolicitante;
     public gastosSolicitante;
     public pantalla = 0;
+    public credito;
     public checks = [
         {'label': 'Identificacion', 'valor': false},
         {'label': 'Foto Carnet', 'valor': false},
@@ -96,7 +97,6 @@ export class EmpleadosComponent implements OnInit, AfterViewInit {
             page: this.page - 1,
             tipoCredito: 'Empleado',
         }).subscribe(info => {
-            console.log('info', info);
             this.collectionSize = info.cont;
             this.listaCreditos = info.info;
         });
@@ -112,29 +112,19 @@ export class EmpleadosComponent implements OnInit, AfterViewInit {
     }
 
     verDocumentos(credito) {
+        this.credito = credito;
         this.submitted = false;
         this.actualizarCreditoFormData = new FormData();
         this.pantalla = 1;
         this.soltero = credito.user.estadoCivil === 'Soltero' || 'Divorciado' ? true : false;
         this.actualizarCreditoForm = this._formBuilder.group({
             id: [credito._id, [Validators.required]],
-            solicitudCredito: ['', [Validators.requiredTrue]],
-            evaluacionCrediticia: ['', [Validators.requiredTrue]],
-            codigoClienteCreado: ['', [Validators.requiredTrue]],
-            codigoCuentaCreada: ['', [Validators.requiredTrue]],
-            buroCreditoIfis: ['', [Validators.requiredTrue]],
-            calificacionBuroIfis: ['', [Validators.requiredTrue]],
-            buroRevisado: ['', [Validators.requiredTrue]],
-            identificacion: [credito.identificacion],
-            fotoCarnet: [credito.fotoCarnet],
-            papeletaVotacion: [credito.papeletaVotacion],
-            identificacionConyuge: [this.soltero],
-            papeletaVotacionConyuge: [this.soltero],
-            planillaLuzDomicilio: [credito.planillaLuzDomicilio],
-            mecanizadoIess: [credito.mecanizadoIess],
-            matriculaVehiculo: [credito.matriculaVehiculo],
-            impuestoPredial: [credito.impuestoPredial],
-            buroCredito: [credito.buroCredito],
+            solicitudCredito: ['', [Validators.required]],
+            evaluacionCrediticia: ['', [Validators.required]],
+            codigoClienteCreado: ['', [Validators.required]],
+            codigoCuentaCreada: ['', [Validators.required]],
+            buroCreditoIfis: ['', [Validators.required]],
+            calificacionBuroIfis: ['', [Validators.required]],
             calificacionBuro: [credito.calificacionBuro],
             observacion: [credito.observacion],
             checkSolicitudCredito: ['', [Validators.requiredTrue]],
@@ -176,8 +166,7 @@ export class EmpleadosComponent implements OnInit, AfterViewInit {
         }
     }
 
-    actualizarSolicitudCredito() {
-        console.log('entra');
+    actualizarSolicitudCredito(estado?: string) {
         this.submitted = true;
         if (this.actualizarCreditoForm.invalid) {
             console.log('if');
@@ -202,7 +191,8 @@ export class EmpleadosComponent implements OnInit, AfterViewInit {
         const creditoValores = Object.values(this.actualizarCreditoForm.value);
         const creditoLlaves = Object.keys(this.actualizarCreditoForm.value);
         const remover = ['buroCredito', 'evaluacionCrediticia', 'identificacion', 'papeletaVotacion', 'identificacionConyuge', 'mecanizadoIess',
-            'papeletaVotacionConyuge', 'planillaLuzNegocio', 'planillaLuzDomicilio', 'facturas', 'matriculaVehiculo', 'impuestoPredial', 'fotoCarnet'];
+            'papeletaVotacionConyuge', 'planillaLuzNegocio', 'planillaLuzDomicilio', 'facturas', 'matriculaVehiculo', 'impuestoPredial', 'fotoCarnet',
+          'solicitudCredito', 'buroCreditoIfis'];
         creditoLlaves.map((llaves, index) => {
             if (creditoValores[index] && !remover.find((item: any) => item === creditoLlaves[index])) {
                 this.actualizarCreditoFormData.delete(llaves);
@@ -228,21 +218,19 @@ export class EmpleadosComponent implements OnInit, AfterViewInit {
         }
         this.cargando = true;
         this.actualizarCreditoFormData.delete('estado');
-        this.actualizarCreditoFormData.append('estado', 'Enviado');
+        this.actualizarCreditoFormData.append('estado', estado);
         this.actualizarCreditoFormData.delete('checks');
         this.actualizarCreditoFormData.append('checks', JSON.stringify(this.checks));
         this._solicitudCreditosService.actualizarSolictudesCreditos(this.actualizarCreditoFormData).subscribe((info) => {
                 this.cargando = false;
-                // this.mensaje = 'Crédito actualizado con éxito';
-                // this.cerrarModal('actualizar-credito');
-                this.pantalla = 0;
-                // this.obtenerSolicitudesCreditos();
-                // this.borrarDocumentoFirebase(this.actualizarCreditoFormData.get('id'));
+                if (estado === 'Negado') {
+                    this.pantalla = 0;
+                } else {
+                    this.pantalla = 3;
+                }
             },
             (error) => {
                 this.cargando = false;
-                // this.mensaje = 'Error al actualizar el crédito';
-                // this.abrirModal(this.mensajeModal);
             });
     }
 

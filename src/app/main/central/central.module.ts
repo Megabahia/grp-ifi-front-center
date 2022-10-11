@@ -39,6 +39,8 @@ import { ConsumoCreditosComponent } from './vistas/center/consumo-creditos/consu
 import { EmpleadosComponent } from './vistas/center/solicitudes-creditos/empleados/empleados.component';
 import { RevisionDocumentosComponent } from './vistas/center/solicitudes-creditos/revision-documentos/revision-documentos.component';
 import { NegocioPropioComponent } from './vistas/center/solicitudes-creditos/negocio-propio/negocio-propio.component';
+import { ValoresProcesoComponent } from './vistas/center/solicitudes-creditos/valores-proceso/valores-proceso.component';
+import { ResumenComponent } from './vistas/center/solicitudes-creditos/resumen/resumen.component';
 
 const routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -153,6 +155,8 @@ const routes = [
     EmpleadosComponent,
     RevisionDocumentosComponent,
     NegocioPropioComponent,
+    ValoresProcesoComponent,
+    ResumenComponent,
   ],
   imports: [
     CoreCommonModule,

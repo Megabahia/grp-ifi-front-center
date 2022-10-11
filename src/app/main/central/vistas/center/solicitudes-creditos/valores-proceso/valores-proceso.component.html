@@ -1,0 +1,175 @@
+<div class="content-wrapper">
+    <div class="content-header row">
+        <div class="col-12 mb-2">
+            <div class="row breadcrumbs-top">
+                <div class="col-12">
+                    <h2 class="content-header-title float-left mb-0">REVISIÓN DE DOCUMENTOS</h2>
+                    <div class="breadcrumb-wrapper">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a class="text-primary" href="index.html">Inicio</a>
+                            </li>
+                            <li class="breadcrumb-item"><a class="text-primary" href="mis-premios.html">REVISIÓN DE
+                                DOCUMENTOS</a>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content-body">
+        <section class="app-user-list">
+            <div class="card">
+                <div class="card-body">
+                    <form class="add-new-user modal-content pt-0" [formGroup]="actualizarCreditoForm">
+                        <div class="modal-header mb-1">
+                            <h5 class="modal-title" id="exampleModalLabel">VALORES DEL PROCESO DE CRÉDITO</h5>
+                        </div>
+                        <div class="modal-body flex-grow-1">
+
+                            <div class="form-group">
+                                <label for="monto">Monto solicitado</label>
+                                <div class="custom-file">
+                                    <input type="number" class="form-control" id="monto"
+                                           formControlName="monto"
+                                           value="{{actualizarCreditoForm.get('monto').value}}"
+                                    />
+                                    <div *ngIf="submitted && controlsFrom.monto.errors"
+                                         class="invalid-feedback"
+                                         style="display: block;">
+                                        <div *ngIf="controlsFrom.monto.errors.required">Monto solicitado es
+                                            requerido
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+                                <label for="montoAprobado">Monto aprobado</label>
+                                <div class="custom-file">
+                                    <input type="number" class="form-control" id="montoAprobado"
+                                           formControlName="montoAprobado"
+                                           value="{{actualizarCreditoForm.get('montoAprobado').value}}"
+                                    />
+                                    <div *ngIf="submitted && controlsFrom.montoAprobado.errors"
+                                         class="invalid-feedback"
+                                         style="display: block;">
+                                        <div *ngIf="controlsFrom.montoAprobado.errors.required">Monto aprobado es
+                                            requerido
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="gastosAdministrativos">Gastos administrativos</label>
+                                <div class="custom-file">
+                                    <input type="number" class="form-control" id="gastosAdministrativos"
+                                           formControlName="gastosAdministrativos"
+                                           value="{{actualizarCreditoForm.get('gastosAdministrativos').value}}"
+                                    />
+
+                                    <div *ngIf="submitted && controlsFrom.gastosAdministrativos.errors"
+                                         class="invalid-feedback"
+                                         style="display: block;">
+                                        <div *ngIf="controlsFrom.gastosAdministrativos.errors.required">Calificación
+                                            de Buró es requerido
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="montoLiquidar">MONTO A LIQUIDAR</label>
+                                <div class="custom-file">
+                                    <input type="number" class="form-control" id="montoLiquidar"
+                                           formControlName="montoLiquidar"
+                                           value="{{actualizarCreditoForm.get('montoLiquidar').value}}"
+                                    />
+
+                                    <div *ngIf="submitted && controlsFrom.montoLiquidar.errors"
+                                         class="invalid-feedback"
+                                         style="display: block;">
+                                        <div *ngIf="controlsFrom.montoLiquidar.errors.required">Monto a liquidar
+                                            es requerido
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="modal-header mb-1">
+                            <h5 class="modal-title" id="exampleModalLabel2">DOCUMENTOS HABILITANTES </h5>
+                        </div>
+                        <div class="modal-body flex-grow-1">
+
+                            <div class="form-group">
+                                <label for="montoSolicitado">Solicitud de crédito</label>
+                                <a href="{{actualizarCreditoForm.get('solicitudCredito').value}}">Enlace</a>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="pagare">Pagaré</label>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="pagare"
+                                           formControlName="pagare"
+                                           (change)="subirDoc( $event, 'pagare')"
+                                           accept="image/jpeg,image/png,application/pdf"/>
+                                    <label class="custom-file-label"
+                                           for="pagare">{{actualizarCreditoForm.get('pagare').value}}</label>
+                                    <div *ngIf="submitted && controlsFrom.pagare.errors" class="invalid-feedback"
+                                         style="display: block;">
+                                        <div *ngIf="controlsFrom.pagare.errors.required">Cargar Buró es requerido
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="contratosCuenta">Contratos de cuenta</label>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="contratosCuenta"
+                                           formControlName="contratosCuenta"
+                                           (change)="subirDoc( $event, 'contratosCuenta')"
+                                           accept="image/jpeg,image/png,application/pdf"/>
+                                    <label class="custom-file-label"
+                                           for="contratosCuenta">{{actualizarCreditoForm.get('contratosCuenta').value}}</label>
+                                    <div *ngIf="submitted && controlsFrom.contratosCuenta.errors" class="invalid-feedback"
+                                         style="display: block;">
+                                        <div *ngIf="controlsFrom.contratosCuenta.errors.required">Contratos de cuenta
+                                            es requerido
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="tablaAmortizacion">Tabla de amortización</label>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="tablaAmortizacion"
+                                           formControlName="tablaAmortizacion"
+                                           (change)="subirDoc( $event, 'tablaAmortizacion')"
+                                           accept="image/jpeg,image/png,application/pdf"/>
+                                    <label class="custom-file-label"
+                                           for="tablaAmortizacion">{{actualizarCreditoForm.get('tablaAmortizacion').value}}</label>
+                                    <div *ngIf="submitted && controlsFrom.tablaAmortizacion.errors" class="invalid-feedback"
+                                         style="display: block;">
+                                        <div *ngIf="controlsFrom.tablaAmortizacion.errors.required">Contratos de cuenta
+                                            es requerido
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                    <button class="btn btn-primary mr-1" (click)="actualizarSolicitudCredito('En proceso')"
+                            [disabled]="cargando">Procesar
+                    </button>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

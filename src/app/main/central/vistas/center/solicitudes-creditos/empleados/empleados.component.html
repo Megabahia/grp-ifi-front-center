@@ -403,21 +403,185 @@
         <div class="modal-body flex-grow-1">
 
             <div class="form-group">
-                <label for="identificacion">Copia de cédula y Ruc</label>
+                <label for="solicitudCredito">Procesar solicitud de crédito</label>
                 <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="identificacion"
-                           formControlName="identificacion"
-                           (change)="subirDoc( $event, 'identificacion')"
+                    <input type="file" class="custom-file-input" id="solicitudCredito"
+                           formControlName="solicitudCredito"
+                           (change)="subirDoc( $event, 'solicitudCredito')"
                            accept="image/jpeg,image/png,application/pdf"/>
                     <label class="custom-file-label"
-                           for="identificacion">{{actualizarCreditoForm.get('identificacion').value}}</label>
-                    <div *ngIf="submitted && controlsFrom.identificacion.errors" class="invalid-feedback"
+                           for="solicitudCredito">{{actualizarCreditoForm.get('solicitudCredito').value}}</label>
+                    <div *ngIf="submitted && controlsFrom.solicitudCredito.errors" class="invalid-feedback"
                          style="display: block;">
-                        <div *ngIf="controlsFrom.identificacion.errors.required">Cédula de Identidad o
-                            Ruc es requerido
+                        <div *ngIf="controlsFrom.solicitudCredito.errors.required">Procesar solicitud de crédito es
+                            requerido
                         </div>
                     </div>
                 </div>
+
+                <div class="custom-file">
+                    <label class="form-check-label mr-2" for="checkSolicitudCredito">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkSolicitudCredito" formControlName="checkSolicitudCredito" />
+                    <div *ngIf="submitted && controlsFrom.checkSolicitudCredito.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.checkSolicitudCredito.errors.required">Procesar solicitud de crédito
+                            es requerido</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="evaluacionCrediticia">Cargar evaluación crediticia</label>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="evaluacionCrediticia"
+                           formControlName="evaluacionCrediticia"
+                           (change)="subirDoc( $event, 'evaluacionCrediticia')"
+                           accept="image/jpeg,image/png,application/pdf"/>
+                    <label class="custom-file-label"
+                           for="evaluacionCrediticia">{{actualizarCreditoForm.get('evaluacionCrediticia').value}}</label>
+                    <div *ngIf="submitted && controlsFrom.evaluacionCrediticia.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.evaluacionCrediticia.errors.required">Cargar evaluación crediticia es
+                            requerido
+                        </div>
+                    </div>
+                </div>
+
+                <div class="custom-file">
+                    <label class="form-check-label mr-2" for="checkEvaluacionCrediticia">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkEvaluacionCrediticia" formControlName="checkEvaluacionCrediticia" />
+                    <div *ngIf="submitted && controlsFrom.checkEvaluacionCrediticia.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.checkEvaluacionCrediticia.errors.required">Cargar evaluación crediticia
+                            es requerido</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="codigoClienteCreado">Cliente creado</label>
+                <div class="custom-file">
+                    <input type="number" class="form-control" id="codigoClienteCreado"
+                           formControlName="codigoClienteCreado"
+                           value="{{actualizarCreditoForm.get('codigoClienteCreado').value}}"
+                    />
+                    <div *ngIf="submitted && controlsFrom.codigoClienteCreado.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.codigoClienteCreado.errors.required">Cliente creado es
+                            requerido
+                        </div>
+                    </div>
+                </div>
+
+                <div class="custom-file">
+                    <label class="form-check-label mr-2" for="checkCodigoClienteCreado">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkCodigoClienteCreado" formControlName="checkCodigoClienteCreado" />
+                    <div *ngIf="submitted && controlsFrom.checkCodigoClienteCreado.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.checkCodigoClienteCreado.errors.required">Cliente creado
+                            es requerido</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="codigoCuentaCreada">Cuenta creada</label>
+                <div class="custom-file">
+                    <input type="number" class="form-control" id="codigoCuentaCreada"
+                           formControlName="codigoCuentaCreada"
+                           value="{{actualizarCreditoForm.get('codigoCuentaCreada').value}}"
+                    />
+                    <div *ngIf="submitted && controlsFrom.codigoCuentaCreada.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.codigoCuentaCreada.errors.required">Cuenta creada es
+                            requerido
+                        </div>
+                    </div>
+                </div>
+
+                <div class="custom-file">
+                    <label class="form-check-label mr-2" for="checkCodigoCuentaCreada">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkCodigoCuentaCreada" formControlName="checkCodigoCuentaCreada" />
+                    <div *ngIf="submitted && controlsFrom.checkCodigoCuentaCreada.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.checkCodigoCuentaCreada.errors.required">Cuenta creada
+                            es requerido</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="buroCreditoIfis">Cargar Buró</label>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="buroCreditoIfis"
+                           formControlName="buroCreditoIfis"
+                           (change)="subirDoc( $event, 'buroCreditoIfis')"
+                           accept="image/jpeg,image/png,application/pdf"/>
+                    <label class="custom-file-label"
+                           for="buroCreditoIfis">{{actualizarCreditoForm.get('buroCreditoIfis').value}}</label>
+                    <div *ngIf="submitted && controlsFrom.buroCreditoIfis.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.buroCreditoIfis.errors.required">Cargar Buró es requerido
+                        </div>
+                    </div>
+                </div>
+
+                <div class="custom-file">
+                    <label class="form-check-label mr-2" for="checkBuroCreditoIfis">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkBuroCreditoIfis"
+                           formControlName="checkBuroCreditoIfis"/>
+                    <div *ngIf="submitted && controlsFrom.checkBuroCreditoIfis.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.checkBuroCreditoIfis.errors.required">Cargar Buró es
+                            requerido
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="calificacionBuroIfis">Calificación de Buró de Crédito</label>
+                <div class="custom-file">
+                    <input type="number" class="form-control" id="calificacionBuroIfis"
+                           formControlName="calificacionBuroIfis"
+                           value="{{actualizarCreditoForm.get('calificacionBuroIfis').value}}"
+                    />
+                    <div *ngIf="submitted && controlsFrom.calificacionBuroIfis.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.calificacionBuroIfis.errors.required">Calificación de Buró de Crédito es
+                            requerido
+                        </div>
+                    </div>
+                </div>
+
+                <div class="custom-file">
+                    <label class="form-check-label mr-2" for="checkCalificacionBuroIfis">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkCalificacionBuroIfis" formControlName="checkCalificacionBuroIfis" />
+                    <div *ngIf="submitted && controlsFrom.checkCalificacionBuroIfis.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.checkCalificacionBuroIfis.errors.required">Calificación de Buró de Crédito
+                            es requerido</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Buró revisado</label>
+                <div class="custom-file">
+                    <label class="form-check-label mr-2" for="checkBuroRevisado">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkBuroRevisado"
+                           formControlName="checkBuroRevisado"/>
+                    <div *ngIf="submitted && controlsFrom.checkBuroRevisado.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.checkBuroRevisado.errors.required">Buró revisado es
+                            requerido
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="checkIdenficicacion">Copia de cédula y Ruc</label>
 
                 <div class="custom-file">
                     <label class="form-check-label mr-2" for="checkIdenficicacion">Valido</label>
@@ -430,19 +594,7 @@
             </div>
 
             <div class="form-group">
-                <label for="fotoCarnet">Foto tamaño carnet</label>
-                <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="fotoCarnet"
-                           formControlName="fotoCarnet"
-                           (change)="subirDoc( $event, 'fotoCarnet')"
-                           accept="image/jpeg,image/png,application/pdf"/>
-                    <label class="custom-file-label"
-                           for="fotoCarnet">{{actualizarCreditoForm.get('fotoCarnet').value}}</label>
-                    <div *ngIf="submitted && controlsFrom.fotoCarnet.errors" class="invalid-feedback"
-                         style="display: block;">
-                        <div *ngIf="controlsFrom.fotoCarnet.errors.required">Foto tamaño carnet es requerido</div>
-                    </div>
-                </div>
+                <label for="checkFotoCarnet">Foto tamaño carnet</label>
 
                 <div class="custom-file">
                     <label class="form-check-label mr-2" for="checkFotoCarnet">Valido</label>
@@ -455,21 +607,7 @@
             </div>
 
             <div class="form-group">
-                <label for="papeletaVotacion">Papeleta de votación</label>
-                <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="papeletaVotacion"
-                           formControlName="papeletaVotacion"
-                           (change)="subirDoc( $event,'papeletaVotacion')"
-                           accept="image/jpeg,image/png,application/pdf"/>
-                    <label class="custom-file-label"
-                           for="papeletaVotacion">{{actualizarCreditoForm.get('papeletaVotacion').value}}</label>
-                    <div *ngIf="submitted && controlsFrom.papeletaVotacion.errors" class="invalid-feedback"
-                         style="display: block;">
-                        <div *ngIf="controlsFrom.papeletaVotacion.errors.required">Papeleta de votación es
-                            requerido
-                        </div>
-                    </div>
-                </div>
+                <label for="checkPapeletaVotacion">Papeleta de votación</label>
 
                 <div class="custom-file">
                     <label class="form-check-label mr-2" for="checkPapeletaVotacion">Valido</label>
@@ -480,23 +618,9 @@
                     </div>
                 </div>
             </div>
+
             <div *ngIf="!soltero" class="form-group">
-                <label for="identificacionConyuge">Copia de cédula de cónyuge</label>
-                <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="identificacionConyuge"
-                           formControlName="identificacionConyuge"
-                           (change)="subirDoc( $event,'identificacionConyuge')"
-                           accept="image/jpeg,image/png,application/pdf"/>
-                    <label class="custom-file-label"
-                           for="identificacionConyuge">{{actualizarCreditoForm.get('identificacionConyuge').value}}</label>
-                    <div *ngIf="submitted && controlsFrom.identificacionConyuge.errors" class="invalid-feedback"
-                         style="display: block;">
-                        <div *ngIf="controlsFrom.identificacionConyuge.errors.required">Copia de cédula de
-                            cónyuge
-                            es requerido
-                        </div>
-                    </div>
-                </div>
+                <label for="checkIdentificacionConyuge">Copia de cédula de cónyuge</label>
 
                 <div class="custom-file">
                     <label class="form-check-label mr-2" for="checkIdentificacionConyuge">Valido</label>
@@ -507,24 +631,9 @@
                     </div>
                 </div>
             </div>
+
             <div *ngIf="!soltero" class="form-group">
-                <label for="papeletaVotacionConyuge">Papeleta de votación de cónyuge</label>
-                <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="papeletaVotacionConyuge"
-                           formControlName="papeletaVotacionConyuge"
-                           (change)="subirDoc( $event,'papeletaVotacionConyuge')"
-                           accept="image/jpeg,image/png,application/pdf"/>
-                    <label class="custom-file-label"
-                           for="papeletaVotacionConyuge">{{actualizarCreditoForm.get('papeletaVotacionConyuge').value}}</label>
-                    <div *ngIf="submitted && controlsFrom.papeletaVotacionConyuge.errors"
-                         class="invalid-feedback"
-                         style="display: block;">
-                        <div *ngIf="controlsFrom.papeletaVotacionConyuge.errors.required">Papeleta de votación
-                            de
-                            cónyuge es requerido
-                        </div>
-                    </div>
-                </div>
+                <label for="checkPapeletaVotacionConyuge">Papeleta de votación de cónyuge</label>
 
                 <div class="custom-file">
                     <label class="form-check-label mr-2" for="checkPapeletaVotacionConyuge">Valido</label>
@@ -537,21 +646,7 @@
             </div>
 
             <div class="form-group">
-                <label for="planillaLuzDomicilio">Copia de planilla de luz del Domicilio</label>
-                <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="planillaLuzDomicilio"
-                           formControlName="planillaLuzDomicilio"
-                           (change)="subirDoc( $event,'planillaLuzDomicilio')"
-                           accept="image/jpeg,image/png,application/pdf"/>
-                    <label class="custom-file-label"
-                           for="planillaLuzDomicilio">{{actualizarCreditoForm.get('planillaLuzDomicilio').value}}</label>
-                    <div *ngIf="submitted && controlsFrom.planillaLuzDomicilio.errors" class="invalid-feedback"
-                         style="display: block;">
-                        <div *ngIf="controlsFrom.planillaLuzDomicilio.errors.required">Planilla de luz del
-                            Domicilio es requerido
-                        </div>
-                    </div>
-                </div>
+                <label for="checkPlanillaLuzDomicilio">Copia de planilla de luz del Domicilio</label>
 
                 <div class="custom-file">
                     <label class="form-check-label mr-2" for="checkPlanillaLuzDomicilio">Valido</label>
@@ -564,19 +659,7 @@
             </div>
 
             <div class="form-group">
-                <label for="mecanizadoIess">Mecanizado del IESS</label>
-                <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="mecanizadoIess"
-                           formControlName="mecanizadoIess"
-                           (change)="subirDoc( $event,'mecanizadoIess')"
-                           accept="image/jpeg,image/png,application/pdf"/>
-                    <label class="custom-file-label"
-                           for="mecanizadoIess">{{actualizarCreditoForm.get('mecanizadoIess').value}}</label>
-                    <div *ngIf="submitted && controlsFrom.mecanizadoIess.errors" class="invalid-feedback"
-                         style="display: block;">
-                        <div *ngIf="controlsFrom.mecanizadoIess.errors.required">Mecanizado del IESS es requerido</div>
-                    </div>
-                </div>
+                <label for="checkMecanizadoIess">Mecanizado del IESS</label>
 
                 <div class="custom-file">
                     <label class="form-check-label mr-2" for="checkMecanizadoIess">Valido</label>
@@ -587,17 +670,11 @@
                     </div>
                 </div>
             </div>
+
             <div class="form-group">
-                <label for="matriculaVehiculo">Copia de matrícula del vehículo (opcional)
+                <label for="checkMatriculaVehiculo">Copia de matrícula del vehículo (opcional)
                 </label>
-                <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="matriculaVehiculo"
-                           formControlName="matriculaVehiculo"
-                           (change)="subirDoc( $event,'matriculaVehiculo')"
-                           accept="image/jpeg,image/png,application/pdf"/>
-                    <label class="custom-file-label"
-                           for="matriculaVehiculo">{{actualizarCreditoForm.get('matriculaVehiculo').value}}</label>
-                </div>
+
                 <div class="custom-file">
                     <label class="form-check-label mr-2" for="checkMatriculaVehiculo">Valido</label>
                     <input class="form-check-input" type="checkbox" id="checkMatriculaVehiculo" formControlName="checkMatriculaVehiculo" />
@@ -607,17 +684,11 @@
                     </div>
                 </div>
             </div>
+
             <div class="form-group">
-                <label for="impuestoPredial">Copia de pago de impuesto predial (opcional)
+                <label for="checkImpuestoPredial">Copia de pago de impuesto predial (opcional)
                 </label>
-                <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="impuestoPredial"
-                           formControlName="impuestoPredial"
-                           (change)="subirDoc( $event,'impuestoPredial')"
-                           accept="image/jpeg,image/png,application/pdf"/>
-                    <label class="custom-file-label"
-                           for="impuestoPredial">{{actualizarCreditoForm.get('impuestoPredial').value}}</label>
-                </div>
+
                 <div class="custom-file">
                     <label class="form-check-label mr-2" for="checkImpuestoPredial">Valido</label>
                     <input class="form-check-input" type="checkbox" id="checkImpuestoPredial" formControlName="checkImpuestoPredial" />
@@ -629,22 +700,8 @@
             </div>
 
             <div class="form-group">
-                <label for="buroCredito">Buró de Crédito</label>
-                <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="buroCredito"
-                           formControlName="buroCredito"
-                           (change)="subirDoc( $event,'buroCredito')"
-                           accept="application/pdf"/>
-                    <label class="custom-file-label"
-                           for="buroCredito">{{actualizarCreditoForm.get('buroCredito').value}}</label>
-                    <div *ngIf="submitted && controlsFrom.buroCredito.errors"
-                         class="invalid-feedback"
-                         style="display: block;">
-                        <div *ngIf="controlsFrom.buroCredito.errors.required">Buró de Crédito es
-                            requerido
-                        </div>
-                    </div>
-                </div>
+                <label for="checkBuroCredito">Buró de Crédito</label>
+
                 <div class="custom-file">
                     <label class="form-check-label mr-2" for="checkBuroCredito">Valido</label>
                     <input class="form-check-input" type="checkbox" id="checkBuroCredito" formControlName="checkBuroCredito" />
@@ -710,8 +767,12 @@
 
         </div>
     </form>
-    <button class="btn btn-primary mr-1" (click)="actualizarSolicitudCredito()"
-            [disabled]="cargando">Procesar
+    <button class="btn btn-primary mr-1" (click)="actualizarSolicitudCredito('Aprobado')"
+            [disabled]="cargando">Aprobado
+    </button>
+
+    <button class="btn btn-primary mr-1" (click)="actualizarSolicitudCredito('Negado')"
+            [disabled]="cargando">Negado
     </button>
     <button class="btn btn-outline-secondary"
             (click)="cancelar()"
@@ -720,3 +781,6 @@
     <!-- Modal to add new user Ends-->
 </div>
 
+<app-valores-proceso *ngIf="pantalla === 3" (pantalla)="cambiarEstado($event)" [credito]="credito"></app-valores-proceso>
+
+<app-resumen *ngIf="pantalla === 4" (pantalla)="cambiarEstado($event)" [credito]="credito"></app-resumen>

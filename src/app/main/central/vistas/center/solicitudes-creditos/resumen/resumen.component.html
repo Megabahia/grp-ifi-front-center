@@ -1,0 +1,47 @@
+<div class="content-wrapper">
+    <div class="content-header row">
+        <div class="col-12 mb-2">
+            <div class="row breadcrumbs-top">
+                <div class="col-12">
+                    <h2 class="content-header-title float-left mb-0">REVISIÓN DE DOCUMENTOS</h2>
+                    <div class="breadcrumb-wrapper">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a class="text-primary" href="index.html">Inicio</a>
+                            </li>
+                            <li class="breadcrumb-item"><a class="text-primary" href="mis-premios.html">REVISIÓN DE
+                                DOCUMENTOS</a>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content-body">
+        <section class="app-user-list">
+            <div class="card">
+                <div class="card-body">
+                    <div class="modal-header mb-1">
+                        <h5 class="modal-title" id="exampleModalLabel">RESUMEN</h5>
+                    </div>
+                    <div class="modal-body flex-grow-1">
+
+                        <div class="form-group">
+                            <div class="text-body">
+                                Se ha creado el socio con código 22035 poseedor del número de cuenta de ahorros:
+                                2215358521561, a nombre de  sr/sra {{credito.user.nombres}} {{credito.user.apellidos}}.
+
+                                El/la socio/a cuenta con un crédito aprobado por un valor de {{credito.montoLiquidar}} a un plazo de 12 meses con cuotas mensuales de {{credito.cuota}}
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <button class="btn btn-primary mr-1" (click)="cambiarPantalla()">Volver a solicitudes
+                    </button>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
