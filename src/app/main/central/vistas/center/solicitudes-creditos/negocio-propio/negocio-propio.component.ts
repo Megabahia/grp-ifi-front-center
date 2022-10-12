@@ -231,6 +231,8 @@ export class NegocioPropioComponent implements OnInit, AfterViewInit {
         } else {
           this.pantalla = 3;
         }
+        this.obtenerSolicitudesCreditos();
+        this._solicitudCreditosService.deleteDocumentFirebase(this.actualizarCreditoFormData.get('id'));
       },
       (error) => {
         this.cargando = false;
