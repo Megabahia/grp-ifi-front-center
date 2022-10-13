@@ -239,4 +239,34 @@ export class NegocioPropioComponent implements OnInit, AfterViewInit {
       });
   }
 
+  actualizarSolicitudCreditoNegado(estado) {
+    const creditoValores = Object.values(this.actualizarCreditoForm.value);
+    const creditoLlaves = Object.keys(this.actualizarCreditoForm.value);
+    const remover = ['buroCredito', 'evaluacionCrediticia', 'identificacion', 'papeletaVotacion', 'identificacionConyuge', 'mecanizadoIess',
+      'papeletaVotacionConyuge', 'planillaLuzNegocio', 'planillaLuzDomicilio', 'facturas', 'matriculaVehiculo', 'impuestoPredial', 'fotoCarnet',
+      'solicitudCredito', 'buroCreditoIfis'];
+    creditoLlaves.map((llaves, index) => {
+      if (creditoValores[index] && !remover.find((item: any) => item === creditoLlaves[index])) {
+        this.actualizarCreditoFormData.delete(llaves);
+        this.actualizarCreditoFormData.append(llaves, creditoValores[index]);
+      }
+    });
+    this.cargando = true;
+    this.actualizarCreditoFormData.delete('estado');
+    this.actualizarCreditoFormData.append('estado', estado);
+    this._solicitudCreditosService.actualizarSolictudesCreditos(this.actualizarCreditoFormData).subscribe((info) => {
+        this.cargando = false;
+        if (estado === 'Negado') {
+          this.pantalla = 0;
+        } else {
+          this.pantalla = 3;
+        }
+        this.obtenerSolicitudesCreditos();
+        this._solicitudCreditosService.deleteDocumentFirebase(this.actualizarCreditoFormData.get('id'));
+      },
+      (error) => {
+        this.cargando = false;
+      });
+  }
+
 }
