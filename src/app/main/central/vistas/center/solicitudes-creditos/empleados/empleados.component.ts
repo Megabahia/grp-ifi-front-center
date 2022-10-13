@@ -253,13 +253,13 @@ export class EmpleadosComponent implements OnInit, AfterViewInit {
         this.actualizarCreditoFormData.append('estado', estado);
         this._solicitudCreditosService.actualizarSolictudesCreditos(this.actualizarCreditoFormData).subscribe((info) => {
               this.cargando = false;
+              this.obtenerSolicitudesCreditos();
+              this._solicitudCreditosService.deleteDocumentFirebase(this.actualizarCreditoFormData.get('id'));
               if (estado === 'Negado') {
                   this.pantalla = 0;
               } else {
                   this.pantalla = 3;
               }
-              this.obtenerSolicitudesCreditos();
-              this._solicitudCreditosService.deleteDocumentFirebase(this.actualizarCreditoFormData.get('id'));
           },
           (error) => {
               this.cargando = false;
