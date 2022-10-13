@@ -263,6 +263,9 @@ export class EmpleadosComponent implements OnInit, AfterViewInit {
           },
           (error) => {
               this.cargando = false;
+              if (estado === 'Negado') {
+                  this.pantalla = 0;
+              }
           });
     }
 
