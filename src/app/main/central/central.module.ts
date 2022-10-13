@@ -41,6 +41,8 @@ import { RevisionDocumentosComponent } from './vistas/center/solicitudes-credito
 import { NegocioPropioComponent } from './vistas/center/solicitudes-creditos/negocio-propio/negocio-propio.component';
 import { ValoresProcesoComponent } from './vistas/center/solicitudes-creditos/valores-proceso/valores-proceso.component';
 import { ResumenComponent } from './vistas/center/solicitudes-creditos/resumen/resumen.component';
+import { NegocioPropioPreaprovaodsComponent } from './vistas/center/solicitudes-creditos/negocio-propio-preaprovaods/negocio-propio-preaprovaods.component';
+import { EmpleadosPreaprovaodsComponent } from './vistas/center/solicitudes-creditos/empleados-preaprovaods/empleados-preaprovaods.component';
 
 const routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -118,6 +120,18 @@ const routes = [
             // data: {roles: [Role.BigPuntos]},
             canActivate: [AuthGuard]
           },
+          {
+            path: 'negocios-propios-pre-aprobados',
+            component: NegocioPropioPreaprovaodsComponent,
+            // data: {roles: [Role.BigPuntos]},
+            canActivate: [AuthGuard]
+          },
+          {
+            path: 'empelados-pre-aprobados',
+            component: EmpleadosPreaprovaodsComponent,
+            // data: {roles: [Role.BigPuntos]},
+            canActivate: [AuthGuard]
+          },
         ]
       },
       {
@@ -157,6 +171,8 @@ const routes = [
     NegocioPropioComponent,
     ValoresProcesoComponent,
     ResumenComponent,
+    NegocioPropioPreaprovaodsComponent,
+    EmpleadosPreaprovaodsComponent,
   ],
   imports: [
     CoreCommonModule,
