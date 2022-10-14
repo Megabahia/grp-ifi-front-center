@@ -170,22 +170,22 @@ export const menu: CoreMenu[] = [
             icon: 'circle',
             url: 'central/center/solicitudes-creditos/negocios'
           },
-          {
-            id: 'propios-pre-aprovados',
-            title: 'Pre aprobados negocios propios',
-            // translate: 'MENU.APPS.EMAIL',
-            type: 'item',
-            icon: 'circle',
-            url: 'central/center/solicitudes-creditos/negocios-propios-pre-aprobados'
-          },
-          {
-            id: 'empelados-pre-aprovados',
-            title: 'Pre aprobados empelados',
-            // translate: 'MENU.APPS.EMAIL',
-            type: 'item',
-            icon: 'circle',
-            url: 'central/center/solicitudes-creditos/empelados-pre-aprobados'
-          },
+          // {
+          //   id: 'propios-pre-aprovados',
+          //   title: 'Pre aprobados negocios propios',
+          //   // translate: 'MENU.APPS.EMAIL',
+          //   type: 'item',
+          //   icon: 'circle',
+          //   url: 'central/center/solicitudes-creditos/negocios-propios-pre-aprobados'
+          // },
+          // {
+          //   id: 'empelados-pre-aprovados',
+          //   title: 'Pre aprobados empelados',
+          //   // translate: 'MENU.APPS.EMAIL',
+          //   type: 'item',
+          //   icon: 'circle',
+          //   url: 'central/center/solicitudes-creditos/empelados-pre-aprobados'
+          // },
         ]
       },
       {
