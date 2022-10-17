@@ -43,6 +43,8 @@ import { ValoresProcesoComponent } from './vistas/center/solicitudes-creditos/va
 import { ResumenComponent } from './vistas/center/solicitudes-creditos/resumen/resumen.component';
 import { NegocioPropioPreaprovaodsComponent } from './vistas/center/solicitudes-creditos/negocio-propio-preaprovaods/negocio-propio-preaprovaods.component';
 import { EmpleadosPreaprovaodsComponent } from './vistas/center/solicitudes-creditos/empleados-preaprovaods/empleados-preaprovaods.component';
+import { MicrocreditosPreAprovadosComponent } from './vistas/center/solicitudes-creditos/microcreditos-pre-aprovados/microcreditos-pre-aprovados.component';
+import { MicrocreditosNormalesComponent } from './vistas/center/solicitudes-creditos/microcreditos-normales/microcreditos-normales.component';
 
 const routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -132,6 +134,18 @@ const routes = [
             // data: {roles: [Role.BigPuntos]},
             canActivate: [AuthGuard]
           },
+          {
+            path: 'microcreditPreAprovado',
+            component: MicrocreditosPreAprovadosComponent,
+            // data: {roles: [Role.BigPuntos]},
+            canActivate: [AuthGuard]
+          },
+          {
+            path: 'microcreditNormales',
+            component: MicrocreditosNormalesComponent,
+            // data: {roles: [Role.BigPuntos]},
+            canActivate: [AuthGuard]
+          },
         ]
       },
       {
@@ -173,6 +187,8 @@ const routes = [
     ResumenComponent,
     NegocioPropioPreaprovaodsComponent,
     EmpleadosPreaprovaodsComponent,
+    MicrocreditosPreAprovadosComponent,
+    MicrocreditosNormalesComponent,
   ],
   imports: [
     CoreCommonModule,
