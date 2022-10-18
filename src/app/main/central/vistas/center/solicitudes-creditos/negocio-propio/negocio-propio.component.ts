@@ -97,7 +97,6 @@ export class NegocioPropioComponent implements OnInit, AfterViewInit {
       page: this.page - 1,
       tipoCredito: 'Negocio propio',
     }).subscribe(info => {
-      console.log('info', info);
       this.collectionSize = info.cont;
       this.listaCreditos = info.info;
     });
