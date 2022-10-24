@@ -95,7 +95,7 @@ export class EmpleadosComponent implements OnInit, AfterViewInit {
         this._solicitudCreditosService.obtenerSolicitudesCreditos({
             page_size: this.page_size,
             page: this.page - 1,
-            tipoCredito: 'Empleado-PreAprobado',
+            tipoCredito: 'Empleado',
         }).subscribe(info => {
             this.collectionSize = info.cont;
             this.listaCreditos = info.info;
