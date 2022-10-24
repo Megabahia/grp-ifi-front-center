@@ -95,7 +95,7 @@ export class NegocioPropioComponent implements OnInit, AfterViewInit {
     this._solicitudCreditosService.obtenerSolicitudesCreditos({
       page_size: this.page_size,
       page: this.page - 1,
-      tipoCredito: 'Negocio',
+      tipoCredito: 'Negocio propio',
     }).subscribe(info => {
       this.collectionSize = info.cont;
       this.listaCreditos = info.info;
