@@ -116,7 +116,7 @@ export class EmpleadosPreaprovaodsComponent implements OnInit, AfterViewInit {
     this.submitted = false;
     this.actualizarCreditoFormData = new FormData();
     this.pantalla = 1;
-    this.soltero = credito.user.estadoCivil === 'Soltero' || 'Divorciado' ? true : false;
+    this.soltero = (credito.estadoCivil === 'Soltero' || credito.estadoCivil === 'Divorciado');
     this.actualizarCreditoForm = this._formBuilder.group({
       id: [credito._id, [Validators.required]],
       solicitudCredito: ['', [Validators.required]],
@@ -141,8 +141,8 @@ export class EmpleadosPreaprovaodsComponent implements OnInit, AfterViewInit {
       checkPapeletaVotacionConyuge: ['', this.soltero ? [] : [Validators.requiredTrue]],
       checkPlanillaLuzDomicilio: ['', [Validators.requiredTrue]],
       checkMecanizadoIess: ['', [Validators.requiredTrue]],
-      checkMatriculaVehiculo: ['', [Validators.requiredTrue]],
-      checkImpuestoPredial: ['', [Validators.requiredTrue]],
+      checkMatriculaVehiculo: [''],
+      checkImpuestoPredial: [''],
       checkBuroCredito: ['', [Validators.requiredTrue]],
       checkCalificacionBuro: ['', [Validators.requiredTrue]],
       checkObservacion: ['', [Validators.requiredTrue]],
