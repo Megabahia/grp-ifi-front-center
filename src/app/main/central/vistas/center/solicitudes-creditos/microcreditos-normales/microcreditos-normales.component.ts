@@ -117,7 +117,7 @@ export class MicrocreditosNormalesComponent implements OnInit, AfterViewInit {
     this.submitted = false;
     this.actualizarCreditoFormData = new FormData();
     this.pantalla = 1;
-    this.soltero = credito.user.estadoCivil === 'Soltero' || 'Divorciado' ? true : false;
+    this.soltero = (credito.estadoCivil === 'Soltero' || credito.estadoCivil === 'Divorciado');
     this.actualizarCreditoForm = this._formBuilder.group({
       id: [credito._id, [Validators.required]],
       solicitudCredito: ['', [Validators.required]],
@@ -128,13 +128,15 @@ export class MicrocreditosNormalesComponent implements OnInit, AfterViewInit {
       calificacionBuroIfis: ['', [Validators.required]],
       calificacionBuro: [credito.calificacionBuro],
       observacion: [credito.observacion],
+      cargarEvalualacionCrediticia: ['', [Validators.requiredTrue]],
+
+      // checks
       checkSolicitudCredito: ['', [Validators.requiredTrue]],
       checkEvaluacionCrediticia: ['', [Validators.requiredTrue]],
       checkCodigoClienteCreado: ['', [Validators.requiredTrue]],
       checkCodigoCuentaCreada: ['', [Validators.requiredTrue]],
       checkBuroCreditoIfis: ['', [Validators.requiredTrue]],
       checkCalificacionBuroIfis: ['', [Validators.requiredTrue]],
-      checkBuroRevisado: ['', [Validators.requiredTrue]],
       checkIdenficicacion: ['', [Validators.requiredTrue]],
       checkFotoCarnet: ['', [Validators.requiredTrue]],
       checkPapeletaVotacion: ['', [Validators.requiredTrue]],
@@ -142,11 +144,19 @@ export class MicrocreditosNormalesComponent implements OnInit, AfterViewInit {
       checkPapeletaVotacionConyuge: ['', this.soltero ? [] : [Validators.requiredTrue]],
       checkPlanillaLuzDomicilio: ['', [Validators.requiredTrue]],
       checkMecanizadoIess: ['', [Validators.requiredTrue]],
-      checkMatriculaVehiculo: ['', [Validators.requiredTrue]],
-      checkImpuestoPredial: ['', [Validators.requiredTrue]],
+      checkMatriculaVehiculo: [''],
+      checkImpuestoPredial: [''],
       checkBuroCredito: ['', [Validators.requiredTrue]],
       checkCalificacionBuro: ['', [Validators.requiredTrue]],
       checkObservacion: ['', [Validators.requiredTrue]],
+      checkPlanillaLuzNegocio: ['', [Validators.requiredTrue]],
+      checkFacturas: ['', [Validators.requiredTrue]],
+      checkSolicitudCrédito: ['', [Validators.requiredTrue]],
+      checkCargarEvalualacionCrediticia: ['', [Validators.requiredTrue]],
+      checkBuroCrediticio: ['', [Validators.requiredTrue]],
+      checkCarnet: ['', [Validators.requiredTrue]],
+      checkFacturasVentas: ['', [Validators.requiredTrue]],
+      checkFacturasPendiente: ['', [Validators.requiredTrue]],
     });
     this.checks = JSON.parse(credito.checks);
   }
