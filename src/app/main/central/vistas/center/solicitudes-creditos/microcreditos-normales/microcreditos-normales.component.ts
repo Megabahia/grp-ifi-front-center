@@ -35,16 +35,20 @@ export class MicrocreditosNormalesComponent implements OnInit, AfterViewInit {
   public checks = [
     {'label': 'Identificacion', 'valor': false},
     {'label': 'Foto Carnet', 'valor': false},
-    {'label': 'Papeleta votacion', 'valor': false},
+    {'label': 'Ruc', 'valor': false},
+    {'label': 'Papeleta votación Representante Legal ', 'valor': false},
     {'label': 'Identificacion conyuge', 'valor': false},
     {'label': 'Papeleta votacion conyuge', 'valor': false},
-    {'label': 'Planilla luz domicilio', 'valor': false},
-    {'label': 'Mecanizado Iess', 'valor': false},
+    {'label': 'Planilla luz Negocio', 'valor': false},
+    {'label': 'Planilla luz Domicilio', 'valor': false},
+    {'label': '3 Copias de Facturas de Ventas del negocio de los últimos 2 meses', 'valor': false},
+    {'label': '3 facturas de Compra del negocio de los últimos 2 meses', 'valor': false},
+    {'label': 'Facturas pendiente de pago', 'valor': false},
+    {'label': 'Justificación otros inresos mensuales ', 'valor': false},
     {'label': 'Matricula vehiculo', 'valor': false},
-    {'label': 'Impuesto predial', 'valor': false},
+    {'label': 'Copia de pago impuesto predial o copia de escrituras', 'valor': false},
+    {'label': 'Registro de Referencias Familiares y Comerciales.\n', 'valor': false},
     {'label': 'Buro credito', 'valor': false},
-    {'label': 'Calificacion buro', 'valor': false},
-    {'label': 'Observación', 'valor': false},
   ];
   // Formulario
   public soltero = false;
@@ -118,45 +122,35 @@ export class MicrocreditosNormalesComponent implements OnInit, AfterViewInit {
     this.actualizarCreditoFormData = new FormData();
     this.pantalla = 1;
     this.soltero = (credito.estadoCivil === 'Soltero' || credito.estadoCivil === 'Divorciado');
-    this.actualizarCreditoForm = this._formBuilder.group({
+    this.actualizarCreditoForm = this._formBuilder.group(
+        {
       id: [credito._id, [Validators.required]],
-      solicitudCredito: ['', [Validators.required]],
-      evaluacionCrediticia: ['', [Validators.required]],
-      codigoClienteCreado: ['', [Validators.required]],
-      codigoCuentaCreada: ['', [Validators.required]],
-      buroCreditoIfis: ['', [Validators.required]],
-      calificacionBuroIfis: ['', [Validators.required]],
-      calificacionBuro: [credito.calificacionBuro],
-      observacion: [credito.observacion],
-      cargarEvalualacionCrediticia: ['', [Validators.requiredTrue]],
-
+      evaluacionCrediticia: ['', [Validators.required]], //
+      codigoClienteCreado: ['', [Validators.required]], //
+      codigoCuentaCreada: ['', [Validators.required]], //
+      buroCreditoIfis: ['', [Validators.required]], //
+      calificacionBuroIfis: ['', [Validators.required]], //
+      cargarEvalualacionCrediticia: ['', [Validators.required]], //
       // checks
-      checkSolicitudCredito: ['', [Validators.requiredTrue]],
-      checkEvaluacionCrediticia: ['', [Validators.requiredTrue]],
-      checkCodigoClienteCreado: ['', [Validators.requiredTrue]],
-      checkCodigoCuentaCreada: ['', [Validators.requiredTrue]],
-      checkBuroCreditoIfis: ['', [Validators.requiredTrue]],
-      checkCalificacionBuroIfis: ['', [Validators.requiredTrue]],
-      checkIdenficicacion: ['', [Validators.requiredTrue]],
-      checkFotoCarnet: ['', [Validators.requiredTrue]],
-      checkPapeletaVotacion: ['', [Validators.requiredTrue]],
-      checkIdentificacionConyuge: ['', this.soltero ? [] : [Validators.requiredTrue]],
-      checkPapeletaVotacionConyuge: ['', this.soltero ? [] : [Validators.requiredTrue]],
-      checkPlanillaLuzDomicilio: ['', [Validators.requiredTrue]],
-      checkMecanizadoIess: ['', [Validators.requiredTrue]],
-      checkMatriculaVehiculo: [''],
-      checkImpuestoPredial: [''],
-      checkBuroCredito: ['', [Validators.requiredTrue]],
-      checkCalificacionBuro: ['', [Validators.requiredTrue]],
-      checkObservacion: ['', [Validators.requiredTrue]],
-      checkPlanillaLuzNegocio: ['', [Validators.requiredTrue]],
-      checkFacturas: ['', [Validators.requiredTrue]],
-      checkSolicitudCrédito: ['', [Validators.requiredTrue]],
-      checkCargarEvalualacionCrediticia: ['', [Validators.requiredTrue]],
-      checkBuroCrediticio: ['', [Validators.requiredTrue]],
-      checkCarnet: ['', [Validators.requiredTrue]],
-      checkFacturasVentas: ['', [Validators.requiredTrue]],
-      checkFacturasPendiente: ['', [Validators.requiredTrue]],
+      checkSolicitudCredito: ['', [Validators.requiredTrue]], //
+      checkCodigoClienteCreado: ['', [Validators.requiredTrue]], //
+      checkCodigoCuentaCreada: ['', [Validators.requiredTrue]], //
+      checkBuroCreditoIfis: ['', [Validators.requiredTrue]], //
+      checkCalificacionBuroIfis: ['', [Validators.requiredTrue]], //
+      checkIdenficicacion: ['', [Validators.requiredTrue]], //
+      checkFotoCarnet: ['', [Validators.requiredTrue]], //
+      checkPapeletaVotacion: ['', [Validators.requiredTrue]], //
+      checkIdentificacionConyuge: ['', this.soltero ? [] : [Validators.requiredTrue]], //
+      checkPapeletaVotacionConyuge: ['', this.soltero ? [] : [Validators.requiredTrue]], //
+      checkMatriculaVehiculo: [''], //
+      checkImpuestoPredial: [''], //
+      checkPlanillaLuzNegocio: ['', [Validators.requiredTrue]], //
+      checkFacturas: ['', [Validators.requiredTrue]], //
+      checkCargarEvalualacionCrediticia: ['', [Validators.requiredTrue]], //
+      checkCalificacionBuroCrediticio: ['', [Validators.requiredTrue]], //
+      checkBuroCrediticio: ['', [Validators.requiredTrue]], //
+      checkFacturasVentas: ['', [Validators.requiredTrue]], //
+      checkFacturasPendiente: ['', [Validators.requiredTrue]], //
     });
     this.checks = JSON.parse(credito.checks);
   }

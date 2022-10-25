@@ -35,16 +35,20 @@ export class MicrocreditosPreAprovadosComponent implements OnInit, AfterViewInit
     public checks = [
         {'label': 'Identificacion', 'valor': false},
         {'label': 'Foto Carnet', 'valor': false},
-        {'label': 'Papeleta votacion', 'valor': false},
+        {'label': 'Ruc', 'valor': false},
+        {'label': 'Papeleta votación Representante Legal ', 'valor': false},
         {'label': 'Identificacion conyuge', 'valor': false},
         {'label': 'Papeleta votacion conyuge', 'valor': false},
-        {'label': 'Planilla luz domicilio', 'valor': false},
-        {'label': 'Mecanizado Iess', 'valor': false},
+        {'label': 'Planilla luz Negocio', 'valor': false},
+        {'label': 'Planilla luz Domicilio', 'valor': false},
+        {'label': '3 Copias de Facturas de Ventas del negocio de los últimos 2 meses', 'valor': false},
+        {'label': '3 facturas de Compra del negocio de los últimos 2 meses', 'valor': false},
+        {'label': 'Facturas pendiente de pago', 'valor': false},
+        {'label': 'Justificación otros inresos mensuales ', 'valor': false},
         {'label': 'Matricula vehiculo', 'valor': false},
-        {'label': 'Impuesto predial', 'valor': false},
+        {'label': 'Copia de pago impuesto predial o copia de escrituras', 'valor': false},
+        {'label': 'Registro de Referencias Familiares y Comerciales.\n', 'valor': false},
         {'label': 'Buro credito', 'valor': false},
-        {'label': 'Calificacion buro', 'valor': false},
-        {'label': 'Observación', 'valor': false},
     ];
     // Formulario
     public soltero = false;
@@ -100,7 +104,6 @@ export class MicrocreditosPreAprovadosComponent implements OnInit, AfterViewInit
         }).subscribe(info => {
             this.collectionSize = info.cont;
             this.listaCreditos = info.info;
-            console.log('this.listaCreditos', this.listaCreditos);
         });
     }
 
@@ -121,43 +124,32 @@ export class MicrocreditosPreAprovadosComponent implements OnInit, AfterViewInit
         this.soltero = (credito.estadoCivil === 'Soltero' || credito.estadoCivil === 'Divorciado');
         this.actualizarCreditoForm = this._formBuilder.group({
             id: [credito._id, [Validators.required]],
-            solicitudCredito: ['', [Validators.required]],
-            evaluacionCrediticia: ['', [Validators.required]],
-            codigoClienteCreado: ['', [Validators.required]],
-            codigoCuentaCreada: ['', [Validators.required]],
-            buroCreditoIfis: ['', [Validators.required]],
-            calificacionBuroIfis: ['', [Validators.required]],
-            calificacionBuro: [credito.calificacionBuro],
-            observacion: [credito.observacion],
-            cargarEvalualacionCrediticia: ['', [Validators.requiredTrue]],
-
+            evaluacionCrediticia: ['', [Validators.required]], //
+            codigoClienteCreado: ['', [Validators.required]], //
+            codigoCuentaCreada: ['', [Validators.required]], //
+            buroCreditoIfis: ['', [Validators.required]], //
+            calificacionBuroIfis: ['', [Validators.required]], //
+            cargarEvalualacionCrediticia: ['', [Validators.required]], //
             // checks
-            checkSolicitudCredito: ['', [Validators.requiredTrue]],
-            checkEvaluacionCrediticia: ['', [Validators.requiredTrue]],
-            checkCodigoClienteCreado: ['', [Validators.requiredTrue]],
-            checkCodigoCuentaCreada: ['', [Validators.requiredTrue]],
-            checkBuroCreditoIfis: ['', [Validators.requiredTrue]],
-            checkCalificacionBuroIfis: ['', [Validators.requiredTrue]],
-            checkIdenficicacion: ['', [Validators.requiredTrue]],
-            checkFotoCarnet: ['', [Validators.requiredTrue]],
-            checkPapeletaVotacion: ['', [Validators.requiredTrue]],
-            checkIdentificacionConyuge: ['', this.soltero ? [] : [Validators.requiredTrue]],
-            checkPapeletaVotacionConyuge: ['', this.soltero ? [] : [Validators.requiredTrue]],
-            checkPlanillaLuzDomicilio: ['', [Validators.requiredTrue]],
-            checkMecanizadoIess: ['', [Validators.requiredTrue]],
-            checkMatriculaVehiculo: ['', [Validators.requiredTrue]],
-            checkImpuestoPredial: ['', [Validators.requiredTrue]],
-            checkBuroCredito: ['', [Validators.requiredTrue]],
-            checkCalificacionBuro: ['', [Validators.requiredTrue]],
-            checkObservacion: ['', [Validators.requiredTrue]],
-            checkPlanillaLuzNegocio: ['', [Validators.requiredTrue]],
-            checkFacturas: ['', [Validators.requiredTrue]],
-            checkSolicitudCrédito: ['', [Validators.requiredTrue]],
-            checkCargarEvalualacionCrediticia: ['', [Validators.requiredTrue]],
-            checkBuroCrediticio: ['', [Validators.requiredTrue]],
-            checkCarnet: ['', [Validators.requiredTrue]],
-            checkFacturasVentas: ['', [Validators.requiredTrue]],
-            checkFacturasPendiente: ['', [Validators.requiredTrue]],
+            checkSolicitudCredito: ['', [Validators.requiredTrue]], //
+            checkCodigoClienteCreado: ['', [Validators.requiredTrue]], //
+            checkCodigoCuentaCreada: ['', [Validators.requiredTrue]], //
+            checkBuroCreditoIfis: ['', [Validators.requiredTrue]], //
+            checkCalificacionBuroIfis: ['', [Validators.requiredTrue]], //
+            checkIdenficicacion: ['', [Validators.requiredTrue]], //
+            checkFotoCarnet: ['', [Validators.requiredTrue]], //
+            checkPapeletaVotacion: ['', [Validators.requiredTrue]], //
+            checkIdentificacionConyuge: ['', this.soltero ? [] : [Validators.requiredTrue]], //
+            checkPapeletaVotacionConyuge: ['', this.soltero ? [] : [Validators.requiredTrue]], //
+            checkMatriculaVehiculo: ['', [Validators.requiredTrue]], //
+            checkImpuestoPredial: ['', [Validators.requiredTrue]], //
+            checkPlanillaLuzNegocio: ['', [Validators.requiredTrue]], //
+            checkFacturas: ['', [Validators.requiredTrue]], //
+            checkCargarEvalualacionCrediticia: ['', [Validators.requiredTrue]], //
+            checkCalificacionBuroCrediticio: ['', [Validators.requiredTrue]], //
+            checkBuroCrediticio: ['', [Validators.requiredTrue]], //
+            checkFacturasVentas: ['', [Validators.requiredTrue]], //
+            checkFacturasPendiente: ['', [Validators.requiredTrue]], //
         });
         this.checks = JSON.parse(credito.checks);
     }
@@ -181,10 +173,8 @@ export class MicrocreditosPreAprovadosComponent implements OnInit, AfterViewInit
     actualizarSolicitudCredito(estado?: string) {
         this.submitted = true;
         if (this.actualizarCreditoForm.invalid) {
-            console.log('if');
             return;
         }
-        console.log('paso');
         const {
             id,
             identificacion,
@@ -214,17 +204,22 @@ export class MicrocreditosPreAprovadosComponent implements OnInit, AfterViewInit
         this.checks = [
             {'label': 'Identificacion', 'valor': resto.checkIdenficicacion},
             {'label': 'Foto Carnet', 'valor': resto.checkFotoCarnet},
-            {'label': 'Papeleta votacion', 'valor': resto.checkPapeletaVotacion},
+            {'label': 'Ruc', 'valor': resto.ruc},
+            {'label': 'Papeleta votación Representante Legal ', 'valor': resto.checkPapeletaVotacion},
             {'label': 'Identificacion conyuge', 'valor': resto.checkIdentificacionConyuge},
             {'label': 'Papeleta votacion conyuge', 'valor': resto.checkPapeletaVotacionConyuge},
-            {'label': 'Planilla luz domicilio', 'valor': resto.checkPlanillaLuzDomicilio},
-            {'label': 'Mecanizado Iess', 'valor': resto.checkMecanizadoIess},
+            {'label': 'Planilla luz Negocio', 'valor': resto.checkPlanillaLuzNegocio},
+            {'label': 'Planilla luz Domicilio', 'valor': resto.checkPlanillaLuzNegocio},
+            {'label': '3 Copias de Facturas de Ventas del negocio de los últimos 2 meses', 'valor': resto.checkFacturasVentas},
+            {'label': '3 facturas de Compra del negocio de los últimos 2 meses', 'valor': resto.checkFacturas},
+            {'label': 'Facturas pendiente de pago', 'valor': resto.checkFacturasPendiente},
+            {'label': 'Justificación otros inresos mensuales ', 'valor': resto.checkMatriculaVehiculo}, // no hay
             {'label': 'Matricula vehiculo', 'valor': resto.checkMatriculaVehiculo},
-            {'label': 'Impuesto predial', 'valor': resto.checkImpuestoPredial},
-            {'label': 'Buro credito', 'valor': resto.checkBuroCredito},
-            {'label': 'Calificacion buro', 'valor': resto.checkCalificacionBuro},
-            {'label': 'Observación', 'valor': resto.checkObservacion},
-        ];
+            {'label': 'Copia de pago impuesto predial o copia de escrituras', 'valor': resto.checkImpuestoPredial},
+            {'label': 'Registro de Referencias Familiares y Comerciales.', 'valor': resto.checkImpuestoPredial}, // no hay
+            {'label': 'Buro credito', 'valor': resto.checkBuroCrediticio},
+        ]
+        ;
         if (this.soltero) {
             this.checks.splice(3, 2);
         }

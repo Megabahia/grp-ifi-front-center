@@ -411,6 +411,9 @@
                     <label class="form-check-label mr-2" for="checkIdenficicacion">Valido</label>
                     <input class="form-check-input" type="checkbox" id="checkIdenficicacion"
                            formControlName="checkIdenficicacion"/>
+                    <a  *ngIf="credito.idenficicacion" href="{{credito.idenficicacion}}" target="_blank">
+                        Ver
+                    </a>
                     <div *ngIf="submitted && controlsFrom.checkIdenficicacion.errors" class="invalid-feedback"
                          style="display: block;">
                         <div *ngIf="controlsFrom.checkIdenficicacion.errors.required">Copia de cédula y Ruc es
@@ -422,12 +425,15 @@
             <div class="form-group">
                 <label>Foto tamaño carnet</label>
                 <div class="custom-file">
-                    <label class="form-check-label mr-2" for="checkCarnet">Valido</label>
-                    <input class="form-check-input" type="checkbox" id="checkCarnet"
-                           formControlName="checkCarnet"/>
-                    <div *ngIf="submitted && controlsFrom.checkCarnet.errors" class="invalid-feedback"
+                    <label class="form-check-label mr-2" for="checkFotoCarnet">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkFotoCarnet"
+                           formControlName="checkFotoCarnet"/>
+                    <a  *ngIf="credito.fotoCarnet" href="{{credito.fotoCarnet}}" target="_blank">
+                        Ver
+                    </a>
+                    <div *ngIf="submitted && controlsFrom.checkFotoCarnet.errors" class="invalid-feedback"
                          style="display: block;">
-                        <div *ngIf="controlsFrom.checkCarnet.errors.required">
+                        <div *ngIf="controlsFrom.checkFotoCarnet.errors.required">
                             Foto tamaño carnet es requerido
                         </div>
                     </div>
@@ -440,6 +446,9 @@
                     <label class="form-check-label mr-2" for="checkPapeletaVotacion">Valido</label>
                     <input class="form-check-input" type="checkbox" id="checkPapeletaVotacion"
                            formControlName="checkPapeletaVotacion"/>
+                    <a  *ngIf="credito.papeletaVotacion" href="{{credito.papeletaVotacion}}" target="_blank">
+                        Ver
+                    </a>
                     <div *ngIf="submitted && controlsFrom.checkPapeletaVotacion.errors" class="invalid-feedback"
                          style="display: block;">
                         <div *ngIf="controlsFrom.checkPapeletaVotacion.errors.required">Papeleta de votación es
@@ -455,6 +464,9 @@
                     <label class="form-check-label mr-2" for="checkIdentificacionConyuge">Valido</label>
                     <input class="form-check-input" type="checkbox" id="checkIdentificacionConyuge"
                            formControlName="checkIdentificacionConyuge"/>
+                    <a  *ngIf="credito.identificacionConyuge" href="{{credito.identificacionConyuge}}" target="_blank">
+                        Ver
+                    </a>
                     <div *ngIf="submitted && controlsFrom.checkIdentificacionConyuge.errors" class="invalid-feedback"
                          style="display: block;">
                         <div *ngIf="controlsFrom.checkIdentificacionConyuge.errors.required">Copia de cédula y Ruc es
@@ -470,6 +482,9 @@
                     <label class="form-check-label mr-2" for="checkPapeletaVotacionConyuge">Valido</label>
                     <input class="form-check-input" type="checkbox" id="checkPapeletaVotacionConyuge"
                            formControlName="checkPapeletaVotacionConyuge"/>
+                    <a  *ngIf="credito.papeletaVotacionConyuge" href="{{credito.papeletaVotacionConyuge}}" target="_blank">
+                        Ver
+                    </a>
                     <div *ngIf="submitted && controlsFrom.checkPapeletaVotacionConyuge.errors" class="invalid-feedback"
                          style="display: block;">
                         <div *ngIf="controlsFrom.checkPapeletaVotacionConyuge.errors.required">Copia de cédula y Ruc es
@@ -486,6 +501,9 @@
                     <label class="form-check-label mr-2" for="checkPlanillaLuzNegocio">Valido</label>
                     <input class="form-check-input" type="checkbox" id="checkPlanillaLuzNegocio"
                            formControlName="checkPlanillaLuzNegocio"/>
+                    <a  *ngIf="credito.planillaLuzNegocio" href="{{credito.planillaLuzNegocio}}" target="_blank">
+                        Ver
+                    </a>
                     <div *ngIf="submitted && controlsFrom.checkPlanillaLuzNegocio.errors" class="invalid-feedback"
                          style="display: block;">
                         <div *ngIf="controlsFrom.checkPlanillaLuzNegocio.errors.required">
@@ -502,6 +520,9 @@
                     <label class="form-check-label mr-2" for="checkFacturas">Valido</label>
                     <input class="form-check-input" type="checkbox" id="checkFacturas"
                            formControlName="checkFacturas"/>
+                    <a  *ngIf="credito.facturas" href="{{credito.facturas}}" target="_blank">
+                        Ver
+                    </a>
                     <div *ngIf="submitted && controlsFrom.checkFacturas.errors" class="invalid-feedback"
                          style="display: block;">
                         <div *ngIf="controlsFrom.checkFacturas.errors.required">Facturas de Ventas es
@@ -518,6 +539,9 @@
                     <label class="form-check-label mr-2" for="checkFacturasVentas">Valido</label>
                     <input class="form-check-input" type="checkbox" id="checkFacturasVentas"
                            formControlName="checkFacturasVentas"/>
+                    <a  *ngIf="credito.facturasVentas" href="{{credito.facturasVentas}}" target="_blank">
+                        Ver
+                    </a>
                     <div *ngIf="submitted && controlsFrom.checkFacturasVentas.errors" class="invalid-feedback"
                          style="display: block;">
                         <div *ngIf="controlsFrom.checkFacturasVentas.errors.required">Facturas de Ventas es
@@ -534,6 +558,9 @@
                     <label class="form-check-label mr-2" for="checkFacturasPendiente">Valido</label>
                     <input class="form-check-input" type="checkbox" id="checkFacturasPendiente"
                            formControlName="checkFacturasPendiente"/>
+                    <a  *ngIf="credito.facturasPendiente" href="{{credito.facturasPendiente}}" target="_blank">
+                        Ver
+                    </a>
                     <div *ngIf="submitted && controlsFrom.checkFacturasPendiente.errors" class="invalid-feedback"
                          style="display: block;">
                         <div *ngIf="controlsFrom.checkFacturasPendiente.errors.required">
@@ -550,6 +577,9 @@
                     <label class="form-check-label mr-2" for="checkMatriculaVehiculo">Valido</label>
                     <input class="form-check-input" type="checkbox" id="checkMatriculaVehiculo"
                            formControlName="checkMatriculaVehiculo"/>
+                    <a  *ngIf="credito.matriculaVehiculo" href="{{credito.matriculaVehiculo}}" target="_blank">
+                        Ver
+                    </a>
                     <div *ngIf="submitted && controlsFrom.checkMatriculaVehiculo.errors" class="invalid-feedback"
                          style="display: block;">
                         <div *ngIf="controlsFrom.checkMatriculaVehiculo.errors.required">Copia de matrícula del vehículo
@@ -566,6 +596,9 @@
                     <label class="form-check-label mr-2" for="checkImpuestoPredial">Valido</label>
                     <input class="form-check-input" type="checkbox" id="checkImpuestoPredial"
                            formControlName="checkImpuestoPredial"/>
+                    <a  *ngIf="credito.impuestoPredial" href="{{credito.impuestoPredial}}" target="_blank">
+                        Ver
+                    </a>
                     <div *ngIf="submitted && controlsFrom.checkImpuestoPredial.errors" class="invalid-feedback"
                          style="display: block;">
                         <div *ngIf="controlsFrom.checkImpuestoPredial.errors.required">
@@ -595,6 +628,9 @@
                     <label class="form-check-label mr-2" for="checkSolicitudCredito">Valido</label>
                     <input class="form-check-input" type="checkbox" id="checkSolicitudCredito"
                            formControlName="checkSolicitudCredito"/>
+                    <a  *ngIf="credito.solicitudCredito" href="{{credito.solicitudCredito}}" target="_blank">
+                        Ver
+                    </a>
                     <div *ngIf="submitted && controlsFrom.checkSolicitudCredito.errors" class="invalid-feedback"
                          style="display: block;">
                         <div *ngIf="controlsFrom.checkSolicitudCredito.errors.required">Procesar solicitud de crédito es
@@ -613,10 +649,10 @@
                            (change)="subirDoc( $event, 'cargarEvalualacionCrediticia')"
                            accept="image/jpeg,image/png,application/pdf"/>
                     <label class="custom-file-label"
-                           for="solicitudCrédito">{{actualizarCreditoForm.get('cargarEvalualacionCrediticia').value}}</label>
-                    <div *ngIf="submitted && controlsFrom.evaluacionCrediticia.errors" class="invalid-feedback"
+                           for="cargarEvalualacionCrediticia">{{actualizarCreditoForm.get('cargarEvalualacionCrediticia').value}}</label>
+                    <div *ngIf="submitted && controlsFrom.cargarEvalualacionCrediticia.errors" class="invalid-feedback"
                          style="display: block;">
-                        <div *ngIf="controlsFrom.evaluacionCrediticia.errors.required">Cargar evaluación crediticia es
+                        <div *ngIf="controlsFrom.cargarEvalualacionCrediticia.errors.required">Cargar evaluación crediticia es
                             requerido
                         </div>
                     </div>
@@ -626,9 +662,12 @@
                     <label class="form-check-label mr-2" for="checkCargarEvalualacionCrediticia">Valido</label>
                     <input class="form-check-input" type="checkbox" id="checkCargarEvalualacionCrediticia"
                            formControlName="checkCargarEvalualacionCrediticia"/>
-                    <div *ngIf="submitted && controlsFrom.checkEvaluacionCrediticia.errors" class="invalid-feedback"
+                    <a  *ngIf="credito.evalualacionCrediticia" href="{{credito.evalualacionCrediticia}}" target="_blank">
+                        Ver
+                    </a>
+                    <div *ngIf="submitted && controlsFrom.checkCargarEvalualacionCrediticia.errors" class="invalid-feedback"
                          style="display: block;">
-                        <div *ngIf="controlsFrom.checkEvaluacionCrediticia.errors.required">Cargar evaluación crediticia
+                        <div *ngIf="controlsFrom.checkCargarEvalualacionCrediticia.errors.required">Cargar evaluación crediticia
                             es requerido
                         </div>
                     </div>
@@ -708,6 +747,9 @@
                     <label class="form-check-label mr-2" for="checkBuroCreditoIfis">Valido</label>
                     <input class="form-check-input" type="checkbox" id="checkBuroCreditoIfis"
                            formControlName="checkBuroCreditoIfis"/>
+                    <a  *ngIf="credito.buroCreditoIfis" href="{{credito.buroCreditoIfis}}" target="_blank">
+                        Ver
+                    </a>
                     <div *ngIf="submitted && controlsFrom.checkBuroCreditoIfis.errors" class="invalid-feedback"
                          style="display: block;">
                         <div *ngIf="controlsFrom.checkBuroCreditoIfis.errors.required">Cargar Buró es
@@ -723,6 +765,7 @@
                            formControlName="calificacionBuroIfis"
                            value="{{actualizarCreditoForm.get('calificacionBuroIfis').value}}"
                     />
+
                     <div *ngIf="submitted && controlsFrom.calificacionBuroIfis.errors" class="invalid-feedback"
                          style="display: block;">
                         <div *ngIf="controlsFrom.calificacionBuroIfis.errors.required">Calificación de Buró de Crédito
@@ -754,9 +797,12 @@
                     <label class="form-check-label mr-2" for="checkBuroCrediticio">Valido</label>
                     <input class="form-check-input" type="checkbox" id="checkBuroCrediticio"
                            formControlName="checkBuroCrediticio"/>
-                    <div *ngIf="submitted && controlsFrom.checkPlanillaLuzNegocio.errors" class="invalid-feedback"
+                    <a  *ngIf="credito.checkBuroCrediticio" href="{{credito.checkBuroCrediticio}}" target="_blank">
+                        Ver
+                    </a>
+                    <div *ngIf="submitted && controlsFrom.checkBuroCrediticio.errors" class="invalid-feedback"
                          style="display: block;">
-                        <div *ngIf="controlsFrom.checkPlanillaLuzNegocio.errors.required">Copia de cédula y Ruc es
+                        <div *ngIf="controlsFrom.checkBuroCrediticio.errors.required">Copia de cédula y Ruc es
                             requerido
                         </div>
                     </div>
@@ -770,9 +816,12 @@
                     <label class="form-check-label mr-2" for="checkCalificacionBuroCrediticio">Valido</label>
                     <input class="form-check-input" type="checkbox" id="checkCalificacionBuroCrediticio"
                            formControlName="checkCalificacionBuroCrediticio"/>
-                    <div *ngIf="submitted && controlsFrom.checkPlanillaLuzNegocio.errors" class="invalid-feedback"
+                    <a  *ngIf="credito.checkCalificacionBuroCrediticio" href="{{credito.checkCalificacionBuroCrediticio}}" target="_blank">
+                        Ver
+                    </a>
+                    <div *ngIf="submitted && controlsFrom.checkCalificacionBuroCrediticio.errors" class="invalid-feedback"
                          style="display: block;">
-                        <div *ngIf="controlsFrom.checkPlanillaLuzNegocio.errors.required">Copia de cédula y Ruc es
+                        <div *ngIf="controlsFrom.checkCalificacionBuroCrediticio.errors.required">Copia de cédula y Ruc es
                             requerido
                         </div>
                     </div>
