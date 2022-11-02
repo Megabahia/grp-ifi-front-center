@@ -167,14 +167,11 @@ export class NegocioPropioComponent implements OnInit, AfterViewInit {
   }
 
   actualizarSolicitudCredito(estado?: string) {
-    console.log('entra');
     this.submitted = true;
     if (this.actualizarCreditoForm.invalid) {
-      console.log('if');
       console.log(this.actualizarCreditoForm.controls);
       return;
     }
-    console.log('paso');
     const {
       id,
       identificacion,

@@ -136,7 +136,8 @@
                                            accept="image/jpeg,image/png,application/pdf"/>
                                     <label class="custom-file-label"
                                            for="contratosCuenta">{{actualizarCreditoForm.get('contratosCuenta').value}}</label>
-                                    <div *ngIf="submitted && controlsFrom.contratosCuenta.errors" class="invalid-feedback"
+                                    <div *ngIf="submitted && controlsFrom.contratosCuenta.errors"
+                                         class="invalid-feedback"
                                          style="display: block;">
                                         <div *ngIf="controlsFrom.contratosCuenta.errors.required">Contratos de cuenta
                                             es requerido
@@ -154,7 +155,8 @@
                                            accept="image/jpeg,image/png,application/pdf"/>
                                     <label class="custom-file-label"
                                            for="tablaAmortizacion">{{actualizarCreditoForm.get('tablaAmortizacion').value}}</label>
-                                    <div *ngIf="submitted && controlsFrom.tablaAmortizacion.errors" class="invalid-feedback"
+                                    <div *ngIf="submitted && controlsFrom.tablaAmortizacion.errors"
+                                         class="invalid-feedback"
                                          style="display: block;">
                                         <div *ngIf="controlsFrom.tablaAmortizacion.errors.required">Contratos de cuenta
                                             es requerido
@@ -165,9 +167,12 @@
 
                         </div>
                     </form>
-                    <button class="btn btn-primary mr-1" (click)="actualizarSolicitudCredito('En proceso')"
-                            [disabled]="cargando">Procesar
-                    </button>
+                    <div class="m-2">
+                        <button class="btn btn-primary mr-1" (click)="actualizarSolicitudCredito('En proceso')"
+                                [disabled]="cargando">Procesar
+                        </button>
+                    </div>
+
                 </div>
             </div>
         </section>
