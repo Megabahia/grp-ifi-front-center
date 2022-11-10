@@ -195,6 +195,7 @@ export class MicrocreditosPreAprovadosComponent implements OnInit, AfterViewInit
         this.soltero = (credito.estadoCivil === 'Soltero' || credito.estadoCivil === 'Divorciado');
         this.actualizarCreditoForm = this._formBuilder.group(
             {
+
                 id: [credito._id, [Validators.required]],
                 solicitudCredito: ['', [Validators.required]], //
                 evaluacionCrediticia: ['', [Validators.required]], //
