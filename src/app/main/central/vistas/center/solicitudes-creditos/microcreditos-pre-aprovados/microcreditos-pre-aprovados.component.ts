@@ -175,7 +175,6 @@ export class MicrocreditosPreAprovadosComponent implements OnInit, AfterViewInit
     get familiares() {
         return this.formSolicitud.controls['familiares'] as FormArray;
     }
-
     agregarFamiliar() {
         const cuentaForm = this._formBuilder.group({
             nombreFamiliar: [''], //
@@ -185,7 +184,6 @@ export class MicrocreditosPreAprovadosComponent implements OnInit, AfterViewInit
         });
         this.familiares.push(cuentaForm);
     }
-
     verDocumentos(credito) {
         this.credito = credito;
         console.log('credito', this.credito);
@@ -195,7 +193,6 @@ export class MicrocreditosPreAprovadosComponent implements OnInit, AfterViewInit
         this.soltero = (credito.estadoCivil === 'Soltero' || credito.estadoCivil === 'Divorciado');
         this.actualizarCreditoForm = this._formBuilder.group(
             {
-
                 id: [credito._id, [Validators.required]],
                 solicitudCredito: ['', [Validators.required]], //
                 evaluacionCrediticia: ['', [Validators.required]], //
@@ -247,11 +244,9 @@ export class MicrocreditosPreAprovadosComponent implements OnInit, AfterViewInit
     cambiarEstado($event) {
         this.pantalla = $event;
     }
-
     cancelar() {
         this.pantalla = 0;
     }
-
     subirDoc(event, key) {
         if (event.target.files && event.target.files[0]) {
             const doc = event.target.files[0];
@@ -261,13 +256,10 @@ export class MicrocreditosPreAprovadosComponent implements OnInit, AfterViewInit
     }
 
     actualizarSolicitudCredito(estado?: string) {
-        console.log('llega---', this.actualizarCreditoForm);
         this.submitted = true;
         if (this.actualizarCreditoForm.invalid) {
-            console.log(' no valido form');
             return;
         }
-        console.log('');
         const {
             id,
             identificacion,
@@ -285,7 +277,6 @@ export class MicrocreditosPreAprovadosComponent implements OnInit, AfterViewInit
         } = this.actualizarCreditoForm.value;
         const creditoValores = Object.values(this.actualizarCreditoForm.value);
         const creditoLlaves = Object.keys(this.actualizarCreditoForm.value);
-
         creditoLlaves.map((llaves, index) => {
             if (creditoValores[index] && !this.remover.find((item: any) => item === creditoLlaves[index])) {
                 this.actualizarCreditoFormData.delete(llaves);
