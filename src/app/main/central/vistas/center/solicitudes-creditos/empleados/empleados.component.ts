@@ -112,6 +112,7 @@ export class EmpleadosComponent implements OnInit, AfterViewInit {
     }
 
     verDocumentos(credito) {
+        console.log('log---', credito);
         this.credito = credito;
         this.submitted = false;
         this.actualizarCreditoFormData = new FormData();
@@ -192,7 +193,7 @@ export class EmpleadosComponent implements OnInit, AfterViewInit {
         const creditoLlaves = Object.keys(this.actualizarCreditoForm.value);
         const remover = ['buroCredito', 'evaluacionCrediticia', 'identificacion', 'papeletaVotacion', 'identificacionConyuge', 'mecanizadoIess',
             'papeletaVotacionConyuge', 'planillaLuzNegocio', 'planillaLuzDomicilio', 'facturas', 'matriculaVehiculo', 'impuestoPredial', 'fotoCarnet',
-          'solicitudCredito', 'buroCreditoIfis'];
+            'solicitudCredito', 'buroCreditoIfis'];
         creditoLlaves.map((llaves, index) => {
             if (creditoValores[index] && !remover.find((item: any) => item === creditoLlaves[index])) {
                 this.actualizarCreditoFormData.delete(llaves);
@@ -228,8 +229,8 @@ export class EmpleadosComponent implements OnInit, AfterViewInit {
                 } else {
                     this.pantalla = 3;
                 }
-              this.obtenerSolicitudesCreditos();
-              this._solicitudCreditosService.deleteDocumentFirebase(this.actualizarCreditoFormData.get('id'));
+                this.obtenerSolicitudesCreditos();
+                this._solicitudCreditosService.deleteDocumentFirebase(this.actualizarCreditoFormData.get('id'));
             },
             (error) => {
                 this.cargando = false;
@@ -252,21 +253,21 @@ export class EmpleadosComponent implements OnInit, AfterViewInit {
         this.actualizarCreditoFormData.delete('estado');
         this.actualizarCreditoFormData.append('estado', estado);
         this._solicitudCreditosService.actualizarSolictudesCreditos(this.actualizarCreditoFormData).subscribe((info) => {
-              this.cargando = false;
-              this.obtenerSolicitudesCreditos();
-              this._solicitudCreditosService.deleteDocumentFirebase(this.actualizarCreditoFormData.get('id'));
-              if (estado === 'Negado') {
-                  this.pantalla = 0;
-              } else {
-                  this.pantalla = 3;
-              }
-          },
-          (error) => {
-              this.cargando = false;
-              if (estado === 'Negado') {
-                  this.pantalla = 0;
-              }
-          });
+                this.cargando = false;
+                this.obtenerSolicitudesCreditos();
+                this._solicitudCreditosService.deleteDocumentFirebase(this.actualizarCreditoFormData.get('id'));
+                if (estado === 'Negado') {
+                    this.pantalla = 0;
+                } else {
+                    this.pantalla = 3;
+                }
+            },
+            (error) => {
+                this.cargando = false;
+                if (estado === 'Negado') {
+                    this.pantalla = 0;
+                }
+            });
     }
 
 }
