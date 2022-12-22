@@ -93,13 +93,13 @@
 
 
                         <td class="d-flex">
-                            <!--                            <a *ngIf="credito.estado == 'Nuevo'" href="javascript:void(0)" class="avatar bg-info mr-1" data-target="#gestionar"-->
-                            <!--                               data-toggle="modal" (click)="toggleSidebar('actualizar-credito',credito._id)">-->
-                            <!--                                <div class="avatar-content" data-toggle="tooltip" data-placement="bottom"-->
-                            <!--                                     title="" data-original-title="Aprobar/Rechazar">-->
-                            <!--                                    <i data-feather='check-circle'></i>-->
-                            <!--                                </div>-->
-                            <!--                            </a>-->
+                            <a *ngIf="credito.estado == 'Nuevo'" href="javascript:void(0)" class="avatar bg-info mr-1" data-target="#gestionar"
+                               data-toggle="modal" (click)="verDocumentos(credito)">
+                                <div class="avatar-content" data-toggle="tooltip" data-placement="bottom"
+                                     title="" data-original-title="Aprobar/Rechazar">
+                                    <i data-feather='check-circle'></i>
+                                </div>
+                            </a>
                             <!--                            <a *ngIf="credito.estado == 'Datos completos'" href="javascript:void(0)" class="avatar bg-info mr-1" data-target="#gestionar"-->
                             <!--                               data-toggle="modal" (click)="checks(checksCreditoMdl, credito._id)">-->
                             <!--                                <div class="avatar-content" data-toggle="tooltip" data-placement="bottom"-->
