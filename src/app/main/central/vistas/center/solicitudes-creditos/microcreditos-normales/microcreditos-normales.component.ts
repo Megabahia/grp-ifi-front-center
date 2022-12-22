@@ -157,7 +157,7 @@ export class MicrocreditosNormalesComponent implements OnInit, AfterViewInit {
     }
 
     viewDataUser(modal, empresa) {
-        const infoEmpresa = JSON.parse(empresa);
+        const infoEmpresa = empresa;
         this.empresa = infoEmpresa;
         console.log('infoEmpresa', infoEmpresa);
         this.declareFormularios();
@@ -201,7 +201,7 @@ export class MicrocreditosNormalesComponent implements OnInit, AfterViewInit {
                 codigoClienteCreado: [this.credito.codigoClienteCreado ? this.credito.codigoClienteCreado : '', [Validators.required]], //
                 codigoCuentaCreada: [this.credito.codigoCuentaCreada ? this.credito.codigoCuentaCreada : '', [Validators.required]], //
                 buroCreditoIfis: ['', [Validators.required]], //
-                calificacionBuroIfis: [this.credito.calificacionBuroIfis ? this.credito.calificacionBuroIfis : '', [Validators.required]], //
+                calificacionBuroIfis: [this.credito.calificacionBuroIfis ? this.credito.calificacionBuroIfis : '', [Validators.required]],
                 calificacionBuro: [this.credito.calificacionBuro ? this.credito.calificacionBuro : '', [Validators.required]], //
                 // fotoCarnet: ['', [Validators.required]], //
                 // papeletaVotacion: ['', [Validators.required]], //
