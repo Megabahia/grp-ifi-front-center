@@ -45,6 +45,7 @@ import { NegocioPropioPreaprovaodsComponent } from './vistas/center/solicitudes-
 import { EmpleadosPreaprovaodsComponent } from './vistas/center/solicitudes-creditos/empleados-preaprovaods/empleados-preaprovaods.component';
 import { MicrocreditosPreAprovadosComponent } from './vistas/center/solicitudes-creditos/microcreditos-pre-aprovados/microcreditos-pre-aprovados.component';
 import { MicrocreditosNormalesComponent } from './vistas/center/solicitudes-creditos/microcreditos-normales/microcreditos-normales.component';
+import { SolicitudesPagoProveedoresComponent } from './vistas/center/solicitudes-pago-proveedores/solicitudes-pago-proveedores.component';
 
 const routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -149,6 +150,9 @@ const routes = [
         ]
       },
       {
+        path: 'solicitud-pago-proveedores', component: SolicitudesPagoProveedoresComponent, canActivate: [AuthGuard]
+      },
+      {
         path: 'consumosCreditos', component: ConsumoCreditosComponent, canActivate: [AuthGuard]
       },
       {
@@ -189,6 +193,7 @@ const routes = [
     EmpleadosPreaprovaodsComponent,
     MicrocreditosPreAprovadosComponent,
     MicrocreditosNormalesComponent,
+    SolicitudesPagoProveedoresComponent,
   ],
   imports: [
     CoreCommonModule,

@@ -207,6 +207,15 @@ export const menu: CoreMenu[] = [
       },
       {
         id: 'consumoCreditos',
+        title: 'Solicitudes de Pago a proveedores',
+        // translate: 'MENU.HOME',
+        // role: [Role.SuperMonedas],
+        type: 'item',
+        icon: 'package',
+        url: 'central/center/solicitud-pago-proveedores',
+      },
+      {
+        id: 'consumoCreditos',
         title: 'Consumos de créditos',
         // translate: 'MENU.HOME',
         // role: [Role.SuperMonedas],
