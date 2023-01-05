@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {NgbPagination} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, NgbPagination} from '@ng-bootstrap/ng-bootstrap';
 import {DatePipe} from '@angular/common';
 import {CoreMenuService} from '../../../../../../@core/components/core-menu/core-menu.service';
 import {Subject} from 'rxjs';
@@ -13,6 +13,7 @@ import {PagoProveedoresService} from './pago-proveedores.service';
 })
 export class SolicitudesPagoProveedoresComponent implements OnInit, AfterViewInit {
   @ViewChild(NgbPagination) paginator: NgbPagination;
+  @ViewChild('negarMdl') negarMdl;
 
   // public
   public page = 1;
@@ -23,11 +24,14 @@ export class SolicitudesPagoProveedoresComponent implements OnInit, AfterViewIni
   public listaCreditos;
   private _unsubscribeAll: Subject<any>;
   public usuario;
+  public observacion = '';
+  public idPagoProveedor = '';
 
   constructor(
     private _pagoProveedoresService: PagoProveedoresService,
     private datePipe: DatePipe,
     private _coreMenuService: CoreMenuService,
+    private _modalService: NgbModal,
   ) {
     this._unsubscribeAll = new Subject();
     this.usuario = this._coreMenuService.grpSanjoseCenterUser;
@@ -55,7 +59,34 @@ export class SolicitudesPagoProveedoresComponent implements OnInit, AfterViewIni
       });
   }
 
+  seguroNegarModal(id) {
+    this.idPagoProveedor = id;
+    this.observacion = '';
+    this.abrirModal(this.negarMdl);
+  }
+
+  enviarNegar() {
+    this._pagoProveedoresService.actualizarSolicitudesPagoProveedores({_id: this.idPagoProveedor, estado: 'Negado', observacion: this.observacion})
+        .subscribe((info) => {
+          this.obtenerSolicitudesCreditos();
+        });
+  }
+
+  enviarProcesar(id) {
+    this._pagoProveedoresService.actualizarSolicitudesPagoProveedores({_id: id, estado: 'Procesar'})
+        .subscribe((info) => {
+          this.obtenerSolicitudesCreditos();
+        });
+  }
+
   transformarFecha(fecha) {
     return this.datePipe.transform(fecha, 'yyyy-MM-dd');
+  }
+  transformarObjecto(usuario, atributo) {
+    return JSON.parse(usuario)[atributo];
+  }
+
+  abrirModal(modal) {
+    this._modalService.open(modal)
   }
 }
