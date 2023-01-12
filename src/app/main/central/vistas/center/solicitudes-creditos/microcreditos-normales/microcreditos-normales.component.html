@@ -216,15 +216,15 @@
                     <div class="form-group">
                         <label>Dirección del negocio o empresa :
                         </label>
-                        <input type="text" formControlName="direccionEmpresa"
+                        <input type="text" formControlName="direccionDomiciolRepresentante"
                                class="form-control"
                                value=""
                                disabled>
                     </div>
-                    <div *ngIf="submitted && controlsFrom.direccionEmpresa.errors"
+                    <div *ngIf="submitted && controlsFrom.direccionDomiciolRepresentante.errors"
                          class="invalid-feedback"
                          style="display: block;">
-                        <div *ngIf="controlsFrom.direccionEmpresa.errors.required">Dirección
+                        <div *ngIf="controlsFrom.direccionDomiciolRepresentante.errors.required">Dirección
                             es
                             requerido
                         </div>
@@ -239,14 +239,14 @@
                             escribir: por ejemplo, barrio San Miguel. Frente a la tienda Mi
                             Vecino):
                         </label>
-                        <input type="text" formControlName="referenciaDomicilio"
+                        <input type="text" formControlName="refenciaNegocio"
                                class="form-control"
                                value="" disabled>
                     </div>
-                    <div *ngIf="submitted && controlsFrom.referenciaDomicilio.errors"
+                    <div *ngIf="submitted && controlsFrom.refenciaNegocio.errors"
                          class="invalid-feedback"
                          style="display: block;">
-                        <div *ngIf="controlsFrom.referenciaDomicilio.errors.required">
+                        <div *ngIf="controlsFrom.refenciaNegocio.errors.required">
                             Referencia es
                             requerido
                         </div>
@@ -261,7 +261,7 @@
                                 class="form-control select2" formControlName="esatdo_civil" disabled
                         >
                             <option value="">- Seleccione -</option>
-                            <option value="Soltero">- Soltero -</option>
+                            <option value="Solter@">- Soltero -</option>
                             <option value="Casado">- Casado -</option>
                             <option value="Divorciado">- Divorciado -</option>
                         </select>
@@ -387,7 +387,7 @@
                 <ng-container
                         *ngFor="let familiar of formSolicitud.get('familiares')['controls']; let i = index">
                     <h5>
-                        Familair {{i + 1}}:
+                        Familair {{i + 1}} {{familiar['controls']?.tipoPariente.value}}:
                     </h5>
                     <div [formGroup]="familiar">
                         <div class="row">
@@ -950,7 +950,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="buroCreditoIfis">Cargar Buró</label>
+                <label for="buroCreditoIfis">Cargar Buró Institución Financiera</label>
                 <div class="custom-file">
                     <input type="file" class="custom-file-input" id="buroCreditoIfis"
                            formControlName="buroCreditoIfis"
@@ -960,7 +960,7 @@
                            for="buroCreditoIfis">{{actualizarCreditoForm.get('buroCreditoIfis').value}}</label>
                     <div *ngIf="submitted && controlsFrom.buroCreditoIfis.errors" class="invalid-feedback"
                          style="display: block;">
-                        <div *ngIf="controlsFrom.buroCreditoIfis.errors.required">Cargar Buró es requerido
+                        <div *ngIf="controlsFrom.buroCreditoIfis.errors.required">Buró Institución Financiera es requerido
                         </div>
                     </div>
                 </div>
@@ -986,7 +986,6 @@
                     <input type="number" class="form-control" id="calificacionBuroIfis"
                            formControlName="calificacionBuroIfis"
                            value="{{actualizarCreditoForm.get('calificacionBuroIfis').value}}"
-                           disabled
                     />
                     <div *ngIf="submitted && controlsFrom.calificacionBuroIfis.errors" class="invalid-feedback"
                          style="display: block;">
@@ -1035,6 +1034,7 @@
                 <div class="custom-file">
                     <input type="number" class="form-control" id="calificacionBuro"
                            formControlName="calificacionBuro"
+                           disabled
                     />
 
                     <div *ngIf="submitted && controlsFrom.calificacionBuro.errors"
@@ -1061,11 +1061,14 @@
     </form>
 
     <div class="mt-2">
-        <button class="btn btn-primary mr-1" (click)="actualizarSolicitudCredito('Aprobado')"
+        <button class="btn btn-primary mr-1" (click)="abrirModalMotivo(modalMotivo, 'Aprobado')"
                 [disabled]="cargando">Aprobado
         </button>
-        <button class="btn btn-primary mr-1" (click)="actualizarSolicitudCreditoNegado('Negado')"
-                [disabled]="cargando">Negado
+        <button class="btn btn-primary mr-1" (click)="abrirModalMotivo(modalMotivo, 'Informacion pendiente')"
+                [disabled]="cargando">Completar información
+        </button>
+        <button class="btn btn-primary mr-1" (click)="abrirModalMotivo(modalMotivo, 'Negado')"
+                [disabled]="cargando">Negar la Solicitud de Crédito al Cliente
         </button>
         <button class="btn btn-outline-secondary"
                 (click)="cancelar()"
@@ -1076,4 +1079,35 @@
 <app-valores-proceso *ngIf="pantalla === 3" (pantalla)="cambiarEstado($event)"
                      [credito]="credito"></app-valores-proceso>
 <app-resumen *ngIf="pantalla === 4" (pantalla)="cambiarEstado($event)" [credito]="credito"></app-resumen>
+
+<!-- INICIO MODAL USER -->
+<ng-template #modalMotivo let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="motivoM">Solicitud</h4>
+        <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div style="padding: 20px 20px 20px 20px;">
+        <div class="row">
+            <div class="form-group col-md-4">
+                <label class="form-label" for="vertical-modern-username">Motivo:</label>
+                <input type="text" id="vertical-modern-username" class="form-control"
+                       [(ngModel)]="motivo"/>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="actualizarSolicitudCredito(estadoCredito)" rippleEffect>
+            Aceptar
+        </button>
+        <button type="button" class="btn btn-primary" (click)="modal.close('Accept click')" rippleEffect>
+            Cerrar
+        </button>
+    </div>
+</ng-template>
+<!-- FIN MODAL USER-->
 

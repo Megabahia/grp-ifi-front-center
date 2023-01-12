@@ -62,6 +62,8 @@ export class MicrocreditosNormalesComponent implements OnInit, AfterViewInit {
     public submitted = false;
     public cargando = false;
     public actualizarCreditoFormData;
+    public estadoCredito: string;
+    public motivo: string;
 
     constructor(
         private _solicitudCreditosService: SolicitudesCreditosService,
@@ -86,6 +88,7 @@ export class MicrocreditosNormalesComponent implements OnInit, AfterViewInit {
                 direccionDomiciolRepresentante: ['', [Validators.required]], //
                 direccionEmpresa: ['', [Validators.required]], //
                 referenciaDomicilio: ['', [Validators.required]], //
+                refenciaNegocio: ['', [Validators.required]], //
                 esatdo_civil: ['', [Validators.required]], //
                 correo: ['', [Validators.required]], //
                 telefono: ['', [Validators.required]], //
@@ -132,6 +135,20 @@ export class MicrocreditosNormalesComponent implements OnInit, AfterViewInit {
         );
     }
 
+    abrirModalMotivo(modalMotivo, estadoCredito) {
+      this.motivo = '';
+      this.estadoCredito = estadoCredito;
+        this.modalService.open(modalMotivo, {
+                centered: true,
+                size: 'lg' // size: 'xs' | 'sm' | 'lg' | 'xl'
+            }
+        );
+    }
+
+    cerrarModal() {
+      this.modalService.dismissAll();
+    }
+
     obtenerSolicitudesCreditos() {
         this._solicitudCreditosService.obtenerSolicitudesCreditos({
             page_size: this.page_size,
@@ -163,7 +180,7 @@ export class MicrocreditosNormalesComponent implements OnInit, AfterViewInit {
         this.declareFormularios();
         this.declareFormConyuge();
         this.modalOpenSLC(modal);
-        this.casado = infoEmpresa.esatdo_civil ? true : false;
+        this.casado = infoEmpresa.esatdo_civil === 'Casado' ? true : false;
         infoEmpresa?.familiares.forEach(item => this.agregarFamiliar());
         this.formSolicitud.patchValue({...infoEmpresa});
         // this.formConyuge.patchValue({...infoEmpresa.conyuge});
@@ -182,6 +199,7 @@ export class MicrocreditosNormalesComponent implements OnInit, AfterViewInit {
             apellidoFamiliar: [''], //
             telefonoFamiliar: [''], //
             direccionFamiliar: [''],
+            tipoPariente: [''],
         });
         this.familiares.push(cuentaForm);
     }
@@ -318,10 +336,13 @@ export class MicrocreditosNormalesComponent implements OnInit, AfterViewInit {
         this.cargando = true;
         this.actualizarCreditoFormData.delete('estado');
         this.actualizarCreditoFormData.append('estado', estado);
+        this.actualizarCreditoFormData.delete('motivo');
+        this.actualizarCreditoFormData.append('motivo', this.motivo);
         this.actualizarCreditoFormData.delete('checks');
         this.actualizarCreditoFormData.append('checks', JSON.stringify(this.checks));
         console.log('this.actualizarCreditoFormData', this.actualizarCreditoFormData);
         this._solicitudCreditosService.actualizarSolictudesCreditos(this.actualizarCreditoFormData).subscribe((info) => {
+                this.cerrarModal();
                 this.cargando = false;
                 if (estado === 'Negado') {
                     this.pantalla = 0;
