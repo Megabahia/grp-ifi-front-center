@@ -54,30 +54,29 @@
 
                         <tr *ngFor="let credito of listaCreditos">
                             <td>{{credito.nombreProveedor}}</td>
-                            <td>{{transformarObjecto(credito.usuario,'email')}}</td>
-                            <td>{{transformarObjecto(credito.usuario,'nombres')}}</td>
-                            <td>{{transformarObjecto(credito.usuario,'apellidos')}}</td>
+                            <td>{{transformarObjecto(credito.usuario, 'email')}}</td>
+                            <td>{{transformarObjecto(credito.usuario, 'nombres')}}</td>
+                            <td>{{transformarObjecto(credito.usuario, 'apellidos')}}</td>
                             <td>{{credito.nombreProveedor}}</td>
                             <td>{{credito.valorPagar}}</td>
-                            <td><a [href]="credito.factura" >Enlace</a></td>
-                            <td><a [href]="credito.archivoFirmado" >Enlace</a></td>
+                            <td><a [href]="credito.factura" target="_blank">Enlace</a></td>
+                            <td><a [href]="credito.archivoFirmado" target="_blank">Enlace</a></td>
                             <td>{{credito.estado}}</td>
                             <td>
-                                <a href="javascript:void(0);" data-toggle="modal" data-target="#modals-slide-in" (click)="seguroNegarModal(credito._id)">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-50">
-                                        <polyline points="21 8 21 21 3 21 3 8"></polyline>
-                                        <rect x="1" y="3" width="22" height="5"></rect>
-                                        <line x1="10" y1="12" x2="14" y2="12"></line>
+                                <a href="javascript:void(0);" data-toggle="modal" data-target="#modals-slide-in"
+                                   (click)="seguroNegarModal(credito._id)" alt="Negar">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                         stroke-linejoin="round" class="feather feather-minus-circle">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <line x1="8" y1="12" x2="16" y2="12"></line>
                                     </svg>
                                 </a>
-                                <a href="javascript:void(0);" (click)="enviarProcesar(credito._id)">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-50">
-                                        <polyline points="3 6 5 6 21 6"></polyline>
-                                        <path
-                                                d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
-                                        </path>
-                                        <line x1="10" y1="11" x2="10" y2="17"></line>
-                                        <line x1="14" y1="11" x2="14" y2="17"></line>
+                                <a href="javascript:void(0);" (click)="procesarPago(credito)" alt="Procesar">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                         stroke-linejoin="round" class="feather feather-check">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
                                     </svg>
                                 </a>
                             </td>
@@ -108,6 +107,87 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-primary" (click)="enviarNegar()">Negar</button>
+        <button type="button" class="btn btn-light" (click)="modal.dismiss( 'Cross click')">Cancelar</button>
+    </div>
+</ng-template>
+
+<ng-template #procesarMdl let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Procesar</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss( 'Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form class="form form-horizontal mt-3">
+            <div class="form-group row">
+                <div class="col-sm-2 col-form-label">
+                    <label>Nombre banco destino:</label>
+                </div>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" value="{{solicitudPago.banco}}" disabled/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-2 col-form-label">
+                    <label>Numero de cuenta proveedor:</label>
+                </div>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" value="{{solicitudPago.numeroCuenta}}" disabled/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-2 col-form-label">
+                    <label>Monto:</label>
+                </div>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" value="{{solicitudPago.valorPagar}}" disabled/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-2 col-form-label">
+                    <label>Numero transacción:</label>
+                </div>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" value="{{solicitudPago._id}}" disabled/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-2 col-form-label">
+                    <label>Numero de autorización:</label>
+                </div>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" value="{{solicitudPago._id}}" disabled/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-2 col-form-label">
+                    <label>Fecha:</label>
+                </div>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" value="{{fechaActual()}}" disabled/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-2 col-form-label">
+                    <label>Email:</label>
+                </div>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" value="{{getUsuario(solicitudPago, 'email')}}" disabled/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-2 col-form-label">
+                    <label>Nombre completo:</label>
+                </div>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" value="{{getUsuario(solicitudPago, 'nombresCompleto')}}" disabled/>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="enviarProcesar()">Procesar</button>
         <button type="button" class="btn btn-light" (click)="modal.dismiss( 'Cross click')">Cancelar</button>
     </div>
 </ng-template>

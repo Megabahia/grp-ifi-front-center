@@ -14,6 +14,7 @@ import {PagoProveedoresService} from './pago-proveedores.service';
 export class SolicitudesPagoProveedoresComponent implements OnInit, AfterViewInit {
   @ViewChild(NgbPagination) paginator: NgbPagination;
   @ViewChild('negarMdl') negarMdl;
+  @ViewChild('procesarMdl') procesarMdl;
 
   // public
   public page = 1;
@@ -26,6 +27,7 @@ export class SolicitudesPagoProveedoresComponent implements OnInit, AfterViewIni
   public usuario;
   public observacion = '';
   public idPagoProveedor = '';
+  private solicitudPago;
 
   constructor(
     private _pagoProveedoresService: PagoProveedoresService,
@@ -66,27 +68,51 @@ export class SolicitudesPagoProveedoresComponent implements OnInit, AfterViewIni
   }
 
   enviarNegar() {
-    this._pagoProveedoresService.actualizarSolicitudesPagoProveedores({_id: this.idPagoProveedor, estado: 'Negado', observacion: this.observacion})
-        .subscribe((info) => {
-          this.obtenerSolicitudesCreditos();
-        });
+    this._pagoProveedoresService.actualizarSolicitudesPagoProveedores({
+      _id: this.idPagoProveedor,
+      estado: 'Negado',
+      observacion: this.observacion
+    })
+      .subscribe((info) => {
+        this.obtenerSolicitudesCreditos();
+      });
   }
 
-  enviarProcesar(id) {
-    this._pagoProveedoresService.actualizarSolicitudesPagoProveedores({_id: id, estado: 'Procesar'})
-        .subscribe((info) => {
-          this.obtenerSolicitudesCreditos();
-        });
+  enviarProcesar() {
+    this._pagoProveedoresService.actualizarSolicitudesPagoProveedores({
+      _id: this.idPagoProveedor,
+      estado: 'Procesar',
+      fechaFirma: this.fechaActual()
+    })
+      .subscribe((info) => {
+        this._modalService.dismissAll();
+        this.obtenerSolicitudesCreditos();
+      });
+  }
+
+  getUsuario(usuario, atributo) {
+    return JSON.parse(usuario.usuario)?.[atributo];
+  }
+
+  fechaActual() {
+    return this.datePipe.transform(new Date(), 'yyyy-MM-dd hh:mm:ss');
+  }
+
+  procesarPago(pago) {
+    this.idPagoProveedor = pago._id;
+    this.solicitudPago = pago;
+    this.abrirModal(this.procesarMdl);
   }
 
   transformarFecha(fecha) {
     return this.datePipe.transform(fecha, 'yyyy-MM-dd');
   }
+
   transformarObjecto(usuario, atributo) {
     return JSON.parse(usuario)[atributo];
   }
 
   abrirModal(modal) {
-    this._modalService.open(modal)
+    this._modalService.open(modal);
   }
 }
