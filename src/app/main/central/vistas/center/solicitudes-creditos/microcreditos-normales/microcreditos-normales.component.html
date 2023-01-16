@@ -63,6 +63,7 @@
                         <th>Estado</th>
                         <th>Solicitud de crédito</th>
                         <th>Observaciones</th>
+                        <th>Documentos habilitantes</th>
                         <th>Acciones</th>
                     </tr>
                     </thead>
@@ -72,7 +73,7 @@
                         <td>{{credito.empresaInfo.comercial}}</td>
                         <td>{{credito.empresaInfo.rucEmpresa}}</td>
                         <td>
-                            <button type="button" class="btn btn-outline-primary"
+                            <button *ngIf="credito.estado !== 'Negado' || credito.estado !== 'Aprobado'" type="button" class="btn btn-outline-primary"
                                     rippleEffect
                                     (click)="verDocumentos(credito)">Ver
                             </button>
@@ -88,6 +89,14 @@
                             </button>
                         </td>
                         <td>{{credito.observacion}}</td>
+                        <td *ngIf="credito.estado === 'Aprobado'">
+                            <a href="{{credito.solicitudCredito}}" target="_blank">Solicitud credito</a>
+                            <a href="{{credito.pagare}}" target="_blank">Pagaré</a>
+                            <a href="{{credito.contratosCuenta}}" target="_blank">Contratos cuenta</a>
+                            <a href="{{credito.tablaAmortizacion}}" target="_blank">Tabla amortización</a>
+                        </td>
+                        <td *ngIf="credito.estado !== 'Aprobado'">
+                        </td>
 
 
                         <td class="d-flex">
@@ -1064,7 +1073,7 @@
         <button class="btn btn-primary mr-1" (click)="abrirModalMotivo(modalMotivo, 'Aprobado')"
                 [disabled]="cargando">Aprobado
         </button>
-        <button class="btn btn-primary mr-1" (click)="abrirModalMotivo(modalMotivo, 'Informacion pendiente')"
+        <button class="btn btn-primary mr-1" (click)="abrirModalMotivo(modalMotivo, 'Por Completar')"
                 [disabled]="cargando">Completar información
         </button>
         <button class="btn btn-primary mr-1" (click)="abrirModalMotivo(modalMotivo, 'Negado')"

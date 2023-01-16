@@ -280,9 +280,11 @@ export class MicrocreditosNormalesComponent implements OnInit, AfterViewInit {
     actualizarSolicitudCredito(estado?: string) {
         console.log('llega---', this.actualizarCreditoForm);
         this.submitted = true;
-        if (this.actualizarCreditoForm.invalid) {
-            console.log(' no valido form');
-            return;
+        if (this.estadoCredito !== 'Por Completar' && this.estadoCredito !== 'Negado') {
+          if (this.actualizarCreditoForm.invalid) {
+              console.log(' no valido form');
+              return;
+          }
         }
         console.log('');
         const {
@@ -344,7 +346,7 @@ export class MicrocreditosNormalesComponent implements OnInit, AfterViewInit {
         this._solicitudCreditosService.actualizarSolictudesCreditos(this.actualizarCreditoFormData).subscribe((info) => {
                 this.cerrarModal();
                 this.cargando = false;
-                if (estado === 'Negado') {
+                if (estado === 'Negado' || estado === 'Por Completar') {
                     this.pantalla = 0;
                 } else {
                     this.pantalla = 3;
