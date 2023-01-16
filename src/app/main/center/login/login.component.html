@@ -66,6 +66,17 @@
               [ngClass]="{ 'd-block': submitted && f.password.errors }">
               <div *ngIf="f.password.errors.required">Contraseña es requerida</div>
             </div>
+            <div class="form-group">
+              <div class="d-flex justify-content-center">
+                <ngx-recaptcha2 [(ngModel)]="captcha" [ngModelOptions]="{standalone: true}" [siteKey]=" siteKey"
+                                (success)="captchaValidado($event) ">
+                </ngx-recaptcha2>
+
+              </div>
+              <div *ngIf="submitted && !captcha" style="display: block;" class="invalid-feedback">
+                <div>Captcha requerido</div>
+              </div>
+            </div>
           </div>
           <div class="form-group">
             <div class="custom-control custom-checkbox">

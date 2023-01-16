@@ -27,6 +27,8 @@ export class ReseteoPasswordComponent implements OnInit {
   public email;
   // Private
   private _unsubscribeAll: Subject<any>;
+  public captcha: boolean;
+  public siteKey: string;
 
   /**
    * Constructor
@@ -42,6 +44,7 @@ export class ReseteoPasswordComponent implements OnInit {
     private _reseteoPasswordService: ReseteoPasswordService,
     private _activatedRoute: ActivatedRoute
   ) {
+    this.siteKey = '6LfO5vYjAAAAACAmaBylqU676NuFuyfER8sMrzid';
     this._unsubscribeAll = new Subject();
 
     // Configure the layout
@@ -105,7 +108,7 @@ export class ReseteoPasswordComponent implements OnInit {
     this.submitted = true;
 
     // stop here if form is invalid
-    if (this.forgotPasswordForm.invalid || !this.passwordSimilar) {
+    if (this.forgotPasswordForm.invalid || !this.passwordSimilar  || !this.captcha) {
       return;
     }
     this._reseteoPasswordService.resetearPassword(
@@ -137,4 +140,9 @@ export class ReseteoPasswordComponent implements OnInit {
     this._unsubscribeAll.next();
     this._unsubscribeAll.complete();
   }
+
+  captchaValidado(evento) {
+    this.captcha = true;
+  }
+
 }

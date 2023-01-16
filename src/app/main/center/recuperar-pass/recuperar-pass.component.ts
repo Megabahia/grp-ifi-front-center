@@ -21,6 +21,8 @@ export class RecuperarPassComponent implements OnInit {
   public error;
   // Private
   private _unsubscribeAll: Subject<any>;
+  public captcha: boolean;
+  public siteKey: string;
 
   /**
    * Constructor
@@ -34,6 +36,7 @@ export class RecuperarPassComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private _router: Router,
     private _recuperarPassService: RecuperarPassService) {
+    this.siteKey = '6LfO5vYjAAAAACAmaBylqU676NuFuyfER8sMrzid';
     this._unsubscribeAll = new Subject();
 
     // Configure the layout
@@ -83,7 +86,7 @@ export class RecuperarPassComponent implements OnInit {
     this.submitted = true;
 
     // stop here if form is invalid
-    if (this.forgotPasswordForm.invalid) {
+    if (this.forgotPasswordForm.invalid || !this.captcha) {
       return;
     }
     this._recuperarPassService.recuperarPassword(this.f.email.value).subscribe((info) => {
@@ -101,6 +104,10 @@ export class RecuperarPassComponent implements OnInit {
     // Unsubscribe from all subscriptions
     this._unsubscribeAll.next();
     this._unsubscribeAll.complete();
+  }
+
+  captchaValidado(evento) {
+    this.captcha = true;
   }
 
 }
