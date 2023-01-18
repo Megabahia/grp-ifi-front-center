@@ -104,28 +104,29 @@
                             <div>Captcha requerido</div>
                         </div>
                     </div>
-            </div>
-            <div class="form-group">
-                <div class="custom-control custom-checkbox">
-                    <input class="custom-control-input" id="remember-me" formControlName="terminos" type="checkbox"
-                           tabindex="3"/>
-                    <label class="custom-control-label" for="remember-me"><span>Aceptar</span><a class="text-primary"
-                                                                                                 routerLink="/grp/login"><span>&nbsp;términos y condiciones</span></a></label>
-                    <div *ngIf="submitted && f.terminos.errors" class="invalid-feedback"
-                         [ngClass]="{ 'd-block': submitted && f.terminos.errors }">
-                        <div *ngIf="f.terminos.errors">Acepte los términos y condiciones para continuar</div>
+                    <div class="form-group">
+                        <div class="custom-control custom-checkbox">
+                            <input class="custom-control-input" id="remember-me" formControlName="terminos"
+                                   type="checkbox"
+                                   tabindex="3"/>
+                            <label class="custom-control-label" for="remember-me"><span>Aceptar</span><a
+                                    class="text-primary"
+                                    routerLink="/grp/login"><span>&nbsp;términos y condiciones</span></a></label>
+                            <div *ngIf="submitted && f.terminos.errors" class="invalid-feedback"
+                                 [ngClass]="{ 'd-block': submitted && f.terminos.errors }">
+                                <div *ngIf="f.terminos.errors">Acepte los términos y condiciones para continuar</div>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                    <button [disabled]="loading" class="btn btn-primary btn-block" tabindex="4" rippleEffect>
+                        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>Registrarme
+                    </button>
+                </form>
+                <p class="text-center mt-2">
+                    <span>¿Ya tienes una cuenta?</span><a class="text-primary" routerLink="/grp/login"><span>&nbsp;Inicia sesión</span></a>
+                </p>
             </div>
-            <button [disabled]="loading" class="btn btn-primary btn-block" tabindex="4" rippleEffect>
-                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>Registrarme
-            </button>
-            </form>
-            <p class="text-center mt-2">
-                <span>¿Ya tienes una cuenta?</span><a class="text-primary" routerLink="/grp/login"><span>&nbsp;Inicia sesión</span></a>
-            </p>
         </div>
+        <!-- /Login-->
     </div>
-    <!-- /Login-->
-</div>
 </div>
