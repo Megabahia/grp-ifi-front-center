@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { CoreConfigService } from '@core/services/config.service';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { RegistroService } from './registro.service';
-import { Role } from '../../../auth/models/role';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
+import {CoreConfigService} from '@core/services/config.service';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
+import {RegistroService} from './registro.service';
+import {Role} from '../../../auth/models/role';
 
 
 @Component({
@@ -27,6 +27,8 @@ export class RegistroComponent implements OnInit {
 
   // Private
   private _unsubscribeAll: Subject<any>;
+  public captcha: boolean;
+  public siteKey: string;
 
   /**
    * Constructor
@@ -35,12 +37,12 @@ export class RegistroComponent implements OnInit {
    */
   constructor(
     private _coreConfigService: CoreConfigService,
-    private _registroService:RegistroService,
+    private _registroService: RegistroService,
     private _formBuilder: FormBuilder,
     private _route: ActivatedRoute,
     private _router: Router
-    
   ) {
+    this.siteKey = '6LfO5vYjAAAAACAmaBylqU676NuFuyfER8sMrzid';
     this._unsubscribeAll = new Subject();
 
     // Configure the layout
@@ -72,6 +74,7 @@ export class RegistroComponent implements OnInit {
   togglePasswordTextType() {
     this.passwordTextType = !this.passwordTextType;
   }
+
   toggleConfirmPasswordTextType() {
     this.confirmPasswordTextType = !this.confirmPasswordTextType;
   }
@@ -80,33 +83,33 @@ export class RegistroComponent implements OnInit {
     this.submitted = true;
 
     // stop here if form is invalid
-    if (this.registerForm.invalid || !this.passwordSimilar) {
+    if (this.registerForm.invalid || !this.passwordSimilar || !this.captcha) {
       return;
     }
 
     // Login
-    
+
     this._registroService.registrarUsuario(
       {
         password: this.f.password.value,
-        roles:Role.SuperMonedas,
+        roles: Role.SuperMonedas,
         email: this.f.correo.value,
         estado: 1
       }
     ).subscribe((info) => {
-      this.error = null;
-      this.loading = true;
-      localStorage.setItem('grpSanjoseCenterUser', JSON.stringify(info));
-      setTimeout(() => {
-        window.location.href = '/';
-      }, 1000);
-    },
+        this.error = null;
+        this.loading = true;
+        localStorage.setItem('grpSanjoseCenterUser', JSON.stringify(info));
+        setTimeout(() => {
+          window.location.href = '/';
+        }, 1000);
+      },
       (error) => {
         console.log(error);
         // this.error = error.error.password;
       });
     // redirect to home page
-    
+
   }
 
   // Lifecycle Hooks
@@ -120,7 +123,7 @@ export class RegistroComponent implements OnInit {
       correo: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
       confirmPassword: ['', [Validators.required]],
-      terminos: [false,[Validators.requiredTrue]]
+      terminos: [false, [Validators.requiredTrue]]
     });
 
     // get return url from route parameters or default to '/'
@@ -132,10 +135,10 @@ export class RegistroComponent implements OnInit {
     });
   }
 
-  compararPassword(){
-    if(this.f.password.value==this.f.confirmPassword.value){
+  compararPassword() {
+    if (this.f.password.value == this.f.confirmPassword.value) {
       this.passwordSimilar = true;
-    }else{
+    } else {
       this.passwordSimilar = false;
     }
   }
@@ -149,4 +152,7 @@ export class RegistroComponent implements OnInit {
     this._unsubscribeAll.complete();
   }
 
+  captchaValidado(evento) {
+    this.captcha = true;
+  }
 }
