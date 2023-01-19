@@ -136,6 +136,12 @@ export class MicrocreditosNormalesComponent implements OnInit, AfterViewInit {
     }
 
     abrirModalMotivo(modalMotivo, estadoCredito) {
+      if (estadoCredito === 'Aprobado') {
+        this.submitted = true;
+        if (this.formSolicitud.invalid) {
+          return;
+        }
+      }
       this.motivo = '';
       this.estadoCredito = estadoCredito;
         this.modalService.open(modalMotivo, {
@@ -340,8 +346,10 @@ export class MicrocreditosNormalesComponent implements OnInit, AfterViewInit {
         this.actualizarCreditoFormData.append('estado', estado);
         this.actualizarCreditoFormData.delete('motivo');
         this.actualizarCreditoFormData.append('motivo', this.motivo);
-        this.actualizarCreditoFormData.delete('checks');
-        this.actualizarCreditoFormData.append('checks', JSON.stringify(this.checks));
+        if (estado !== 'Por Completar') {
+          this.actualizarCreditoFormData.delete('checks');
+          this.actualizarCreditoFormData.append('checks', JSON.stringify(this.checks));
+        }
         console.log('this.actualizarCreditoFormData', this.actualizarCreditoFormData);
         this._solicitudCreditosService.actualizarSolictudesCreditos(this.actualizarCreditoFormData).subscribe((info) => {
                 this.cerrarModal();
@@ -390,4 +398,10 @@ export class MicrocreditosNormalesComponent implements OnInit, AfterViewInit {
             });
     }
 
+  consumirAWS() {
+    this._solicitudCreditosService.actualizarAWS().subscribe((info) => {
+      console.log(info);
+      this.obtenerSolicitudesCreditos();
+    });
+  }
 }

@@ -24,14 +24,14 @@
                 <div class="profile-header-nav">
                     <!-- navbar -->
                     <nav class="navbar navbar-expand-md navbar-light justify-content-end justify-content-md-between w-100">
-                        <button class="btn btn-icon navbar-toggler" type="button" data-toggle="collapse"
-                                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                                aria-expanded="false" aria-label="Toggle navigation">
-                            <i data-feather="align-justify" class="font-medium-5"></i>
-                        </button>
+                        <div class="col-2">
+                            <button class="form-control " (click)="consumirAWS()">
+                                Actualizar
+                            </button>
+                        </div>
 
                         <!--/ collapse  -->
-                        <div class="col-12" style="text-align: right">
+                        <div class="col-10" style="text-align: right">
                             <label>Mostrar</label>
                             <select class="form-control-sm" [(ngModel)]="page_size"
                                     (change)="obtenerSolicitudesCreditos()">
@@ -73,7 +73,8 @@
                         <td>{{credito.empresaInfo.comercial}}</td>
                         <td>{{credito.empresaInfo.rucEmpresa}}</td>
                         <td>
-                            <button *ngIf="credito.estado !== 'Negado' || credito.estado !== 'Aprobado'" type="button" class="btn btn-outline-primary"
+                            <button *ngIf="credito.estado !== 'Aprobado' && credito.estado !== 'Negado' && credito.estado !== 'Por completar'"
+                                    type="button" class="btn btn-outline-primary"
                                     rippleEffect
                                     (click)="verDocumentos(credito)">Ver
                             </button>
@@ -1074,7 +1075,7 @@
                 [disabled]="cargando">Aprobado
         </button>
         <button class="btn btn-primary mr-1" (click)="abrirModalMotivo(modalMotivo, 'Por Completar')"
-                [disabled]="cargando">Completar información
+                [disabled]="cargando">Devolver para completar información
         </button>
         <button class="btn btn-primary mr-1" (click)="abrirModalMotivo(modalMotivo, 'Negado')"
                 [disabled]="cargando">Negar la Solicitud de Crédito al Cliente

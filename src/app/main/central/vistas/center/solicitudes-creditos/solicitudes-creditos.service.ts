@@ -35,4 +35,7 @@ export class SolicitudesCreditosService {
     deleteDocumentFirebase(data) {
         return this.firestore.collection('creditosPersonas').doc(data).delete();
     }
+    actualizarAWS() {
+        return this._httpClient.get<any>(`${environment.apiUrl}/corp/creditoPersonas/pruebaConsumer`);
+    }
 }
