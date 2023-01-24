@@ -139,7 +139,8 @@ export class MicrocreditosNormalesComponent implements OnInit, AfterViewInit {
       if (estadoCredito === 'Aprobado') {
         console.log('form', this.actualizarCreditoForm);
         this.submitted = true;
-        if (this.formSolicitud.invalid) {
+        if (this.actualizarCreditoForm.invalid) {
+          console.log('invalid Form');
           return;
         }
       }
@@ -217,7 +218,9 @@ export class MicrocreditosNormalesComponent implements OnInit, AfterViewInit {
         this.submitted = false;
         this.actualizarCreditoFormData = new FormData();
         this.pantalla = 1;
-        this.soltero = (credito.estadoCivil === 'Soltero' || credito.estadoCivil === 'Divorciado');
+        // this.soltero = (credito.estadoCivil === 'Soltero' || credito.estadoCivil === 'Divorciado');
+        this.soltero = (credito.estadoCivil !== 'Casad@' || credito.estadoCivil !== 'Casado' || credito.estadoCivil !== 'Unión libre');
+      console.log('estado civil', this.soltero);
         this.actualizarCreditoForm = this._formBuilder.group(
             {
                 id: [credito._id, [Validators.required]],
@@ -250,6 +253,8 @@ export class MicrocreditosNormalesComponent implements OnInit, AfterViewInit {
                 checkPlanillaLuzDomicilio: ['', [Validators.requiredTrue]], //
                 checkPlanillaLuzNegocio: ['', [Validators.requiredTrue]], //
                 checkfacturasVentas2meses: ['', [Validators.requiredTrue]], //
+                checkfacturasVentas2meses2: ['', [Validators.requiredTrue]], //
+                checkfacturasVentas2meses3: ['', [Validators.requiredTrue]], //
                 checkfacturasVentasCertificado: ['', credito.facturasVentasCertificado !== null ? [Validators.requiredTrue] : []], //
                 checkFacturasPendiente: ['', [Validators.requiredTrue]], //
                 checkMatriculaVehiculo: [''], //
