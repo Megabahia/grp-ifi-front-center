@@ -81,7 +81,8 @@
                             <div class="badge badge-light-success">{{credito.estado}}</div>
                         </td>
                         <td>
-                            <button type="button" class="btn btn-outline-primary"
+                            <button *ngIf="credito.estado !== 'Aprobado' && credito.estado !== 'Negado' && credito.estado !== 'Por Completar'"
+                                    type="button" class="btn btn-outline-primary"
                                     rippleEffect
                                     (click)="verDocumentos(credito)">Ver
                             </button>
@@ -527,7 +528,7 @@
             </div>
 
             <div class="form-group">
-                <label for="buroCreditoIfis">Cargar Buró</label>
+                <label for="buroCreditoIfis">Cargar Buró Institución Financiera</label>
                 <div class="custom-file">
                     <input type="file" class="custom-file-input" id="buroCreditoIfis"
                            formControlName="buroCreditoIfis"
@@ -614,13 +615,32 @@
                     <label class="form-check-label mr-2" for="checkIdenficicacion">Valido</label>
                     <input class="form-check-input" type="checkbox" id="checkIdenficicacion"
                            formControlName="checkIdenficicacion"/>
-                    <a *ngIf="credito.idenficicacion" href="{{credito.idenficicacion}}" target="_blank">
+                    <a *ngIf="credito.identificacion" href="{{credito.identificacion}}" target="_blank">
                         Ver
                     </a>
                     <div *ngIf="submitted && controlsFrom.checkIdenficicacion.errors" class="invalid-feedback"
                          style="display: block;">
                         <div *ngIf="controlsFrom.checkIdenficicacion.errors.required">Copia de cédula y Ruc es
                             requerido
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Copia de Ruc</label>
+
+
+                <div class="custom-file">
+                    <label class="form-check-label mr-2" for="checkRuc">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkRuc"
+                           formControlName="checkRuc"/>
+                    <a *ngIf="credito.ruc" href="{{credito.ruc}}" target="_blank">
+                        Ver
+                    </a>
+                    <div *ngIf="submitted && controlsFrom.checkRuc.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.checkRuc.errors.required">
+                            Copia de Ruc es requerido
                         </div>
                     </div>
                 </div>
@@ -719,22 +739,53 @@
 
 
             <div class="form-group">
-                <label>2 Copias de Facturas de Ventas del último mes o Certificado de la Asociación
-                </label>
-
-
+                <label>Copia de Factura de venta del último mes (factura de hace 1 mes)</label>
                 <div class="custom-file">
-                    <label class="form-check-label mr-2" for="checkFacturas">Valido</label>
-                    <input class="form-check-input" type="checkbox" id="checkFacturas"
-                           formControlName="checkFacturas"/>
-
-                    <a *ngIf="credito.facturas" href="{{credito.facturas}}" target="_blank">
+                    <label class="form-check-label mr-2" for="checkfacturasVentas2meses">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkfacturasVentas2meses"
+                           formControlName="checkfacturasVentas2meses"/>
+                    <a *ngIf="credito.facturasVentas2meses" href="{{credito.facturasVentas2meses}}" target="_blank">
                         Ver
                     </a>
-                    <div *ngIf="submitted && controlsFrom.checkFacturas.errors" class="invalid-feedback"
+                    <div *ngIf="submitted && controlsFrom.checkfacturasVentas2meses.errors" class="invalid-feedback"
                          style="display: block;">
-                        <div *ngIf="controlsFrom.checkFacturas.errors.required">Copias de Facturas de Ventas es
+                        <div *ngIf="controlsFrom.checkfacturasVentas2meses.errors.required">
+                            Copias de Facturas de Ventas es requerido
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Copia de Factura de venta del penúltimo mes (factura de hace 2 meses)</label>
+                <div class="custom-file">
+                    <label class="form-check-label mr-2" for="checkfacturasVentas2meses2">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkfacturasVentas2meses2"
+                           formControlName="checkfacturasVentas2meses2"/>
+
+                    <a *ngIf="credito.facturasVentas2meses2" href="{{credito.facturasVentas2meses2}}" target="_blank">
+                        Ver
+                    </a>
+                    <div *ngIf="submitted && controlsFrom.checkfacturasVentas2meses2.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.checkfacturasVentas2meses2.errors.required">Copias de Facturas de Ventas es
                             requerido
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Certificado de la Asociación (es opcional y aplica si usted es transportista: Bus o Taxi)</label>
+                <div class="custom-file">
+                    <label class="form-check-label mr-2" for="checkfacturasVentasCertificado">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkfacturasVentasCertificado"
+                           formControlName="checkfacturasVentasCertificado"/>
+                    <a *ngIf="credito.facturasVentasCertificado" href="{{credito.facturasVentasCertificado}}" target="_blank">
+                        Ver
+                    </a>
+                    <div *ngIf="submitted && controlsFrom.checkfacturasVentasCertificado.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.checkfacturasVentasCertificado.errors.required">
+                            Copias de Facturas de Ventas es requerido
                         </div>
                     </div>
                 </div>
@@ -802,6 +853,7 @@
                     <input type="number" class="form-control" id="calificacionBuro"
                            formControlName="calificacionBuro"
                            value="{{actualizarCreditoForm.get('calificacionBuro').value}}"
+                           disabled
                     />
                     <div *ngIf="submitted && controlsFrom.calificacionBuro.errors"
                          class="invalid-feedback"
@@ -853,13 +905,14 @@
         </div>
     </form>
     <div class="mt-1">
-
-        <button class="btn btn-primary mr-1" (click)="actualizarSolicitudCredito('Aprobado')"
+        <button class="btn btn-primary mr-1" (click)="abrirModalMotivo(modalMotivo, 'Aprobado')"
                 [disabled]="cargando">Aprobado
         </button>
-
-        <button class="btn btn-primary mr-1" (click)="actualizarSolicitudCreditoNegado('Negado')"
-                [disabled]="cargando">Negado
+        <button class="btn btn-primary mr-1" (click)="abrirModalMotivo(modalMotivo, 'Por Completar')"
+                [disabled]="cargando">Devolver para completar información
+        </button>
+        <button class="btn btn-primary mr-1" (click)="abrirModalMotivo(modalMotivo, 'Negado')"
+                [disabled]="cargando">Negar la Solicitud de Crédito al Cliente
         </button>
         <button class="btn btn-outline-secondary"
                 (click)="cancelar()"
@@ -874,4 +927,33 @@
                      [credito]="credito"></app-valores-proceso>
 
 <app-resumen *ngIf="pantalla === 4" (pantalla)="cambiarEstado($event)" [credito]="credito"></app-resumen>
+
+
+<!-- INICIO MODAL USER -->
+<ng-template #modalMotivo let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="motivoM">Solicitud</h4>
+        <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div style="padding: 20px 20px 20px 20px;">
+        <div class="row">
+            <div class="form-group col-md-4">
+                <label class="form-label" for="vertical-modern-username">Motivo:</label>
+                <input type="text" id="vertical-modern-username2" class="form-control"
+                       [(ngModel)]="motivo"/>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="actualizarSolicitudCredito(estadoCredito)" rippleEffect>
+            Aceptar
+        </button>
+        <button type="button" class="btn btn-primary" (click)="modal.close('Accept click')" rippleEffect>
+            Cerrar
+        </button>
+    </div>
+</ng-template>
+<!-- FIN MODAL USER-->
 

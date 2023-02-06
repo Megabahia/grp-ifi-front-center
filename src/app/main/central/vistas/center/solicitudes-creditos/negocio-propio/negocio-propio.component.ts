@@ -51,6 +51,8 @@ export class NegocioPropioComponent implements OnInit, AfterViewInit {
   public cargando = false;
   public actualizarCreditoFormData;
   public credito;
+  public motivo;
+  public estadoCredito;
 
   constructor(
     private _solicitudCreditosService: SolicitudesCreditosService,
@@ -105,10 +107,10 @@ export class NegocioPropioComponent implements OnInit, AfterViewInit {
   viewDataUser(modal, user) {
     this.modalOpenSLC(modal);
     this.userViewData = user;
-    this.ocupacionSolicitante = JSON.parse(user.ocupacionSolicitante);
-    this.referenciasSolicitante = JSON.parse(user.referenciasSolicitante);
-    this.ingresosSolicitante = JSON.parse(user.ingresosSolicitante);
-    this.gastosSolicitante = JSON.parse(user.gastosSolicitante);
+    this.ocupacionSolicitante = user.ocupacionSolicitante;
+    this.referenciasSolicitante = user.referenciasSolicitante;
+    this.ingresosSolicitante = user.ingresosSolicitante;
+    this.gastosSolicitante = user.gastosSolicitante;
   }
 
   verDocumentos(credito) {
@@ -116,7 +118,7 @@ export class NegocioPropioComponent implements OnInit, AfterViewInit {
     this.submitted = false;
     this.actualizarCreditoFormData = new FormData();
     this.pantalla = 1;
-    this.soltero = credito.user.estadoCivil === 'Soltero' || 'Divorciado' ? true : false;
+    this.soltero = (credito.user.estadoCivil === 'Soltero' || credito.user.estadoCivil === 'Solter@' || credito.user.estadoCivil === 'Divorciado');
     this.actualizarCreditoForm = this._formBuilder.group({
       id: [credito._id, [Validators.required]],
       solicitudCredito: ['', [Validators.required]],
@@ -135,12 +137,15 @@ export class NegocioPropioComponent implements OnInit, AfterViewInit {
       checkCalificacionBuroIfis: ['', [Validators.requiredTrue]],
       checkBuroRevisado: ['', [Validators.requiredTrue]],
       checkIdenficicacion: ['', [Validators.requiredTrue]],
+      checkRuc: ['', [Validators.requiredTrue]],
       checkPapeletaVotacion: ['', [Validators.requiredTrue]],
       checkIdentificacionConyuge: ['', this.soltero ? [] : [Validators.requiredTrue]],
       checkPapeletaVotacionConyuge: ['', this.soltero ? [] : [Validators.requiredTrue]],
       checkPlanillaLuzNegocio: ['', [Validators.requiredTrue]],
       checkPlanillaLuzDomicilio: ['', [Validators.requiredTrue]],
-      checkFacturas: ['', [Validators.requiredTrue]],
+      checkfacturasVentas2meses: ['', [Validators.requiredTrue]],
+      checkfacturasVentas2meses2: ['', [Validators.requiredTrue]],
+      checkfacturasVentasCertificado: ['', [Validators.requiredTrue]],
       checkMatriculaVehiculo: ['', [Validators.requiredTrue]],
       checkImpuestoPredial: ['', [Validators.requiredTrue]],
       checkBuroCredito: ['', [Validators.requiredTrue]],
@@ -168,9 +173,11 @@ export class NegocioPropioComponent implements OnInit, AfterViewInit {
 
   actualizarSolicitudCredito(estado?: string) {
     this.submitted = true;
-    if (this.actualizarCreditoForm.invalid) {
-      console.log(this.actualizarCreditoForm.controls);
-      return;
+    if (this.estadoCredito !== 'Por Completar' && this.estadoCredito !== 'Negado') {
+      if (this.actualizarCreditoForm.invalid) {
+        console.log(' no valido form');
+        return;
+      }
     }
     const {
       id,
@@ -221,8 +228,9 @@ export class NegocioPropioComponent implements OnInit, AfterViewInit {
     this.actualizarCreditoFormData.delete('checks');
     this.actualizarCreditoFormData.append('checks', JSON.stringify(this.checks));
     this._solicitudCreditosService.actualizarSolictudesCreditos(this.actualizarCreditoFormData).subscribe((info) => {
+        this.cerrarModal();
         this.cargando = false;
-        if (estado === 'Negado') {
+        if (estado === 'Negado' || estado === 'Por Completar') {
           this.pantalla = 0;
         } else {
           this.pantalla = 3;
@@ -268,4 +276,24 @@ export class NegocioPropioComponent implements OnInit, AfterViewInit {
       });
   }
 
+  abrirModalMotivo(modalMotivo, estadoCredito) {
+    if (estadoCredito === 'Aprobado') {
+      console.log('form', this.actualizarCreditoForm);
+      this.submitted = true;
+      if (this.actualizarCreditoForm.invalid) {
+        console.log('invalid Form');
+        return;
+      }
+    }
+    this.motivo = '';
+    this.estadoCredito = estadoCredito;
+    this.modalService.open(modalMotivo, {
+        centered: true,
+        size: 'lg' // size: 'xs' | 'sm' | 'lg' | 'xl'
+      }
+    );
+  }
+  cerrarModal() {
+    this.modalService.dismissAll();
+  }
 }

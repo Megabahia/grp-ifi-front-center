@@ -234,6 +234,15 @@ export const menu: CoreMenu[] = [
         url: 'central/center/solicitud-pago-proveedores',
       },
       {
+        id: 'pagoCasasComerciales',
+        title: 'Solicitudes de Pago Casas Comerciales',
+        // translate: 'MENU.HOME',
+        // role: [Role.SuperMonedas],
+        type: 'item',
+        icon: 'package',
+        url: 'central/center/solicitud-pago-casas-comerciales',
+      },
+      {
         id: 'consumoCreditos',
         title: 'Consumos de créditos',
         // translate: 'MENU.HOME',
