@@ -1,0 +1,320 @@
+<div class="content-wrapper">
+    <!-- <div class="content-header row">
+        <div class="col-12 mb-2">
+            <div class="row breadcrumbs-top">
+                <div class="col-12">
+                    <h2 class="content-header-title float-left mb-0">Calificar compras</h2>
+                    <div class="breadcrumb-wrapper">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a class="text-primary" href="index.html">Inicio</a>
+                            </li>
+                            <li class="breadcrumb-item"><a class="text-primary" href="mis-facturas.html">Calificar
+                                    compras</a>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <div class="content-body">
+        <!-- users list start -->
+        <section class="app-user-list">
+            <!-- <div class="card">
+                <div class="card-header">
+                    <h4 class="text-primary d-block">Califica aquí tus compras, por cada compra que califiques reciben 10 super monedas.</h4>
+                </div>
+            </div> -->
+            <!-- <div class="card">
+                <div class="card-header">
+                    <h6 class="d-block">Filtros de búsqueda</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i data-feather='calendar'></i></span>
+                                    </div>
+                                    <input type="text" class="form-control form-control-sm flatpickr-range flatpickr-input" placeholder="- Rango de fechas">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div> -->
+
+            <!-- users filter end -->
+            <!-- list section start -->
+            <div class="card">
+                <div class="row m-75">
+                    <div class="col-lg-12 col-xl-6">
+                        <label>Mostrar</label>
+                        <select class="form-control-sm" [(ngModel)]="page_size" (change)="obtenerListaEmpleados()">
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+
+                    </div>
+                    <div class="col-lg-12 col-xl-6 text-right">
+                        <a (click)="toggleSidebar('guardarEmpleados','')" class="btn btn-primary">
+                            Añadir empleados
+                        </a>
+                    </div>
+                </div>
+                <div class="card-datatable table-responsive pt-0">
+
+                    <table class="user-list-table table table-striped">
+                        <thead class="thead-light">
+                        <tr>
+                            <th>Ruc Empresa</th>
+                            <th>Nombre Empresa</th>
+                            <th>Tipo Identificación</th>
+                            <th>Identificación</th>
+                            <th>Nombres</th>
+                            <th>Apellidos</th>
+                            <th>Correo</th>
+                            <th>Celular</th>
+                            <th>Whatsapp</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let empleado of empleados">
+                            <td>
+                                {{empleado.ruc}}
+                            </td>
+                            <td>
+                                {{empleado.nombreComercial}}
+                            </td>
+                            <td>
+                                {{empleado.tipoIdentificacion}}
+                            </td>
+
+                            <td>
+                                {{empleado.identificacion}}
+                            </td>
+                            <td>
+                                {{empleado.nombres}}
+                            </td>
+                            <td>
+                                {{empleado.apellidos}}
+                            </td>
+                            <td>
+                                {{empleado.correo}}
+                            </td>
+                            <td>
+                                {{empleado.celular}}
+                            </td>
+                            <td>
+                                {{empleado.whatsapp}}
+                            </td>
+                            <td>
+                                {{empleado.estado}}
+                            </td>
+                            <td>
+                                <a href="javascript:void(0);" container="body" placement="top" ngbTooltip="Editar" (click)="toggleSidebar('guardarEmpresa',empleado._id)"><i class="mr-1" size="18" data-feather="edit"></i
+                                ></a>
+                                <a href="javascript:void(0);" container="body" placement="top" ngbTooltip="Eliminar" (click)="eliminarEmpresaModal(empleado._id)"><i class="mr-1" size="18" data-feather="trash"></i
+                                ></a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Modal to add new user starts-->
+                <ngb-pagination #paginator [collectionSize]="collectionSize" [(page)]="page" [pageSize]="page_size"
+                                [maxSize]="5" [ellipses]="false" [boundaryLinks]="true"></ngb-pagination>
+                <!-- Modal to add new user Ends-->
+            </div>
+            <!-- list section end -->
+        </section>
+        <!-- users list ends -->
+    </div>
+</div>
+
+<core-sidebar class="modal modal-slide-in sidebar-todo-modal fade" name="guardarEmpresa" overlayClass="modal-backdrop">
+    <div class="slideout-content">
+        <!-- Modal to add new user starts-->
+        <div class="modalsd modal-slide-in sdfade new-user-modal" id="modals-slide-in">
+            <div class="modal-dialog">
+                <form class="add-new-user modal-content pt-0" [formGroup]="empleadoForm">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="toggleSidebar('guardarEmpresa',0)">
+                        ×
+                    </button>
+                    <div class="modal-header mb-1">
+                        <h5 class="modal-title" id="exampleModalLabel">Empleado</h5>
+                    </div>
+                    <div class="modal-body flex-grow-1">
+                        <div class="form-group">
+                            <label>Tipo Identificación</label>
+                            <select class="form-control" name="tipoIdentificacion" formControlName="tipoIdentificacion">
+                                <option value="">- Seleccione -</option>
+                                <option *ngFor="let tipoEmpresaOp of tipoIdentificacionesOpciones" value="{{tipoEmpresaOp.valor}}">{{tipoEmpresaOp.nombre}}</option>
+
+                            </select>
+                            <div *ngIf="submitted && emplForm.tipoIdentificacion.errors" class="invalid-feedback" style="display: block;">
+                                <div *ngIf="emplForm.tipoIdentificacion.errors.required">Tipo de identificación es requerido
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Identificación</label>
+                            <input class="form-control" name="identificacion" formControlName="identificacion" type="text">
+                            <div *ngIf="submitted && emplForm.identificacion.errors" class="invalid-feedback" style="display: block;">
+                                <div *ngIf="emplForm.identificacion.errors.required">Identificacón es requerido
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Nombres</label>
+                            <input class="form-control" name="nombres" formControlName="nombres" type="text">
+                            <div *ngIf="submitted && emplForm.nombres.errors" class="invalid-feedback" style="display: block;">
+                                <div *ngIf="emplForm.nombres.errors.required">Nombres es requerido
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Apellidos</label>
+                            <input class="form-control" name="apellidos" formControlName="apellidos" type="text">
+                            <div *ngIf="submitted && emplForm.apellidos.errors" class="invalid-feedback" style="display: block;">
+                                <div *ngIf="emplForm.apellidos.errors.required">Apellidos es requerido
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Correo</label>
+                            <input class="form-control" name="correo" formControlName="correo" type="text">
+                            <div *ngIf="submitted && emplForm.correo.errors" class="invalid-feedback" style="display: block;">
+                                <div *ngIf="emplForm.correo.errors.required">Correo es requerido
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Celular</label>
+                            <input class="form-control" name="celular" formControlName="celular" type="text">
+                            <div *ngIf="submitted && emplForm.celular.errors" class="invalid-feedback" style="display: block;">
+                                <div *ngIf="emplForm.celular.errors.required">Celular es requerido
+                                </div>
+                                <div *ngIf="emplForm.celular.errors.pattern">Solo se aceptan números
+                                </div>
+                                <div *ngIf="emplForm.celular.errors.minlength">Ingrese minimo 10 numeros
+                                </div>
+                                <div *ngIf="emplForm.celular.errors.maxlength">Ingrese maximo 10 numeros
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Whatsapp</label>
+                            <input class="form-control" name="whatsapp" formControlName="whatsapp" type="text">
+                            <div *ngIf="submitted && emplForm.whatsapp.errors" class="invalid-feedback" style="display: block;">
+                                <div *ngIf="emplForm.whatsapp.errors.pattern">Solo se aceptan números
+                                </div>
+                                <div *ngIf="emplForm.whatsapp.errors.minlength">Ingrese minimo 10 numeros
+                                </div>
+                                <div *ngIf="emplForm.whatsapp.errors.maxlength">Ingrese maximo 10 numeros
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Estado</label>
+                            <select class="form-control" name="estado" formControlName="estado">
+                                <option value="">- Seleccione -</option>
+                                <option value="Activo">Activo</option>
+                                <option value="Inactivo">Inactivo</option>
+                            </select>
+                            <div *ngIf="submitted && emplForm.estado.errors" class="invalid-feedback" style="display: block;">
+                                <div *ngIf="emplForm.estado.errors.required">Estado es requerido
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary mr-1" [disabled]="cargandoEmpresa" (click)="guardarEmpleado()"> <span *ngIf="cargandoEmpresa" class="spinner-border spinner-border-sm mr-1"></span> Guardar</button>
+                        <button (click)="toggleSidebar('guardarEmpresa','')" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- Modal to add new user Ends-->
+    </div>
+
+</core-sidebar>
+
+<ng-template #mensajeModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Mensaje</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss( 'Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div [innerHTML]="mensaje"></div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="cerrarModal()">Cerrar</button>
+    </div>
+</ng-template>
+<ng-template #eliminarEmpresaMdl let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Mensaje</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss( 'Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p>Confirma eliminar</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="eliminarEmpleado()">SI</button>
+    </div>
+</ng-template>
+
+
+<core-sidebar class="modal modal-slide-in sidebar-todo-modal fade" name="guardarEmpleados"
+              overlayClass="modal-backdrop">
+    <div class="slideout-content">
+        <!-- Modal to add new user starts-->
+        <div class="modalsd modal-slide-in sdfade new-user-modal" id="modals-slide-in">
+            <div class="modal-dialog">
+                <form class="add-new-user modal-content pt-0" [formGroup]="empleadosForm">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                            (click)="toggleSidebar('guardarEmpleados',0)">
+                        ×
+                    </button>
+                    <div class="modal-header mb-1">
+                        <h5 class="modal-title" id="exampleModalLabel">Añadir Empleados</h5>
+                    </div>
+                    <div class="modal-body flex-grow-1">
+                        <div class="form-group">
+                            <label for="customFile1">Archivo</label>
+                            <a href="assets/anexos/cargar_empelados_ifis.xlsx" download>Plantilla de documento</a>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="customFile1" formControlName="archivo"
+                                       (change)="subirArchivo($event)"
+                                       accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"/>
+                                <label class="custom-file-label" for="customFile1">{{empleadosFileForm.archivo.value}}</label>
+                                <div *ngIf="submitted && empleadosFileForm.archivo.errors" class="invalid-feedback"
+                                     style="display: block;">
+                                    <div *ngIf="empleadosFileForm.archivo.errors.required">Archivo es requerido</div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary mr-1" [disabled]="cargandoEmpresa" (click)="guardarEmpleados()">
+                            <span *ngIf="cargandoEmpresa" class="spinner-border spinner-border-sm mr-1"></span> Guardar
+                        </button>
+                        <button (click)="toggleSidebar('guardarEmpleados','')" class="btn btn-outline-secondary"
+                                data-dismiss="modal">Cancelar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- Modal to add new user Ends-->
+    </div>
+
+</core-sidebar>

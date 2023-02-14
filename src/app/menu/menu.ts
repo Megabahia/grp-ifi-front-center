@@ -20,13 +20,13 @@ export const menu: CoreMenu[] = [
     icon: 'package',
     children: [
       {
-        id: 'empresasCorp',
-        title: 'Empresas',
+        id: 'cargarEmpleados',
+        title: 'Cargar Empleados IFIS',
         // translate: 'MENU.HOME',
         // role: [Role.SuperMonedas],
         type: 'item',
         icon: 'briefcase',
-        url: 'central/corp/empresas',
+        url: 'central/corp/cargar_empleados',
       },
       {
         id: 'usuariosCorp',

@@ -47,6 +47,7 @@ import { MicrocreditosPreAprovadosComponent } from './vistas/center/solicitudes-
 import { MicrocreditosNormalesComponent } from './vistas/center/solicitudes-creditos/microcreditos-normales/microcreditos-normales.component';
 import { SolicitudesPagoProveedoresComponent } from './vistas/center/solicitudes-pago-proveedores/solicitudes-pago-proveedores.component';
 import { SolicitudesPagoCasasComercialComponent } from './vistas/center/solicitudes-pago-casas-comercial/solicitudes-pago-casas-comercial.component';
+import { EmpleadosComponent as EmpleadosCorp } from './vistas/corp/empleados/empleados/empleados.component';
 
 const routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -60,10 +61,10 @@ const routes = [
   {
     path: 'corp', children: [
       {
-        path: '', redirectTo: 'empresas', pathMatch: 'full'
+        path: '', redirectTo: 'cargar_empleados', pathMatch: 'full'
       },
       {
-        path: 'empresas', component: EmpresasComponent, canActivate: [AuthGuard]
+        path: 'cargar_empleados', component: EmpleadosCorp, canActivate: [AuthGuard]
       },
       {
         path: 'usuarios', component: UsuariosCorpComponent, canActivate: [AuthGuard]
@@ -199,6 +200,7 @@ const routes = [
     MicrocreditosNormalesComponent,
     SolicitudesPagoProveedoresComponent,
     SolicitudesPagoCasasComercialComponent,
+    EmpleadosCorp,
   ],
   imports: [
     CoreCommonModule,

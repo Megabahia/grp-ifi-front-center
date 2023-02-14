@@ -43,6 +43,7 @@ export class UploadComponent implements OnInit {
   public listaArchivosPreAprobados = [];
   inicio;
   fin;
+  public errores = false;
 
   constructor(
     private _cargarCreditosEmpleados: CargarCreditosEmpleadosService,
@@ -64,7 +65,7 @@ export class UploadComponent implements OnInit {
     this.obtenerListaArchivosPreAprobados();
     this.usuarioForm = this._formBuilder.group({
       empresaIfis_id: ['', [Validators.required]],
-      empresaComercial_id: ['', [Validators.required]],
+      empresaComercial_id: ['', []],
     }
     );
   }
@@ -150,12 +151,13 @@ export class UploadComponent implements OnInit {
   }
   cargar() {
     this.submitted = true;
+    console.log('subir arvhivo');
     if (!this.nuevoArchivo.get('linkArchivo')) {
       this.archivo = false;
       return;
     }
-    this.mensaje = `Empresa Corp: ${this.empresaCorp.nombreComercial}<br>Ruc: ${this.empresaCorp.ruc}
-                            <br>Registros: ${this.numeroRegistros}`;
+    this.mensaje = `Empresa IFIS: ${this.empresaIfi.nombreComercial}<br>
+                            <br>Registros: ${this.numeroRegistros} en el Excel ${this.nombreArchivo}`;
     this.abrirModal(this.confirmarModal);
   }
   guardar() {
@@ -171,8 +173,8 @@ export class UploadComponent implements OnInit {
     this.nuevoArchivo.append('user_id', this.usuario.id);
     this.nuevoArchivo.append('tipoCredito', 'Empleado');
     this.nuevoArchivo.append('empresa_financiera', this.empresaIfi._id);
-    this.nuevoArchivo.delete('empresa_comercial');
-    this.nuevoArchivo.append('empresa_comercial', this.empresaCorp._id);
+    // this.nuevoArchivo.delete('empresa_comercial');
+    // this.nuevoArchivo.append('empresa_comercial', this.empresaCorp._id);
     this._cargarCreditosEmpleados.crearArchivoPreAprobados(
       this.nuevoArchivo
     ).subscribe(info => {
@@ -192,7 +194,15 @@ export class UploadComponent implements OnInit {
     this._cargarCreditosEmpleados.subirArchivosPreAprobados(id).subscribe(info => {
         this.obtenerListaArchivosPreAprobados();
         this.mensaje = `${info.mensaje} <br> correctos: ${info.correctos} <br>
-                        incorrectos: ${info.incorrectos} <br> errores: ${info.errores}`;
+                        incorrectos: ${info.incorrectos} <br> errores: `;
+        info.errores.map((item) => {
+          this.mensaje += item.error + '<br>';
+        });
+        if (info.errores.length > 0) {
+          this.errores = true;
+          this.mensaje += 'Algunos de los empleados a los que intenta precalificar a un crédito no se encuentran registrados, ' +
+            'por favor diríjase a la opción de menú CARGAR EMPLEADOS IFIS y registre a sus empleados para continuar.';
+        }
         this.abrirModal(this.mensajeModal);
     });
   }

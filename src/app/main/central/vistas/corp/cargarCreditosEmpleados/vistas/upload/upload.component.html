@@ -41,22 +41,24 @@
                                         </div>
                                     </div>
                                 </div>
+<!--                                <div class="form-group">-->
+<!--                                    <label>Empresa Corps</label>-->
+<!--                                    <select class="form-control" name="empresaComercial_id"-->
+<!--                                            formControlName="empresaComercial_id" (change)="obtenerEmpresaCorp()">-->
+<!--                                        <option value="">- Seleccione -</option>-->
+<!--                                        <option value="{{empresaCorp._id}}"-->
+<!--                                                *ngFor="let empresaCorp of listaEmpresasCorps">{{empresaCorp.nombreEmpresa}}</option>-->
+<!--                                    </select>-->
+<!--                                    <div *ngIf="submitted && usuForm.empresaComercial_id.errors"-->
+<!--                                         class="invalid-feedback" style="display: block;">-->
+<!--                                        <div *ngIf="usuForm.empresaComercial_id.errors.required">Empresa Ifis es-->
+<!--                                            requerida-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
                                 <div class="form-group">
-                                    <label>Empresa Corps</label>
-                                    <select class="form-control" name="empresaComercial_id"
-                                            formControlName="empresaComercial_id" (change)="obtenerEmpresaCorp()">
-                                        <option value="">- Seleccione -</option>
-                                        <option value="{{empresaCorp._id}}"
-                                                *ngFor="let empresaCorp of listaEmpresasCorps">{{empresaCorp.nombreEmpresa}}</option>
-                                    </select>
-                                    <div *ngIf="submitted && usuForm.empresaComercial_id.errors"
-                                         class="invalid-feedback" style="display: block;">
-                                        <div *ngIf="usuForm.empresaComercial_id.errors.required">Empresa Ifis es
-                                            requerida
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
+                                    <label>Archivo</label>
+                                    <a href="/assets/anexos/creditos_preaprobados_empleados_v_ifis.xlsx">Anexo</a>
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input" id="inputGroupFile02"
                                                accept=".xlsx,.xls"
@@ -329,7 +331,10 @@
         <div [innerHTML]="mensaje"></div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-light" (click)="cerrarModal()">Cerrar</button>
+        <button *ngIf="!errores; else loggedOut" type="button" class="btn btn-light" (click)="cerrarModal()">Cerrar</button>
+        <ng-template #loggedOut>
+            <button type="button" class="btn btn-light" (click)="cerrarModal()" [routerLink]="['/central/corp/cargar_empleados']">Cerrar</button>
+        </ng-template>
     </div>
 </ng-template>
 
