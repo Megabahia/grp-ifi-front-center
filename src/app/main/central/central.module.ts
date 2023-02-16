@@ -73,7 +73,7 @@ const routes = [
         path: 'roles', component: RolesCorpComponent, canActivate: [AuthGuard]
       },
       {
-        path: 'cargarSuperMonedas', component: CargarSuperMonedasCorpComponent, canActivate: [AuthGuard]
+        path: 'cargarBig-Puntos', component: CargarSuperMonedasCorpComponent, canActivate: [AuthGuard]
       },
       {
         path: 'cargarCreditosEmpleados', component: UploadComponent, canActivate: [AuthGuard]

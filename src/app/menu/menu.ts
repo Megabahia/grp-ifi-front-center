@@ -53,7 +53,7 @@ export const menu: CoreMenu[] = [
         // role: [Role.SuperMonedas],
         type: 'item',
         icon: 'dollar-sign',
-        url: 'central/corp/cargarSuperMonedas',
+        url: 'central/corp/cargarBig-Puntos',
       },
       {
         id: 'creditosEmpleados',

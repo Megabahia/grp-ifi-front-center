@@ -3,12 +3,12 @@
         <div class="col-12 mb-2">
             <div class="row breadcrumbs-top">
                 <div class="col-12">
-                    <h2 class="content-header-title float-left mb-0">Cargar facturas</h2>
+                    <h2 class="content-header-title float-left mb-0">Cargar Big Puntos</h2>
                     <div class="breadcrumb-wrapper">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a class="text-primary" href="index.html">Inicio</a>
                             </li>
-                            <li class="breadcrumb-item"><a class="text-primary" href="mis-facturas.html">facturas</a>
+                            <li class="breadcrumb-item"><a class="text-primary" href="mis-facturas.html">Big Puntos</a>
                             </li>
                         </ol>
                     </div>
@@ -47,11 +47,11 @@
                     <div class="col-lg-12 col-xl-6">
                         <label>Mostrar</label>
                         <select class="form-control-sm">
-                                <option value="10">10</option>
-                                <option value="25">25</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                            </select>
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
 
                     </div>
                     <div class="col-lg-12 col-xl-6 text-right">
@@ -59,8 +59,8 @@
                                 Exportar a Excel
                             </button> -->
                         <a (click)="toggleSidebar('factura-electronica')" class="btn btn-primary">
-                                Añadir Supermonedas
-                            </a>
+                            Añadir Big Puntos
+                        </a>
                     </div>
                 </div>
 
@@ -68,46 +68,47 @@
                 <div class="card-datatable table-responsive pt-0">
                     <table class="user-list-table table table-striped">
                         <thead class="thead-light">
-                            <tr>
-                                <th>
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="customCheck2" />
-                                        <label class="custom-control-label" for="customCheck2"></label>
-                                    </div>
-                                </th>
-                                <th>Fecha de asignación</th>
-                                <th>Identificación</th>
-                                <th>Nombres</th>
-                                <th>Apellidos</th>
-                                <th>Ruc de Empresa</th>
-                                <th>Nombre de Empresa</th>
-                                <th>Monto de monedas</th>
-                                <th>Fecha de Vigencia</th>
-                                <th>Concepto</th>
-                            </tr>
+                        <tr>
+                            <th>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="customCheck2"/>
+                                    <label class="custom-control-label" for="customCheck2"></label>
+                                </div>
+                            </th>
+                            <th>Fecha de asignación</th>
+                            <th>Identificación</th>
+                            <th>Nombres</th>
+                            <th>Apellidos</th>
+<!--                            <th>Ruc de Empresa</th>-->
+<!--                            <th>Nombre de Empresa</th>-->
+                            <th>BIG PUNTOS ASIGNADOS</th>
+<!--                            <th>Fecha de Vigencia</th>-->
+                            <th>Concepto</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let supermoneda of listaSupermonedas">
-                                <td>
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="customCheck2" />
-                                        <label class="custom-control-label" for="customCheck2"></label>
-                                    </div>
-                                </td>
-                                <td>{{transformarFecha(supermoneda.created_at)}}</td>
-                                <td>{{supermoneda.identificacion}}</td>
-                                <td>{{supermoneda.nombres}}</td>
-                                <td>{{supermoneda.apellidos}}</td>
-                                <td>{{supermoneda.ruc}}</td>
-                                <td>{{supermoneda.empresa}}</td>
-                                <td>{{supermoneda.saldo}}</td>
-                                <td>{{supermoneda.fechaVigencia}}</td>
-                                <td>{{supermoneda.descripcion}}</td>
-                            </tr>
+                        <tr *ngFor="let supermoneda of listaSupermonedas">
+                            <td>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="customCheck2"/>
+                                    <label class="custom-control-label" for="customCheck2"></label>
+                                </div>
+                            </td>
+                            <td>{{transformarFecha(supermoneda.created_at)}}</td>
+                            <td>{{supermoneda.identificacion}}</td>
+                            <td>{{supermoneda.nombres}}</td>
+                            <td>{{supermoneda.apellidos}}</td>
+<!--                            <td>{{supermoneda.ruc}}</td>-->
+<!--                            <td>{{supermoneda.empresa}}</td>-->
+                            <td>{{supermoneda.saldo}}</td>
+<!--                            <td>{{supermoneda.fechaVigencia}}</td>-->
+                            <td>{{supermoneda.descripcion}}</td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
-                <ngb-pagination #paginator [collectionSize]="collectionSize" [(page)]="page" [(pageSize)]="page_size" [maxSize]="5" [ellipses]="false" [boundaryLinks]="true"></ngb-pagination>
+                <ngb-pagination #paginator [collectionSize]="collectionSize" [(page)]="page" [(pageSize)]="page_size"
+                                [maxSize]="5" [ellipses]="false" [boundaryLinks]="true"></ngb-pagination>
                 <!-- Modal to add new user starts-->
                 <!-- Modal to add new user Ends-->
             </div>
@@ -116,13 +117,16 @@
         <!-- users list ends -->
     </div>
 </div>
-<core-sidebar class="modal modal-slide-in sidebar-todo-modal fade" name="factura-electronica" overlayClass="modal-backdrop">
+<core-sidebar class="modal modal-slide-in sidebar-todo-modal fade" name="factura-electronica"
+              overlayClass="modal-backdrop">
     <div class="slideout-content">
         <!-- Modal to add new user starts-->
         <div class="modalsd modal-slide-in sdfade new-user-modal" id="modals-slide-in">
             <div class="modal-dialog">
-                <form class="add-new-user modal-content pt-0" (ngSubmit)="(newUserForm.form.valid)" #newUserForm="ngForm">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="toggleSidebar('factura-electronica')">
+                <form class="add-new-user modal-content pt-0" (ngSubmit)="(newUserForm.form.valid)"
+                      #newUserForm="ngForm">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                            (click)="toggleSidebar('factura-electronica')">
                         ×
                     </button>
                     <div class="modal-header mb-1">
@@ -131,12 +135,19 @@
                     <div class="modal-body flex-grow-1">
                         <div class="form-group">
                             <label for="customFile1">Adjuntar archivos (Excel)</label>
+                            <a href="assets/anexos/cargar_bigpuntos_ifis_center.xlsx">Anexo</a>
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="customFile1" required (change)="cargarFacturaElec($event)" accept=".xlsx,.xls" />
-                                <label class="custom-file-label" for="customFile1">{{nombreFacElec ? nombreFacElec:'Escojer'}}</label>
+                                <input type="file" class="custom-file-input" id="customFile1" required
+                                       (change)="cargarFacturaElec($event)" accept=".xlsx,.xls"/>
+                                <label class="custom-file-label"
+                                       for="customFile1">{{nombreFacElec ? nombreFacElec : 'Escojer'}}</label>
                             </div>
                         </div>
-                        <button class="btn btn-primary mr-1" data-toggle="modal" data-target="#exito" data-dismiss="modal" aria-label="Close" (click)="subirFacturaElec()" [disabled]="loading"> <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>Guardar</button>
+                        <button class="btn btn-primary mr-1" data-toggle="modal" data-target="#exito"
+                                data-dismiss="modal" aria-label="Close" (click)="subirFacturaElec()"
+                                [disabled]="loading"><span *ngIf="loading"
+                                                           class="spinner-border spinner-border-sm mr-1"></span>Guardar
+                        </button>
                         <button type="reset" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
                     </div>
                 </form>
