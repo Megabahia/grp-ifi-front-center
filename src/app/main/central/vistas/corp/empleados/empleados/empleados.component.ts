@@ -31,7 +31,7 @@ export class EmpleadosComponent implements OnInit {
 
   // Empleados
   public empleadosForm: FormGroup;
-  private empleadosFormData: FormData;
+  private empleadosFormData: FormData = new FormData();
   public usuario;
 
   constructor(
