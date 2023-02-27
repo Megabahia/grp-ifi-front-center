@@ -48,7 +48,7 @@ export const menu: CoreMenu[] = [
       },
       {
         id: 'superMonedasCord',
-        title: 'Cargar supermonedas de Corp',
+        title: 'Cargar Big Puntos',
         // translate: 'MENU.HOME',
         // role: [Role.SuperMonedas],
         type: 'item',

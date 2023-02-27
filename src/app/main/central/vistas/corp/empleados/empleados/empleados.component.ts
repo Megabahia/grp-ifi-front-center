@@ -179,6 +179,7 @@ export class EmpleadosComponent implements OnInit {
         this.cargandoEmpresa = false;
         this.mensaje = 'Empleados cargados exitosamente.';
         this.abrirModal(this.mensajeModal);
+        this.obtenerListaEmpleados();
       },
       (error) => {
         console.log(error);
