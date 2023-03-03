@@ -92,8 +92,9 @@
         </button>
     </div>
     <div class="modal-body">
-        <p>USTED VA A NEGAR ESTE PAGO A PROVEEDORES, INGRESE LA RAZÓN:</p>
-        <input type="text" [(ngModel)]="observacion">
+        <p>Motivo por el que se niega el desembolso:
+            :</p>
+        <textarea class="" type="text" [(ngModel)]="observacion" rows="10" cols="55"></textarea>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-primary" (click)="enviarNegar()">Negar</button>
@@ -171,7 +172,8 @@
                     <label>Nombre completo:</label>
                 </div>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" value="{{getUsuario(solicitudPago, 'nombresCompleto')}}" disabled/>
+                    <input type="text" class="form-control" value="{{getUsuario(solicitudPago, 'nombresCompleto')}}"
+                           disabled/>
                 </div>
             </div>
         </form>
