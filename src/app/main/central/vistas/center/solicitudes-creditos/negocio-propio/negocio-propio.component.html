@@ -184,7 +184,7 @@
                 <input type="text" class="form-control"
                        value="{{userViewData.tipoVivienda}}" disabled/>
             </div>
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-4" *ngIf="!casaPropia">
                 <label class="form-label">Nombre del dueño</label>
                 <input
                         type="text"
@@ -289,7 +289,7 @@
                 <input type="text" class="form-control"
                        value="{{ingresosSolicitante.sueldoMensual}}" disabled/>
             </div>
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-4" *ngIf="!soltero">
                 <label class="form-label" for="vertical-modern-username">Sueldo cónyuge</label>
                 <input type="text" class="form-control"
                        value="{{ingresosSolicitante.sueldoConyuge}}" disabled/>
@@ -608,7 +608,7 @@
             </div>
 
             <div class="form-group">
-                <label>Copia de cédula y Ruc</label>
+                <label>Copia de cédula</label>
 
 
                 <div class="custom-file">

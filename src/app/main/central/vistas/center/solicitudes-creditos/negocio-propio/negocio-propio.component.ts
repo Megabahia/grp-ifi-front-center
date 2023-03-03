@@ -53,6 +53,7 @@ export class NegocioPropioComponent implements OnInit, AfterViewInit {
   public credito;
   public motivo;
   public estadoCredito;
+  public casaPropia = false;
 
   constructor(
     private _solicitudCreditosService: SolicitudesCreditosService,
@@ -105,6 +106,9 @@ export class NegocioPropioComponent implements OnInit, AfterViewInit {
   }
 
   viewDataUser(modal, user) {
+    this.soltero = (user.estadoCivil === 'Solter@' || user.estadoCivil === 'Soltero' ||
+      user.estadoCivil === 'Divorciad@' || user.estadoCivil === 'Divorciado');
+    this.casaPropia = (user.tipoVivienda === 'Propia');
     this.modalOpenSLC(modal);
     this.userViewData = user;
     this.ocupacionSolicitante = user.ocupacionSolicitante;
@@ -118,7 +122,10 @@ export class NegocioPropioComponent implements OnInit, AfterViewInit {
     this.submitted = false;
     this.actualizarCreditoFormData = new FormData();
     this.pantalla = 1;
-    this.soltero = (credito.user.estadoCivil === 'Soltero' || credito.user.estadoCivil === 'Solter@' || credito.user.estadoCivil === 'Divorciado');
+    this.soltero = (credito.estadoCivil === 'Solter@' || credito.estadoCivil === 'Soltero' ||
+      credito.user.estadoCivil === 'Solter@' || credito.user.estadoCivil === 'Divorciado' ||
+      credito.estadoCivil === 'Divorciad@' || credito.estadoCivil === 'Divorciado');
+    console.log(this.soltero, 'this.soltero');
     this.actualizarCreditoForm = this._formBuilder.group({
       id: [credito._id, [Validators.required]],
       solicitudCredito: ['', [Validators.required]],

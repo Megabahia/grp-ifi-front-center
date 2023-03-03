@@ -611,18 +611,37 @@
             </div>
 
             <div class="form-group">
-                <label for="checkIdenficicacion">Copia de cédula y Ruc</label>
+                <label for="checkIdenficicacion">Copia de cédula</label>
 
                 <div class="custom-file">
                     <label class="form-check-label mr-2" for="checkIdenficicacion">Valido</label>
                     <input class="form-check-input" type="checkbox" id="checkIdenficicacion"
                            formControlName="checkIdenficicacion"/>
-                    <a *ngIf="credito.idenficicacion" href="{{credito.idenficicacion}}" target="_blank">
+                    <a *ngIf="credito.identificacion" href="{{credito.identificacion}}" target="_blank">
                         Ver
                     </a>
                     <div *ngIf="submitted && controlsFrom.checkIdenficicacion.errors" class="invalid-feedback"
                          style="display: block;">
                         <div *ngIf="controlsFrom.checkIdenficicacion.errors.required">Copia de cédula y Ruc es
+                            requerido
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="checkIdenficicacion">Copia de Ruc</label>
+
+                <div class="custom-file">
+                    <label class="form-check-label mr-2" for="checkRuc">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkRuc"
+                           formControlName="checkRuc"/>
+                    <a *ngIf="credito.ruc" href="{{credito.ruc}}" target="_blank">
+                        Ver
+                    </a>
+                    <div *ngIf="submitted && controlsFrom.checkRuc.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.checkRuc.errors.required">Copia de Ruc es
                             requerido
                         </div>
                     </div>

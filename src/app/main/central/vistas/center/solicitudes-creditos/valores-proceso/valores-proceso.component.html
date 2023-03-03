@@ -33,6 +33,7 @@
                                     <input type="number" class="form-control" id="monto"
                                            formControlName="monto"
                                            value="{{actualizarCreditoForm.get('monto').value}}"
+                                           disabled
                                     />
                                     <div *ngIf="submitted && controlsFrom.monto.errors"
                                          class="invalid-feedback"
@@ -50,6 +51,7 @@
                                 <div class="custom-file">
                                     <input type="number" class="form-control" id="montoAprobado"
                                            formControlName="montoAprobado"
+                                           (change)="calcularMontoLiquidar()"
                                            value="{{actualizarCreditoForm.get('montoAprobado').value}}"
                                     />
                                     <div *ngIf="submitted && controlsFrom.montoAprobado.errors"
@@ -67,6 +69,7 @@
                                 <div class="custom-file">
                                     <input type="number" class="form-control" id="gastosAdministrativos"
                                            formControlName="gastosAdministrativos"
+                                           (change)="calcularMontoLiquidar()"
                                            value="{{actualizarCreditoForm.get('gastosAdministrativos').value}}"
                                     />
 

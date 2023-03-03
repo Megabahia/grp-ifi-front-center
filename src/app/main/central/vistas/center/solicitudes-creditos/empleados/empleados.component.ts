@@ -51,6 +51,7 @@ export class EmpleadosComponent implements OnInit, AfterViewInit {
     public submitted = false;
     public cargando = false;
     public actualizarCreditoFormData;
+    public casaPropia = false;
 
     constructor(
         private _solicitudCreditosService: SolicitudesCreditosService,
@@ -103,12 +104,15 @@ export class EmpleadosComponent implements OnInit, AfterViewInit {
     }
 
     viewDataUser(modal, user) {
+        this.soltero = (user.estadoCivil === 'Solter@' || user.estadoCivil === 'Soltero' ||
+          user.estadoCivil === 'Divorciad@' || user.estadoCivil === 'Divorciado');
+        this.casaPropia = (user.tipoVivienda === 'Propia');
         this.modalOpenSLC(modal);
         this.userViewData = user;
-        this.ocupacionSolicitante = JSON.parse(user.ocupacionSolicitante);
-        this.referenciasSolicitante = JSON.parse(user.referenciasSolicitante);
-        this.ingresosSolicitante = JSON.parse(user.ingresosSolicitante);
-        this.gastosSolicitante = JSON.parse(user.gastosSolicitante);
+        this.ocupacionSolicitante = typeof user.ocupacionSolicitante === 'string' ? JSON.parse(user.ocupacionSolicitante) : user.ocupacionSolicitante;
+        this.referenciasSolicitante = typeof user.referenciasSolicitante === 'string' ? JSON.parse(user.referenciasSolicitante) : user.referenciasSolicitante;
+        this.ingresosSolicitante = typeof user.ingresosSolicitante === 'string' ? JSON.parse(user.ingresosSolicitante) : user.ingresosSolicitante;
+        this.gastosSolicitante = typeof user.gastosSolicitante === 'string' ? JSON.parse(user.gastosSolicitante) : user.gastosSolicitante;
     }
 
     verDocumentos(credito) {
@@ -117,7 +121,10 @@ export class EmpleadosComponent implements OnInit, AfterViewInit {
         this.submitted = false;
         this.actualizarCreditoFormData = new FormData();
         this.pantalla = 1;
-        this.soltero = credito.user.estadoCivil === 'Soltero' || 'Divorciado' ? true : false;
+        this.soltero = (credito.estadoCivil === 'Solter@' || credito.estadoCivil === 'Soltero' ||
+          credito.user.estadoCivil === 'Solter@' || credito.user.estadoCivil === 'Divorciado' ||
+          credito.estadoCivil === 'Divorciad@' || credito.estadoCivil === 'Divorciado');
+        console.log(this.soltero, 'this.soltero');
         this.actualizarCreditoForm = this._formBuilder.group({
             id: [credito._id, [Validators.required]],
             solicitudCredito: ['', [Validators.required]],
@@ -136,6 +143,7 @@ export class EmpleadosComponent implements OnInit, AfterViewInit {
             checkCalificacionBuroIfis: ['', [Validators.requiredTrue]],
             checkBuroRevisado: ['', [Validators.requiredTrue]],
             checkIdenficicacion: ['', [Validators.requiredTrue]],
+            checkRuc: ['', [Validators.requiredTrue]],
             checkFotoCarnet: ['', [Validators.requiredTrue]],
             checkPapeletaVotacion: ['', [Validators.requiredTrue]],
             checkIdentificacionConyuge: ['', this.soltero ? [] : [Validators.requiredTrue]],

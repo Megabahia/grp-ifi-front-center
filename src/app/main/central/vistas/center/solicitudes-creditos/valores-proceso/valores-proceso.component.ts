@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {SolicitudesCreditosService} from '../solicitudes-creditos.service';
+import Decimal from 'decimal.js';
 
 @Component({
   selector: 'app-valores-proceso',
@@ -73,4 +74,10 @@ export class ValoresProcesoComponent implements OnInit {
       });
   }
 
+  calcularMontoLiquidar() {
+    const montoAprobado = this.actualizarCreditoForm.get('montoAprobado').value || 0;
+    const gastosAdministrativos = this.actualizarCreditoForm.get('gastosAdministrativos').value || 0;
+    const montoLiquidar = new Decimal(montoAprobado).add(gastosAdministrativos).toNumber();
+    this.actualizarCreditoForm.get('montoLiquidar').setValue(montoLiquidar);
+  }
 }
