@@ -90,7 +90,7 @@
 
                         </td>
                         <td>
-                            <button type="button" (click)="viewDataUser(modalSLC,credito.user)"
+                            <button type="button" (click)="viewDataUser(modalSLC,credito)"
                                     class="btn btn-outline-primary"
                                     rippleEffect>
                                 Enlace
@@ -251,34 +251,52 @@
             </div>
 
         </div>
-        <div class="content-header">
-            <h5 class="mb-0">REFERENCIAS DEL SOLICITANTE</h5>
-        </div>
-        <div class="row">
-            <div class="form-group col-md-4">
-                <label class="form-label" for="vertical-modern-username">Refencia familiar:</label>
-                <br>
-                Nombre:<input type="text" class="form-control"
-                              value="{{referenciasSolicitante.nombre}}{{referenciasSolicitante.apellidos}}"
-                              disabled/>
-                Dirección:<input type="text" class="form-control"
-                                 value="{{referenciasSolicitante.direccion}}" disabled/>
-                Teléfono:<input type="text" class="form-control"
-                                value="{{referenciasSolicitante.telefono}}" disabled/>
-            </div>
-            <div class="form-group col-md-4">
-
-                <label class="form-label" for="vertical-modern-username">Refencia comercial o labolar:</label>
-                <br>
-                Nombre:<input type="text" class="form-control"
-                              value="" disabled/>
-                Dirección:<input type="text" class="form-control"
-                                 value="" disabled/>
-                Teléfono:<input type="text" class="form-control"
-                                value="" disabled/>
-
+        <div class="row" *ngFor="let referencia of referenciasSolicitante; let i = index">
+            <div class="col-md-12 my-1">
+                <h4>REFERENCIA {{i + 1}}</h4>
             </div>
 
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="referenciaSolicitante[{{i}}]">Ingrese el
+                        parentesco</label>
+
+                    <input disabled="true" type="text" class="form-control"
+                           value="{{referencia.referenciaSolicitante}}">
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="nombre[{{i}}]">Nombre</label>
+                    <input disabled="true" type="text" class="form-control"
+                           value="{{referencia.nombre}}">
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="apellido[{{i}}]">Apellido</label>
+                    <input disabled="true" type="text" class="form-control"
+                           value="{{referencia.apellido}}">
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="direccion[{{i}}]">Dirección</label>
+                    <input disabled="true" type="text" class="form-control"
+                           value="{{referencia.direccion}}">
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="telefono[{{i}}]">Teléfono celular</label>
+                    <input disabled="true" type="text" class="form-control"
+                           value="{{referencia.telefono}}">
+                </div>
+            </div>
 
         </div>
 

@@ -105,7 +105,9 @@ export class NegocioPropioComponent implements OnInit, AfterViewInit {
     });
   }
 
-  viewDataUser(modal, user) {
+  viewDataUser(modal, credito) {
+    this.credito = credito;
+    const user = credito.user;
     this.soltero = (user.estadoCivil === 'Solter@' || user.estadoCivil === 'Soltero' ||
       user.estadoCivil === 'Divorciad@' || user.estadoCivil === 'Divorciado');
     this.casaPropia = (user.tipoVivienda === 'Propia');
