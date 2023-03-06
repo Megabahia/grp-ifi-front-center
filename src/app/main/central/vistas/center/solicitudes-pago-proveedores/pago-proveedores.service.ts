@@ -17,4 +17,8 @@ export class PagoProveedoresService {
   public actualizarSolicitudesPagoProveedores(datos) {
     return this._httpClient.post<any>(`${environment.apiUrl}/corp/pagoProveedores/update/${datos._id}`, datos);
   }
+
+  public obtenerSolicitudesPagoEmpleados(datos) {
+    return this._httpClient.post<any>(`${environment.apiUrl}/corp/creditoArchivos/subir/documentosFirmados/listar/`, datos);
+  }
 }

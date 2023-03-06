@@ -1,0 +1,185 @@
+<div class="content-wrapper">
+    <div class="content-header row">
+        <div class="col-12 mb-2">
+            <div class="row breadcrumbs-top">
+                <div class="col-12">
+                    <h2 class="content-header-title float-left mb-0">Consumos de créditos</h2>
+                    <div class="breadcrumb-wrapper">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a class="text-primary" href="index.html">Inicio</a>
+                            </li>
+                            <li class="breadcrumb-item"><a class="text-primary" href="mis-premios.html">Consumos de
+                                créditos autónomos</a>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content-body">
+        <!-- users list start -->
+        <section class="app-user-list">
+            <div class="card card-company-table">
+                <div class="row m-75">
+                    <div class="col-lg-12 col-xl-6">
+                        <label>Mostrar</label>
+                        <select class="form-control-sm" [(ngModel)]="page_size" (click)="obtenerSolicitudesCreditos()">
+                            <option value="4">4</option>
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+
+                    </div>
+                </div>
+                <div class="card-datatable table-responsive pt-0">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Nombre de la Casa Comercial</th>
+                            <th>NOMBRES DEL USUARIO</th>
+                            <th>APELLIDOS DEL USUARIO</th>
+                            <th>MONTO A PAGAR</th>
+                            <th>FACTURA</th>
+                            <th>Documentos habilitantes Firmados</th>
+                            <th>ACCIONES</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <tr *ngFor="let credito of listaCreditos">
+                            <td>{{credito.nombreProveedor}}</td>
+                            <td>{{transformarObjecto(credito.usuario, 'nombres')}}</td>
+                            <td>{{transformarObjecto(credito.usuario, 'apellidos')}}</td>
+                            <td>{{credito.valorPagar}}</td>
+                            <td><a [href]="credito.factura" target="_blank">Enlace</a></td>
+                            <td>
+                                <a href="{{credito.solicitudCreditoFirmado}}">Solicitud Credito</a>
+                                <a href="{{credito.pagareFirmado}}">Solicitud Credito</a>
+                                <a href="{{credito.contratosCuentaFirmado}}">Solicitud Credito</a>
+                                <a href="{{credito.tablaAmortizacionFirmado}}">Tabla Amortizacion</a>
+                            </td>
+                            <td>
+                                <a href="javascript:void(0);" data-toggle="modal" data-target="#modals-slide-in"
+                                   (click)="seguroNegarModal(credito._id)" alt="Negar">
+                                    Negar
+                                </a>
+                                <a href="javascript:void(0);" (click)="procesarPago(credito)" alt="Procesar">
+                                    Procesar
+                                </a>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <ngb-pagination #paginator [collectionSize]="collectionSize" [(page)]="page" [pageSize]="page_size"
+                                [maxSize]="5" [ellipses]="false" [boundaryLinks]="true"></ngb-pagination>
+            </div>
+            <!-- list section end -->
+        </section>
+        <!-- users list ends -->
+    </div>
+</div>
+
+<ng-template #negarMdl let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Mensaje</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss( 'Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p>Motivo por el que se niega el desembolso:
+            :</p>
+        <textarea class="" type="text" [(ngModel)]="observacion" rows="10" cols="55"></textarea>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="enviarNegar()">Negar</button>
+        <button type="button" class="btn btn-light" (click)="modal.dismiss( 'Cross click')">Cancelar</button>
+    </div>
+</ng-template>
+
+<ng-template #procesarMdl let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Procesar</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss( 'Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form class="form form-horizontal mt-3">
+            <div class="form-group row">
+                <div class="col-sm-2 col-form-label">
+                    <label>Nombre banco destino:</label>
+                </div>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" value="{{solicitudPago.banco}}" disabled/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-2 col-form-label">
+                    <label>Numero de cuenta proveedor:</label>
+                </div>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" value="{{solicitudPago.numeroCuenta}}" disabled/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-2 col-form-label">
+                    <label>Monto:</label>
+                </div>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" value="{{solicitudPago.valorPagar}}" disabled/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-2 col-form-label">
+                    <label>Numero transacción:</label>
+                </div>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" value="{{solicitudPago._id}}" disabled/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-2 col-form-label">
+                    <label>Numero de autorización:</label>
+                </div>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" value="{{solicitudPago._id}}" disabled/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-2 col-form-label">
+                    <label>Fecha:</label>
+                </div>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" value="{{fechaActual()}}" disabled/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-2 col-form-label">
+                    <label>Email:</label>
+                </div>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" value="{{getUsuario(solicitudPago, 'email')}}" disabled/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-2 col-form-label">
+                    <label>Nombre completo:</label>
+                </div>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" value="{{getUsuario(solicitudPago, 'nombresCompleto')}}"
+                           disabled/>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="enviarProcesar()">Procesar</button>
+        <button type="button" class="btn btn-light" (click)="modal.dismiss( 'Cross click')">Cancelar</button>
+    </div>
+</ng-template>

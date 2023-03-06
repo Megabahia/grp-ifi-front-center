@@ -243,6 +243,15 @@ export const menu: CoreMenu[] = [
         url: 'central/center/solicitud-pago-casas-comerciales',
       },
       {
+        id: 'pagoCasasComerciales',
+        title: 'Solicitudes de Pago Empleados',
+        // translate: 'MENU.HOME',
+        // role: [Role.SuperMonedas],
+        type: 'item',
+        icon: 'package',
+        url: 'central/center/solicitud-pago-empleados',
+      },
+      {
         id: 'consumoCreditos',
         title: 'Consumos de créditos',
         // translate: 'MENU.HOME',
