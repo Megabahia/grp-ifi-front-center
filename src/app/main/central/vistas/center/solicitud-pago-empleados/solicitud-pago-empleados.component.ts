@@ -4,6 +4,7 @@ import {Subject} from 'rxjs';
 import {PagoProveedoresService} from '../solicitudes-pago-proveedores/pago-proveedores.service';
 import {DatePipe} from '@angular/common';
 import {CoreMenuService} from '../../../../../../@core/components/core-menu/core-menu.service';
+import {log} from 'util';
 
 @Component({
     selector: 'app-solicitud-pago-empleados',
@@ -59,7 +60,13 @@ export class SolicitudPagoEmpleadosComponent implements OnInit, AfterViewInit {
         this._pagoProveedoresService.obtenerSolicitudesPagoEmpleados({page_size: this.page_size, page: this.page - 1})
             .subscribe((info) => {
                 this.collectionSize = info.cont;
-                this.listaCreditos = info.info;
+                const newInfo = info.info.map((value) => {
+                        value.cliente = JSON.parse(value.cliente);
+                        return value;
+                    }
+                );
+                console.log('newInfo', newInfo);
+                this.listaCreditos = newInfo;
             });
     }
 

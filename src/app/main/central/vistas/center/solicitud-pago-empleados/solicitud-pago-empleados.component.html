@@ -50,16 +50,16 @@
                         <tbody>
 
                         <tr *ngFor="let credito of listaCreditos">
-                            <td>{{credito.nombreProveedor}}</td>
-                            <td>{{transformarObjecto(credito.usuario, 'nombres')}}</td>
-                            <td>{{transformarObjecto(credito.usuario, 'apellidos')}}</td>
-                            <td>{{credito.valorPagar}}</td>
-                            <td><a [href]="credito.factura" target="_blank">Enlace</a></td>
+                            <td>{{credito.cooperativa}}</td>
+                            <td>{{credito.cliente.nombre}}</td>
+                            <td>{{credito.cliente.apellido}}</td>
+                            <td>{{credito.precio}}</td>
+                            <td><a [href]="credito.facturaFisica" target="_blank">Enlace</a></td>
                             <td>
-                                <a href="{{credito.solicitudCreditoFirmado}}">Solicitud Credito</a>
-                                <a href="{{credito.pagareFirmado}}">Solicitud Credito</a>
-                                <a href="{{credito.contratosCuentaFirmado}}">Solicitud Credito</a>
-                                <a href="{{credito.tablaAmortizacionFirmado}}">Tabla Amortizacion</a>
+                                <a href="{{credito.archivos.solicitudCredito}}">Solicitud Credito</a><br>
+                                <a href="{{credito.archivos.pagare}}">Solicitud Credito</a><br>
+                                <a href="{{credito.archivos.contratosCuenta}}">Solicitud Credito</a><br>
+                                <a href="{{credito.archivos.tablaAmortizacion}}">Tabla Amortizacion</a>
                             </td>
                             <td>
                                 <a href="javascript:void(0);" data-toggle="modal" data-target="#modals-slide-in"

@@ -19,6 +19,6 @@ export class PagoProveedoresService {
   }
 
   public obtenerSolicitudesPagoEmpleados(datos) {
-    return this._httpClient.post<any>(`${environment.apiUrl}/corp/creditoArchivos/subir/documentosFirmados/listar/`, datos);
+    return this._httpClient.post<any>(`${environment.apiUrl}/corp/notasPedidos/list/factura/`, datos);
   }
 }
