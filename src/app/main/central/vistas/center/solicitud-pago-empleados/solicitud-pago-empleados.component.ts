@@ -5,6 +5,7 @@ import {PagoProveedoresService} from '../solicitudes-pago-proveedores/pago-prove
 import {DatePipe} from '@angular/common';
 import {CoreMenuService} from '../../../../../../@core/components/core-menu/core-menu.service';
 import {log} from 'util';
+import {SolicitudPagoEmpleadosService} from './solicitud-pago-empleados.service';
 
 @Component({
     selector: 'app-solicitud-pago-empleados',
@@ -33,7 +34,7 @@ export class SolicitudPagoEmpleadosComponent implements OnInit, AfterViewInit {
 
 
     constructor(
-        private _pagoProveedoresService: PagoProveedoresService,
+        private _solicitudesPagoEmpleadosService: SolicitudPagoEmpleadosService,
         private datePipe: DatePipe,
         private _coreMenuService: CoreMenuService,
         private _modalService: NgbModal,
@@ -57,7 +58,7 @@ export class SolicitudPagoEmpleadosComponent implements OnInit, AfterViewInit {
     }
 
     obtenerSolicitudesCreditos() {
-        this._pagoProveedoresService.obtenerSolicitudesPagoEmpleados({page_size: this.page_size, page: this.page - 1})
+        this._solicitudesPagoEmpleadosService.obtenerSolicitudesPagoEmpleados({page_size: this.page_size, page: this.page - 1})
             .subscribe((info) => {
                 this.collectionSize = info.cont;
                 const newInfo = info.info.map((value) => {
@@ -77,7 +78,7 @@ export class SolicitudPagoEmpleadosComponent implements OnInit, AfterViewInit {
     }
 
     enviarNegar() {
-        this._pagoProveedoresService.actualizarSolicitudesPagoProveedores({
+        this._solicitudesPagoEmpleadosService.actualizarSolicitudesPagoProveedores({
             _id: this.idPagoProveedor,
             estado: 'Negado',
             observacion: this.observacion
@@ -88,10 +89,9 @@ export class SolicitudPagoEmpleadosComponent implements OnInit, AfterViewInit {
     }
 
     enviarProcesar() {
-        this._pagoProveedoresService.actualizarSolicitudesPagoProveedores({
+        this._solicitudesPagoEmpleadosService.actualizarSolicitudesPagoProveedores({
             _id: this.idPagoProveedor,
-            estado: 'Procesar',
-            fechaFirma: this.fechaActual()
+            estado: 'Procesar'
         })
             .subscribe((info) => {
                 this._modalService.dismissAll();
@@ -100,7 +100,7 @@ export class SolicitudPagoEmpleadosComponent implements OnInit, AfterViewInit {
     }
 
     getUsuario(usuario, atributo) {
-        return JSON.parse(usuario.usuario)?.[atributo];
+        return usuario.cliente?.[atributo];
     }
 
     fechaActual() {
