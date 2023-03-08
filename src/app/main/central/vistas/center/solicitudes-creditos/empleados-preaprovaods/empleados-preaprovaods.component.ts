@@ -51,6 +51,9 @@ export class EmpleadosPreaprovaodsComponent implements OnInit, AfterViewInit {
   public submitted = false;
   public cargando = false;
   public actualizarCreditoFormData;
+  public casaPropia = false;
+  private motivo: string;
+  private estadoCredito: any;
 
   constructor(
       private _solicitudCreditosService: SolicitudesCreditosService,
@@ -102,13 +105,18 @@ export class EmpleadosPreaprovaodsComponent implements OnInit, AfterViewInit {
     });
   }
 
-  viewDataUser(modal, user) {
+  viewDataUser(modal, credito) {
+    this.credito = credito;
+    const user = credito.user;
+    this.soltero = (user.estadoCivil === 'Solter@' || user.estadoCivil === 'Soltero' ||
+      user.estadoCivil === 'Divorciad@' || user.estadoCivil === 'Divorciado');
+    this.casaPropia = (user.tipoVivienda === 'Propia');
     this.modalOpenSLC(modal);
     this.userViewData = user;
-    this.ocupacionSolicitante = JSON.parse(user.ocupacionSolicitante);
-    this.referenciasSolicitante = JSON.parse(user.referenciasSolicitante);
-    this.ingresosSolicitante = JSON.parse(user.ingresosSolicitante);
-    this.gastosSolicitante = JSON.parse(user.gastosSolicitante);
+    this.ocupacionSolicitante = user.ocupacionSolicitante;
+    this.referenciasSolicitante = user.referenciasSolicitante;
+    this.ingresosSolicitante = user.ingresosSolicitante;
+    this.gastosSolicitante = user.gastosSolicitante;
   }
 
   verDocumentos(credito) {
@@ -116,7 +124,10 @@ export class EmpleadosPreaprovaodsComponent implements OnInit, AfterViewInit {
     this.submitted = false;
     this.actualizarCreditoFormData = new FormData();
     this.pantalla = 1;
-    this.soltero = (credito.estadoCivil === 'Soltero' || credito.estadoCivil === 'Divorciado');
+    this.soltero = (credito.estadoCivil === 'Solter@' || credito.estadoCivil === 'Soltero' ||
+      credito.user.estadoCivil === 'Solter@' || credito.user.estadoCivil === 'Divorciado' ||
+      credito.estadoCivil === 'Divorciad@' || credito.estadoCivil === 'Divorciado');
+    console.log(this.soltero, 'this.soltero');
     this.actualizarCreditoForm = this._formBuilder.group({
       id: [credito._id, [Validators.required]],
       solicitudCredito: ['', [Validators.required]],
@@ -147,7 +158,8 @@ export class EmpleadosPreaprovaodsComponent implements OnInit, AfterViewInit {
       checkCalificacionBuro: ['', [Validators.requiredTrue]],
       checkObservacion: ['', [Validators.requiredTrue]],
     });
-    this.checks = JSON.parse(credito.checks);
+    console.log('tipo de checks', typeof credito.checks);
+    this.checks = (typeof credito.checks === 'object') ? credito.checks : JSON.parse(credito.checks);
   }
 
   cambiarEstado($event) {
