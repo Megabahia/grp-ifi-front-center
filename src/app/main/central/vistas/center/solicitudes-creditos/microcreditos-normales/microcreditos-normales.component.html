@@ -73,7 +73,7 @@
                         <td>{{credito.empresaInfo.comercial}}</td>
                         <td>{{credito.empresaInfo.rucEmpresa}}</td>
                         <td>
-                            <button *ngIf="credito.estado !== 'Aprobado' && credito.estado !== 'Negado' && credito.estado !== 'Por completar'"
+                            <button *ngIf="credito.estado !== 'Aprobado' && credito.estado !== 'Negado' && credito.estado !== 'Por Completar'"
                                     type="button" class="btn btn-outline-primary"
                                     rippleEffect
                                     (click)="verDocumentos(credito)">Ver

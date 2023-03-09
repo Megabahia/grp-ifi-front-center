@@ -270,7 +270,8 @@ export class MicrocreditosNormalesComponent implements OnInit, AfterViewInit {
                 checkBuroCreditoGRP: ['', [Validators.requiredTrue]], //
                 checkCalificacionBuro: ['', [Validators.requiredTrue]], //
             });
-        this.checks = JSON.parse(credito.checks);
+      console.log('tipo de checks', typeof credito.checks);
+      this.checks = (typeof credito.checks === 'object') ? credito.checks : JSON.parse(credito.checks);
     }
 
     cambiarEstado($event) {

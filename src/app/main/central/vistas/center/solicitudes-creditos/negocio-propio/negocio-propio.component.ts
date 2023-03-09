@@ -161,7 +161,8 @@ export class NegocioPropioComponent implements OnInit, AfterViewInit {
       checkCalificacionBuro: ['', [Validators.requiredTrue]],
       checkObservacion: ['', [Validators.requiredTrue]],
     });
-    this.checks = JSON.parse(credito.checks);
+    console.log('tipo de checks', typeof credito.checks);
+    this.checks = (typeof credito.checks === 'object') ? credito.checks : JSON.parse(credito.checks);
   }
 
   cambiarEstado($event) {
@@ -181,6 +182,7 @@ export class NegocioPropioComponent implements OnInit, AfterViewInit {
   }
 
   actualizarSolicitudCredito(estado?: string) {
+    console.log('llega---', this.actualizarCreditoForm);
     this.submitted = true;
     if (this.estadoCredito !== 'Por Completar' && this.estadoCredito !== 'Negado') {
       if (this.actualizarCreditoForm.invalid) {
@@ -188,6 +190,7 @@ export class NegocioPropioComponent implements OnInit, AfterViewInit {
         return;
       }
     }
+    console.log('');
     const {
       id,
       identificacion,
@@ -234,8 +237,13 @@ export class NegocioPropioComponent implements OnInit, AfterViewInit {
     this.cargando = true;
     this.actualizarCreditoFormData.delete('estado');
     this.actualizarCreditoFormData.append('estado', estado);
-    this.actualizarCreditoFormData.delete('checks');
-    this.actualizarCreditoFormData.append('checks', JSON.stringify(this.checks));
+    this.actualizarCreditoFormData.delete('motivo');
+    this.actualizarCreditoFormData.append('motivo', this.motivo);
+    if (estado !== 'Por Completar') {
+      this.actualizarCreditoFormData.delete('checks');
+      this.actualizarCreditoFormData.append('checks', JSON.stringify(this.checks));
+    }
+    console.log('this.actualizarCreditoFormData', this.actualizarCreditoFormData);
     this._solicitudCreditosService.actualizarSolictudesCreditos(this.actualizarCreditoFormData).subscribe((info) => {
         this.cerrarModal();
         this.cargando = false;
@@ -304,5 +312,12 @@ export class NegocioPropioComponent implements OnInit, AfterViewInit {
   }
   cerrarModal() {
     this.modalService.dismissAll();
+  }
+
+  consumirAWS() {
+    this._solicitudCreditosService.actualizarAWS().subscribe((info) => {
+      console.log(info);
+      this.obtenerSolicitudesCreditos();
+    });
   }
 }
