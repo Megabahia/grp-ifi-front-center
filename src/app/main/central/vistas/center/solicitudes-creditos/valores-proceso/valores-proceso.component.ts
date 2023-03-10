@@ -32,6 +32,7 @@ export class ValoresProcesoComponent implements OnInit {
       montoAprobado: [this.credito.montoAprobado, [Validators.required]],
       gastosAdministrativos: [this.credito.gastosAdministrativos, [Validators.required]],
       montoLiquidar: [this.credito.montoLiquidar, [Validators.required]],
+      montoDisponible: [this.credito.montoLiquidar, [Validators.required]],
       solicitudCredito: [this.credito.solicitudCredito],
       pagare: ['', [Validators.required]],
       contratosCuenta: ['', [Validators.required]],
@@ -79,5 +80,6 @@ export class ValoresProcesoComponent implements OnInit {
     const gastosAdministrativos = this.actualizarCreditoForm.get('gastosAdministrativos').value || 0;
     const montoLiquidar = new Decimal(montoAprobado).add(gastosAdministrativos).toNumber();
     this.actualizarCreditoForm.get('montoLiquidar').setValue(montoLiquidar);
+    this.actualizarCreditoForm.get('montoDisponible').setValue(montoLiquidar);
   }
 }
