@@ -179,12 +179,15 @@ export class EmpleadosPreaprovaodsComponent implements OnInit, AfterViewInit {
   }
 
   actualizarSolicitudCredito(estado?: string) {
+    console.log('llega---', this.actualizarCreditoForm);
     this.submitted = true;
-    if (this.actualizarCreditoForm.invalid) {
-      console.log('if');
-      return;
+    if (this.estadoCredito !== 'Por Completar' && this.estadoCredito !== 'Negado') {
+      if (this.actualizarCreditoForm.invalid) {
+        console.log(' no valido form');
+        return;
+      }
     }
-    console.log('paso');
+    console.log('');
     const {
       id,
       identificacion,
@@ -231,15 +234,21 @@ export class EmpleadosPreaprovaodsComponent implements OnInit, AfterViewInit {
     this.cargando = true;
     this.actualizarCreditoFormData.delete('estado');
     this.actualizarCreditoFormData.append('estado', estado);
-    this.actualizarCreditoFormData.delete('checks');
-    this.actualizarCreditoFormData.append('checks', JSON.stringify(this.checks));
+    this.actualizarCreditoFormData.delete('motivo');
+    this.actualizarCreditoFormData.append('motivo', this.motivo);
+    if (estado !== 'Por Completar') {
+      this.actualizarCreditoFormData.delete('checks');
+      this.actualizarCreditoFormData.append('checks', JSON.stringify(this.checks));
+    }
+    console.log('this.actualizarCreditoFormData', this.actualizarCreditoFormData);
     this._solicitudCreditosService.actualizarSolictudesCreditos(this.actualizarCreditoFormData).subscribe((info) => {
+        this.cerrarModal();
           this.cargando = false;
-          if (estado === 'Negado') {
-            this.pantalla = 0;
-          } else {
-            this.pantalla = 3;
-          }
+        if (estado === 'Negado' || estado === 'Por Completar') {
+          this.pantalla = 0;
+        } else {
+          this.pantalla = 3;
+        }
           this.obtenerSolicitudesCreditos();
           this._solicitudCreditosService.deleteDocumentFirebase(this.actualizarCreditoFormData.get('id'));
         },
@@ -281,4 +290,32 @@ export class EmpleadosPreaprovaodsComponent implements OnInit, AfterViewInit {
         });
   }
 
+  abrirModalMotivo(modalMotivo, estadoCredito) {
+    if (estadoCredito === 'Aprobado') {
+      console.log('form', this.actualizarCreditoForm);
+      this.submitted = true;
+      if (this.actualizarCreditoForm.invalid) {
+        console.log('invalid Form');
+        return;
+      }
+    }
+    this.motivo = '';
+    this.estadoCredito = estadoCredito;
+    this.modalService.open(modalMotivo, {
+        centered: true,
+        size: 'lg' // size: 'xs' | 'sm' | 'lg' | 'xl'
+      }
+    );
+  }
+
+  cerrarModal() {
+    this.modalService.dismissAll();
+  }
+
+  consumirAWS() {
+    this._solicitudCreditosService.actualizarAWS().subscribe((info) => {
+      console.log(info);
+      this.obtenerSolicitudesCreditos();
+    });
+  }
 }
