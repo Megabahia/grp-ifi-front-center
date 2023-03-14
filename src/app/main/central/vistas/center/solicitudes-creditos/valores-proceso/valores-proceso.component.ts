@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {SolicitudesCreditosService} from '../solicitudes-creditos.service';
 import Decimal from 'decimal.js';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-valores-proceso',
@@ -18,10 +19,18 @@ export class ValoresProcesoComponent implements OnInit {
   public cargando = false;
   public actualizarCreditoForm: FormGroup;
   public actualizarCreditoFormData;
+  private soltero: boolean;
+  private casaPropia: boolean;
+  private userViewData: any;
+  private ocupacionSolicitante: any;
+  private referenciasSolicitante: any;
+  private ingresosSolicitante: any;
+  private gastosSolicitante: any;
 
   constructor(
     private _formBuilder: FormBuilder,
     private _solicitudCreditosService: SolicitudesCreditosService,
+    private modalService: NgbModal,
   ) {  }
 
   ngOnInit(): void {
@@ -81,5 +90,27 @@ export class ValoresProcesoComponent implements OnInit {
     const montoLiquidar = new Decimal(montoAprobado).add(gastosAdministrativos).toNumber();
     this.actualizarCreditoForm.get('montoLiquidar').setValue(montoLiquidar);
     this.actualizarCreditoForm.get('montoDisponible').setValue(montoLiquidar);
+  }
+
+  viewDataUser(modal) {
+    this.credito = this.credito;
+    const user = this.credito.user;
+    this.soltero = (user.estadoCivil === 'Solter@' || user.estadoCivil === 'Soltero' ||
+      user.estadoCivil === 'Divorciad@' || user.estadoCivil === 'Divorciado');
+    this.casaPropia = (user.tipoVivienda === 'Propia');
+    this.modalOpenSLC(modal);
+    this.userViewData = user;
+    this.ocupacionSolicitante = user.ocupacionSolicitante;
+    this.referenciasSolicitante = user.referenciasSolicitante;
+    this.ingresosSolicitante = user.ingresosSolicitante;
+    this.gastosSolicitante = user.gastosSolicitante;
+  }
+
+  modalOpenSLC(modalSLC) {
+    this.modalService.open(modalSLC, {
+        centered: true,
+        size: 'lg' // size: 'xs' | 'sm' | 'lg' | 'xl'
+      }
+    );
   }
 }

@@ -240,7 +240,7 @@ export const menu: CoreMenu[] = [
         // role: [Role.SuperMonedas],
         type: 'item',
         icon: 'package',
-        url: 'central/center/solicitud-pago-casas-comerciales',
+        url: 'central/center/solicitud-pago-casas-comerciales-XYZ',
       },
       {
         id: 'pagoCasasComerciales',
@@ -249,7 +249,7 @@ export const menu: CoreMenu[] = [
         // role: [Role.SuperMonedas],
         type: 'item',
         icon: 'package',
-        url: 'central/center/solicitud-pago-empleados',
+        url: 'central/center/solicitud-pago-casas-comerciales',
       },
       {
         id: 'consumoCreditos',

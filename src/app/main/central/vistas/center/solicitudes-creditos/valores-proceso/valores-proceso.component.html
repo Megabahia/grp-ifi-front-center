@@ -89,6 +89,7 @@
                                     <input type="number" class="form-control" id="montoLiquidar"
                                            formControlName="montoLiquidar"
                                            value="{{actualizarCreditoForm.get('montoLiquidar').value}}"
+                                           disabled
                                     />
 
                                     <div *ngIf="submitted && controlsFrom.montoLiquidar.errors"
@@ -110,7 +111,8 @@
 
                             <div class="form-group">
                                 <label for="montoSolicitado">Solicitud de crédito</label>
-                                <a href="{{actualizarCreditoForm.get('solicitudCredito').value}}" target="_blank">Enlace</a>
+<!--                                <a href="{{actualizarCreditoForm.get('solicitudCredito').value}}" target="_blank">Enlace</a>-->
+                                <button class="btn btn-primary" (click)="viewDataUser(modalSLC)">Enlace</button>
                             </div>
 
                             <div class="form-group">
@@ -181,3 +183,292 @@
         </section>
     </div>
 </div>
+
+
+<!-- INICIO MODAL USER -->
+<ng-template #modalSLC let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel1">Buró de crédito</h4>
+        <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div style="padding: 20px 20px 20px 20px;">
+
+        <div class="content-header">
+            <h5 class="mb-0">Datos Generales</h5>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-4">
+                <label class="form-label" for="vertical-modern-username">Fecha de creación de solicitud</label>
+                <input type="text" id="vertical-modern-username" class="form-control"
+                       value="{{credito.created_at}}" disabled/>
+            </div>
+            <div class="form-group col-md-4">
+                <label class="form-label">Nombres</label>
+                <input
+                        type="email"
+                        value="{{userViewData.nombres}}"
+                        class="form-control"
+                        disabled
+                />
+            </div>
+            <div class="form-group col-md-4">
+                <label class="form-label">Apellidos</label>
+                <input
+                        type="text"
+                        value="{{userViewData.apellidos}}"
+                        class="form-control"
+                        disabled
+                />
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label class="form-label" for="vertical-modern-username">Nivel de instrucción</label>
+                <input type="text" class="form-control"
+                       value="{{userViewData.nivelInstruccion}}" disabled/>
+            </div>
+            <!--            <div class="form-group col-md-6">-->
+            <!--                <label class="form-label">Número de cargas</label>-->
+            <!--                <input-->
+            <!--                        type="text"-->
+            <!--                        class="form-control"-->
+            <!--                        value="{{userViewData.numeroCargas}}"-->
+            <!--                        disabled-->
+            <!--                />-->
+            <!--            </div>-->
+        </div>
+        <div class="row">
+            <div class="form-group col-md-4">
+                <label class="form-label" for="vertical-modern-username">Tipo de vivienda</label>
+                <input type="text" class="form-control"
+                       value="{{userViewData.tipoVivienda}}" disabled/>
+            </div>
+            <div class="form-group col-md-4" *ngIf="!casaPropia">
+                <label class="form-label">Nombre del dueño</label>
+                <input
+                        type="text"
+                        class="form-control"
+                        value="{{userViewData.nombreDueno}}"
+                        disabled
+                />
+            </div>
+            <div class="form-group col-md-4">
+                <label class="form-label">Dirección del domicilio</label>
+                <input
+                        type="text"
+                        class="form-control"
+                        value="{{userViewData.direccionDomicilio}}"
+                        disabled
+                />
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-4">
+                <label class="form-label" for="vertical-modern-username">Referencias del domicilio</label>
+                <input type="text" class="form-control"
+                       value="{{userViewData.referenciaDomicilio}}"
+                       disabled/>
+            </div>
+
+        </div>
+        <div class="content-header">
+            <h5 class="mb-0">Ocupación del solicitante</h5>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-4">
+                <label class="form-label" for="vertical-modern-username">Nombre del negocio o empresa en la que
+                    trabaja.</label>
+                <input type="text" class="form-control"
+                       value="{{ocupacionSolicitante.nombreNegocio}}" disabled/>
+            </div>
+            <div class="form-group col-md-4">
+                <label class="form-label" for="vertical-modern-username">Direccón del negocio o empresa en la que
+                    trabaja.</label>
+                <input type="text" class="form-control"
+                       value="{{ocupacionSolicitante.direccionNegocio}}" disabled/>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="form-group col-md-4">
+                <label class="form-label" for="vertical-modern-username">Tiempo de trabajo en el negocio o empresa
+                    en la que trabaja (años).</label>
+                <input type="text" class="form-control"
+                       value="{{ocupacionSolicitante.tiempoTrabajo}}" disabled/>
+            </div>
+            <div class="form-group col-md-4">
+                <label class="form-label" for="vertical-modern-username">Cargo que desempreña</label>
+                <input type="text" class="form-control"
+                       value="{{ocupacionSolicitante.cargoDesempeno}}" disabled/>
+            </div>
+            <div class="form-group col-md-4">
+                <label class="form-label" for="vertical-modern-username">Sueldo que percibe</label>
+                <input type="text" class="form-control"
+                       value="{{ocupacionSolicitante.sueldoPercibe}}" disabled/>
+            </div>
+
+        </div>
+        <div class="row" *ngFor="let referencia of referenciasSolicitante; let i = index">
+            <div class="col-md-12 my-1">
+                <h4>REFERENCIA {{i + 1}}</h4>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="referenciaSolicitante[{{i}}]">Ingrese el
+                        parentesco</label>
+
+                    <input disabled="true" type="text" class="form-control"
+                           value="{{referencia.referenciaSolicitante}}">
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="nombre[{{i}}]">Nombre</label>
+                    <input disabled="true" type="text" class="form-control"
+                           value="{{referencia.nombre}}">
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="apellido[{{i}}]">Apellido</label>
+                    <input disabled="true" type="text" class="form-control"
+                           value="{{referencia.apellido}}">
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="direccion[{{i}}]">Dirección</label>
+                    <input disabled="true" type="text" class="form-control"
+                           value="{{referencia.direccion}}">
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="telefono[{{i}}]">Teléfono celular</label>
+                    <input disabled="true" type="text" class="form-control"
+                           value="{{referencia.telefono}}">
+                </div>
+            </div>
+
+        </div>
+
+        <div class="content-header">
+            <h5 class="mb-0">INGRESOS DEL SOLICITANTE</h5>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-4">
+                <label class="form-label" for="vertical-modern-username">Sueldo Mensual</label>
+                <input type="text" class="form-control"
+                       value="{{ingresosSolicitante.sueldoMensual}}" disabled/>
+            </div>
+            <div class="form-group col-md-4" *ngIf="!soltero">
+                <label class="form-label" for="vertical-modern-username">Sueldo cónyuge</label>
+                <input type="text" class="form-control"
+                       value="{{ingresosSolicitante.sueldoConyuge}}" disabled/>
+            </div>
+            <div class="form-group col-md-4">
+                <label class="form-label" for="vertical-modern-username">Otros Ingresos(valor)</label>
+                <input type="text" class="form-control"
+                       value="{{userViewData.otrosIngresos}}" disabled/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-4">
+
+            </div>
+            <div class="form-group col-md-4">
+
+                <label class="form-label" for="vertical-modern-username">Especifique otros ingresos(ejemplo: vendo
+                    articulos de revista en mi tiempo libre, etc.):</label>
+
+                <input
+                        type="text" class="form-control" disabled>
+
+
+            </div>
+            <div class="form-group col-md-4">
+
+            </div>
+
+        </div>
+        <div class="content-header">
+            <h5 class="mb-0">GASTOS DEL SOLICITANTE</h5>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-4">
+                <label class="form-label" for="vertical-modern-username">Alimentación</label>
+                <input type="text" class="form-control"
+                       value="{{gastosSolicitante.alimentacion}}" disabled/>
+            </div>
+            <div class="form-group col-md-4">
+                <label class="form-label" for="vertical-modern-username">Arriendo(Ingrese 0 si es propia):</label>
+                <input type="text" class="form-control"
+                       value="{{gastosSolicitante.arriendo}}" disabled/>
+            </div>
+            <div class="form-group col-md-4">
+                <label class="form-label" for="vertical-modern-username">Vestimenta</label>
+                <input type="text" class="form-control"
+                       value="{{gastosSolicitante.vestido}}" disabled/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-4">
+                <label class="form-label" for="vertical-modern-username">Transporte</label>
+                <input type="text" class="form-control"
+                       value="{{gastosSolicitante.trasporte}}" disabled/>
+            </div>
+            <div class="form-group col-md-4">
+                <label class="form-label" for="vertical-modern-username">Servicios Básicos</label>
+                <input type="text" class="form-control"
+                       value="{{gastosSolicitante.serviciosBasicos}}" disabled/>
+            </div>
+            <div class="form-group col-md-4">
+                <label class="form-label" for="vertical-modern-username">Medicina</label>
+                <input type="text" class="form-control"
+                       value="{{gastosSolicitante.medicina}}" disabled/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label class="form-label" for="vertical-modern-username">Educación</label>
+                <input type="text" class="form-control"
+                       value="{{gastosSolicitante.educacion}}" disabled/>
+            </div>
+            <div class="form-group col-md-6">
+                <label class="form-label" for="vertical-modern-username">Otros préstamos(Ingrese el valor
+                    mensual)</label>
+                <input type="text" class="form-control"
+                       value="{{gastosSolicitante.otrosPrestamos}}" disabled/>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label class="form-label" for="vertical-modern-username">Otros gastos</label>
+                <input type="text" class="form-control"
+                       value="{{gastosSolicitante.otrosGastos}}" disabled/>
+            </div>
+            <div class="form-group col-md-6">
+                <label class="form-label" for="vertical-modern-username">Especifique otros gastos(ejemplo:
+                    colegiaturas dividias,cuidado a terceras personas,etc.)</label>
+                <input type="text" class="form-control"
+                       value="{{gastosSolicitante.deccripcion}}" disabled/>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="modal.close('Accept click')" rippleEffect>
+            Cerrar
+        </button>
+    </div>
+</ng-template>
+<!-- FIN MODAL USER-->
