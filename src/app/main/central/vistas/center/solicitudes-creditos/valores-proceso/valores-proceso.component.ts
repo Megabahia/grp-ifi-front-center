@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {SolicitudesCreditosService} from '../solicitudes-creditos.service';
 import Decimal from 'decimal.js';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -26,6 +26,11 @@ export class ValoresProcesoComponent implements OnInit {
   private referenciasSolicitante: any;
   private ingresosSolicitante: any;
   private gastosSolicitante: any;
+  private empresa: any;
+  private casado: boolean;
+  public formSolicitud: FormGroup;
+  public formConyuge: FormGroup;
+  public microEmpresa = false;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -47,6 +52,10 @@ export class ValoresProcesoComponent implements OnInit {
       contratosCuenta: ['', [Validators.required]],
       tablaAmortizacion: ['', [Validators.required]],
     });
+    console.log('this.credito', this.credito);
+    if (this.credito.empresaInfo) {
+      this.microEmpresa = true;
+    }
   }
 
   get controlsFrom() {
@@ -104,6 +113,71 @@ export class ValoresProcesoComponent implements OnInit {
     this.referenciasSolicitante = user.referenciasSolicitante;
     this.ingresosSolicitante = user.ingresosSolicitante;
     this.gastosSolicitante = user.gastosSolicitante;
+  }
+
+  viewDataUserMicroCredito(modal) {
+    const infoEmpresa = this.credito.empresaInfo;
+    this.empresa = infoEmpresa;
+    console.log('infoEmpresa', infoEmpresa);
+    this.declareFormularios();
+    this.declareFormConyuge();
+    this.modalOpenSLC(modal);
+    this.casado = (infoEmpresa.estadoCivil === 'Casad@' || infoEmpresa.estadoCivil === 'Casado' || infoEmpresa.estadoCivil === 'Unión libre');
+    infoEmpresa?.familiares.forEach(item => this.agregarFamiliar());
+    this.formSolicitud.patchValue({...infoEmpresa});
+  }
+
+  declareFormularios() {
+    this.formSolicitud = this._formBuilder.group(
+      {
+        reprsentante: ['', [Validators.required]], //
+        rucEmpresa: ['', [Validators.required]], //
+        comercial: ['', [Validators.required]], //
+        actividadEconomica: ['', [Validators.required]], //
+        direccionDomiciolRepresentante: ['', [Validators.required]], //
+        direccionEmpresa: ['', [Validators.required]], //
+        referenciaDomicilio: ['', [Validators.required]], //
+        refenciaNegocio: ['', [Validators.required]], //
+        esatdo_civil: ['', [Validators.required]], //
+        correo: ['', [Validators.required]], //
+        telefono: ['', [Validators.required]], //
+        celular: ['', [Validators.required]], //
+        conyuge: this._formBuilder.group({
+          nombreConyuge: [''], //
+          telefonoConyuge: [''], //
+          correoConyuge: [''],
+        }),
+        familiares: this._formBuilder.array([]),
+        inresosMensualesVentas: ['', [Validators.required]], //
+        sueldoConyuge: [''], //
+        otrosIngresos: [''], //
+        gastosMensuales: ['', [Validators.required]], //
+        gastosFamilaires: ['', [Validators.required]], //
+        especificaIngresos: [''], //
+      });
+  }
+
+  get familiares() {
+    return this.formSolicitud.controls['familiares'] as FormArray;
+  }
+
+  agregarFamiliar() {
+    const cuentaForm = this._formBuilder.group({
+      nombreFamiliar: [''], //
+      apellidoFamiliar: [''], //
+      telefonoFamiliar: [''], //
+      direccionFamiliar: [''],
+      tipoPariente: [''],
+    });
+    this.familiares.push(cuentaForm);
+  }
+
+  declareFormConyuge() {
+    this.formConyuge = this._formBuilder.group({
+      nombreConyuge: [''], //
+      telefonoConyuge: [''], //
+      correoConyuge: [''],
+    });
   }
 
   modalOpenSLC(modalSLC) {

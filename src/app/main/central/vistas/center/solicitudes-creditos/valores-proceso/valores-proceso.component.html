@@ -109,11 +109,17 @@
                         </div>
                         <div class="modal-body flex-grow-1">
 
-                            <div class="form-group">
+                            <div class="form-group" *ngIf="!microEmpresa; else elseBlock">
                                 <label for="montoSolicitado">Solicitud de crédito</label>
 <!--                                <a href="{{actualizarCreditoForm.get('solicitudCredito').value}}" target="_blank">Enlace</a>-->
                                 <button class="btn btn-primary" (click)="viewDataUser(modalSLC)">Enlace</button>
                             </div>
+                            <ng-template #elseBlock>
+                                <div class="form-group">
+                                    <label for="verUsuario">Solicitud de crédito</label>
+                                    <button class="btn btn-primary" (click)="viewDataUserMicroCredito(modalSLCMicroCredito)">Enlace</button>
+                                </div>
+                            </ng-template>
 
                             <div class="form-group">
                                 <label for="pagare">Pagaré</label>
@@ -462,6 +468,470 @@
                        value="{{gastosSolicitante.deccripcion}}" disabled/>
             </div>
         </div>
+    </div>
+
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="modal.close('Accept click')" rippleEffect>
+            Cerrar
+        </button>
+    </div>
+</ng-template>
+<!-- FIN MODAL USER-->
+
+<!-- INICIO MODAL USER -->
+<ng-template #modalSLCMicroCredito let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel1">Buró de crédito</h4>
+        <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="card-body text-left">
+
+        <form class="auth-login-form mt-2" [formGroup]="formSolicitud">
+            <h3>
+                DATOS GENERALES DE TU EMPRESA:
+            </h3>
+            <div class="row">
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Nombre del representante legal: value={{ this.empresa.reprsentante }}
+                        </label>
+                        <input type="text"
+                               class="form-control"
+                               disabled
+                               [value]="empresa.reprsentante">
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>RUC de la empresa:
+                        </label>
+                        <input type="text" formControlName="rucEmpresa"
+                               class="form-control"
+                               value="{{this.empresa.rucEmpresa}}" disabled>
+                    </div>
+
+
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Nombre comercial de la empresa:
+                        </label>
+                        <input type="text" formControlName="comercial"
+                               class="form-control"
+                               value="" disabled>
+                    </div>
+                    <div *ngIf="submitted && controlsFrom.comercial.errors"
+                         class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.comercial.errors.required">Nombre comercial
+                            es
+                            requerido
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Actividad económica :
+                        </label>
+                        <input type="text" formControlName="actividadEconomica"
+                               class="form-control"
+                               value=""
+                               disabled>
+                    </div>
+                    <div *ngIf="submitted && controlsFrom.actividadEconomica.errors"
+                         class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.actividadEconomica.errors.required">
+                            Actividad económica es
+                            requerido
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>
+                            Dirección del domicilio del representante legal de la empresa :
+                        </label>
+                        <input type="text" formControlName="direccionDomiciolRepresentante"
+                               class="form-control"
+                               value=""
+                               disabled>
+                    </div>
+                    <div *ngIf="submitted && controlsFrom.direccionDomiciolRepresentante.errors"
+                         class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.direccionDomiciolRepresentante.errors.required">
+                            Dirección es
+                            requerido
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Dirección del negocio o empresa :
+                        </label>
+                        <input type="text" formControlName="direccionDomiciolRepresentante"
+                               class="form-control"
+                               value=""
+                               disabled>
+                    </div>
+                    <div *ngIf="submitted && controlsFrom.direccionDomiciolRepresentante.errors"
+                         class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.direccionDomiciolRepresentante.errors.required">Dirección
+                            es
+                            requerido
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>
+                            Referencia del domicilio (en la descripción de la ventana
+                            escribir: por ejemplo, barrio San Miguel. Frente a la tienda Mi
+                            Vecino):
+                        </label>
+                        <input type="text" formControlName="refenciaNegocio"
+                               class="form-control"
+                               value="" disabled>
+                    </div>
+                    <div *ngIf="submitted && controlsFrom.refenciaNegocio.errors"
+                         class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.refenciaNegocio.errors.required">
+                            Referencia es
+                            requerido
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>
+                            Estado civil:
+                        </label>
+                        <select #teams
+                                class="form-control select2" formControlName="esatdo_civil" disabled
+                        >
+                            <option value="">- Seleccione -</option>
+                            <option value="Solter@">- Soltero -</option>
+                            <option value="Casado">- Casado -</option>
+                            <option value="Divorciado">- Divorciado -</option>
+                        </select>
+                    </div>
+                    <div *ngIf="submitted && controlsFrom.esatdo_civil.errors"
+                         class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.esatdo_civil.errors.required">Estado civil
+                            es
+                            requerido
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Teléfono convencional:
+                        </label>
+                        <input type="text" formControlName="telefono"
+                               class="form-control"
+                               value="" disabled>
+                    </div>
+                    <div *ngIf="submitted && controlsFrom.telefono.errors"
+                         class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.telefono.errors.required">Teléfono es
+                            requerido
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Teléfono celular:
+                        </label>
+                        <input type="text" formControlName="celular"
+                               class="form-control"
+                               value="" disabled>
+                    </div>
+                    <div *ngIf="submitted && controlsFrom.celular.errors"
+                         class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.celular.errors.required">Teléfono celular
+                            es requerido
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>
+                            Correo electrónico:
+                        </label>
+                        <input type="text" formControlName="correo"
+                               class="form-control"
+                               value="" disabled>
+                    </div>
+                    <div *ngIf="submitted && controlsFrom.correo.errors"
+                         class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.correo.errors.required">Correo electrónico
+                            es
+                            requerido
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Conyuge-->
+            <div class="row">
+
+                <div *ngIf="casado">
+                    <h3>
+                        Datos cónyuge:
+                    </h3>
+                    <br>
+                    <form class="auth-login-form mt-2" [formGroup]="controlsContuge">
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>
+                                        Nombres y apellidos:
+                                    </label>
+                                    <input type="text" formControlName="nombreConyuge"
+                                           class="form-control"
+                                           value="" disabled>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Teléfono celular:
+                                    </label>
+                                    <input type="text" formControlName="telefonoConyuge"
+                                           class="form-control"
+                                           value="" disabled>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Correo electrónico:
+                                    </label>
+                                    <input type="text" formControlName="correoConyuge"
+                                           class="form-control"
+                                           value="" disabled>
+                                </div>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <h3>
+                        REFERENCIAS FAMILAIRES:
+                    </h3>
+                </div>
+                <div class="col-4"></div>
+
+
+            </div>
+            <ng-container formArrayName="familiares">
+                <ng-container
+                        *ngFor="let familiar of formSolicitud.get('familiares')['controls']; let i = index">
+                    <h5>
+                        Familair {{i + 1}} {{familiar['controls']?.tipoPariente.value}}:
+                    </h5>
+                    <div [formGroup]="familiar">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>
+                                        Nombre
+                                    </label>
+                                    <input type="text" formControlName="nombreFamiliar"
+                                           class="form-control"
+                                           value="" disabled>
+                                </div>
+                            </div>
+                            <!--                                                        <div *ngIf="submitted && controlsFrom.nombreFamiliar.errors"-->
+                            <!--                                                             class="invalid-feedback"-->
+                            <!--                                                             style="display: block;">-->
+                            <!--                                                            <div *ngIf="controlsFrom.nombreFamiliar.errors.required">-->
+                            <!--                                                                Nombre-->
+                            <!--                                                                referencia familiar es-->
+                            <!--                                                                requerido-->
+                            <!--                                                            </div>-->
+                            <!--                                                        </div>-->
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>
+                                        Apellido
+                                    </label>
+                                    <input type="text" formControlName="apellidoFamiliar"
+                                           class="form-control"
+                                           value="" disabled>
+                                </div>
+                            </div>
+                            <!--                                                        <div *ngIf="submitted && controlsFrom.apellidoFamiliar.errors"-->
+                            <!--                                                             class="invalid-feedback"-->
+                            <!--                                                             style="display: block;">-->
+                            <!--                                                            <div *ngIf="controlsFrom.apellidoFamiliar.errors.required">-->
+                            <!--                                                                Apellido-->
+                            <!--                                                                referencia familiar es-->
+                            <!--                                                                requerido-->
+                            <!--                                                            </div>-->
+                            <!--                                                        </div>-->
+
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>
+                                        Teléfono:
+                                    </label>
+                                    <input type="text" formControlName="telefonoFamiliar"
+                                           class="form-control"
+                                           value="" disabled>
+                                </div>
+                            </div>
+                            <!--                                                        <div *ngIf="submitted && controlsFrom.telefonoFamiliar.errors"-->
+                            <!--                                                             class="invalid-feedback"-->
+                            <!--                                                             style="display: block;">-->
+                            <!--                                                            <div *ngIf="controlsFrom.telefonoFamiliar.errors.required">-->
+                            <!--                                                                Teléfono-->
+                            <!--                                                                referencia familiar es-->
+                            <!--                                                                requerido-->
+                            <!--                                                            </div>-->
+                            <!--                                                        </div>-->
+
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>
+                                        Dirección:
+                                    </label>
+                                    <input type="text" formControlName="direccionFamiliar"
+                                           class="form-control"
+                                           value="" disabled>
+                                </div>
+                            </div>
+                            <!--                                                        <div *ngIf="submitted && controlsFrom.direccionFamiliar.errors"-->
+                            <!--                                                             class="invalid-feedback"-->
+                            <!--                                                             style="display: block;">-->
+                            <!--                                                            <div *ngIf="controlsFrom.direccionFamiliar.errors.required">-->
+                            <!--                                                                Dirección-->
+                            <!--                                                                del familiar es-->
+                            <!--                                                                requerido-->
+                            <!--                                                            </div>-->
+                            <!--                                                        </div>-->
+                        </div>
+
+                    </div>
+                </ng-container>
+            </ng-container>
+            <h3>
+                INGRESOS Y GASTOS DEL NEGOCIO:
+            </h3>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>
+                            Ingresos mensuales en ventas (valor):
+                        </label>
+                        <input type="text" formControlName="inresosMensualesVentas"
+                               class="form-control"
+                               value="" disabled>
+                    </div>
+                    <div *ngIf="submitted && controlsFrom.inresosMensualesVentas.errors"
+                         class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.inresosMensualesVentas.errors.required">
+                            Ingresos mensuales es
+                            requerido
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Sueldo cónyuge (de ser casado) (VALOR):
+                        </label>
+                        <input type="text" formControlName="sueldoConyuge"
+                               class="form-control"
+                               value="" disabled>
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Otros ingresos (valor) :
+                        </label>
+                        <input type="text" formControlName="otrosIngresos"
+                               class="form-control"
+                               value="" disabled>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Gastos mensuales en compras para el negocio (valor) :
+                        </label>
+                        <input type="text" formControlName="gastosMensuales"
+                               class="form-control"
+                               value="" disabled>
+                    </div>
+                    <div *ngIf="submitted && controlsFrom.gastosMensuales.errors"
+                         class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.gastosMensuales.errors.required">Gastos
+                            mensuales es
+                            requerido
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Gastos familiares (valor)
+                        </label>
+                        <input type="text" formControlName="gastosFamilaires"
+                               class="form-control"
+                               value="" disabled>
+                    </div>
+                    <div *ngIf="submitted && controlsFrom.gastosFamilaires.errors"
+                         class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.gastosFamilaires.errors.required">Gastos
+                            familiares es
+                            requerido
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>
+                            Especifique otros ingresos (ejemplo: vendo artículos de revista
+                            en mi tiempo libre, etc.)
+                        </label>
+                        <input type="text" formControlName="especificaIngresos"
+                               class="form-control"
+                               value="" disabled>
+                    </div>
+
+                </div>
+            </div>
+
+        </form>
+
     </div>
 
 
