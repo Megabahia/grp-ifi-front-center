@@ -1,0 +1,14 @@
+<div class="card-datatable table-responsive pt-0">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th *ngFor="let item of cabecera">{{item}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let fila of filas">
+            <td *ngFor="let cell of fila">{{cell}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

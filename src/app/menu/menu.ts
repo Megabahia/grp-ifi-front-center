@@ -64,6 +64,15 @@ export const menu: CoreMenu[] = [
         icon: 'dollar-sign',
         url: 'central/corp/cargarCreditosEmpleados',
       },
+      {
+        id: 'creditosEmpleados',
+        title: 'Cargar Líneas de Crédito',
+        // translate: 'MENU.HOME',
+        // role: [Role.SuperMonedas],
+        type: 'item',
+        icon: 'dollar-sign',
+        url: 'central/corp/cargarCreditosNegocios',
+      },
     ]
   },
   {

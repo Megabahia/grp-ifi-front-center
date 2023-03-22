@@ -49,6 +49,8 @@ import { SolicitudesPagoProveedoresComponent } from './vistas/center/solicitudes
 import { SolicitudesPagoCasasComercialComponent } from './vistas/center/solicitudes-pago-casas-comercial/solicitudes-pago-casas-comercial.component';
 import { EmpleadosComponent as EmpleadosCorp } from './vistas/corp/empleados/empleados/empleados.component';
 import { SolicitudPagoEmpleadosComponent } from './vistas/center/solicitud-pago-empleados/solicitud-pago-empleados.component';
+import {UploadLineasCreditos} from './vistas/corp/cargarLineasCreditos/vistas/upload/upload-lineas-creditos.component';
+import {ViewFileComponent} from './vistas/corp/cargarLineasCreditos/vistas/view-file/view-file.component';
 
 const routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -78,6 +80,12 @@ const routes = [
       },
       {
         path: 'cargarCreditosEmpleados', component: UploadComponent, canActivate: [AuthGuard]
+      },
+      {
+        path: 'cargarCreditosNegocios', component: UploadLineasCreditos, canActivate: [AuthGuard]
+      },
+      {
+        path: 'archivo/:archivoId', component: ViewFileComponent, canActivate: [AuthGuard]
       },
     ],
   },
@@ -206,6 +214,8 @@ const routes = [
     SolicitudesPagoCasasComercialComponent,
     EmpleadosCorp,
     SolicitudPagoEmpleadosComponent,
+    UploadLineasCreditos,
+    ViewFileComponent,
   ],
   imports: [
     CoreCommonModule,
