@@ -3,6 +3,7 @@ import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {SolicitudesCreditosService} from '../solicitudes-creditos.service';
 import Decimal from 'decimal.js';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {ValidacionesPropias} from '../../../../../../../utils/customer.validators';
 
 @Component({
   selector: 'app-valores-proceso',
@@ -48,9 +49,9 @@ export class ValoresProcesoComponent implements OnInit {
       montoLiquidar: [this.credito.montoLiquidar, [Validators.required]],
       montoDisponible: [this.credito.montoLiquidar, [Validators.required]],
       solicitudCredito: [this.credito.solicitudCredito],
-      pagare: ['', [Validators.required]],
-      contratosCuenta: ['', [Validators.required]],
-      tablaAmortizacion: ['', [Validators.required]],
+      pagare: ['', [Validators.required, ValidacionesPropias.pdfValido]],
+      contratosCuenta: ['', [Validators.required, ValidacionesPropias.pdfValido]],
+      tablaAmortizacion: ['', [Validators.required, ValidacionesPropias.pdfValido]],
     });
     console.log('this.credito', this.credito);
     if (this.credito.empresaInfo) {
@@ -71,6 +72,11 @@ export class ValoresProcesoComponent implements OnInit {
   }
 
   actualizarSolicitudCredito(estado) {
+    this.submitted = true;
+    if (this.actualizarCreditoForm.invalid) {
+      console.log('form', this.actualizarCreditoForm);
+      return;
+    }
     this.cargando = true;
     const creditoValores = Object.values(this.actualizarCreditoForm.value);
     const creditoLlaves = Object.keys(this.actualizarCreditoForm.value);

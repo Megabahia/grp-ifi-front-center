@@ -134,6 +134,9 @@
                                          style="display: block;">
                                         <div *ngIf="controlsFrom.pagare.errors.required">Cargar Buró es requerido
                                         </div>
+                                        <div *ngIf="controlsFrom.pagare.errors.extensionInvalida">
+                                            La extension del documento no es pdf
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -153,6 +156,9 @@
                                         <div *ngIf="controlsFrom.contratosCuenta.errors.required">Contratos de cuenta
                                             es requerido
                                         </div>
+                                        <div *ngIf="controlsFrom.contratosCuenta.errors.extensionInvalida">
+                                            La extension del documento no es pdf
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -171,6 +177,9 @@
                                          style="display: block;">
                                         <div *ngIf="controlsFrom.tablaAmortizacion.errors.required">Contratos de cuenta
                                             es requerido
+                                        </div>
+                                        <div *ngIf="controlsFrom.tablaAmortizacion.errors.extensionInvalida">
+                                            La extension del documento no es pdf
                                         </div>
                                     </div>
                                 </div>
@@ -525,14 +534,6 @@
                                class="form-control"
                                value="" disabled>
                     </div>
-                    <div *ngIf="submitted && controlsFrom.comercial.errors"
-                         class="invalid-feedback"
-                         style="display: block;">
-                        <div *ngIf="controlsFrom.comercial.errors.required">Nombre comercial
-                            es
-                            requerido
-                        </div>
-                    </div>
                 </div>
             </div>
             <div class="row">
@@ -545,14 +546,6 @@
                                value=""
                                disabled>
                     </div>
-                    <div *ngIf="submitted && controlsFrom.actividadEconomica.errors"
-                         class="invalid-feedback"
-                         style="display: block;">
-                        <div *ngIf="controlsFrom.actividadEconomica.errors.required">
-                            Actividad económica es
-                            requerido
-                        </div>
-                    </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
@@ -564,14 +557,6 @@
                                value=""
                                disabled>
                     </div>
-                    <div *ngIf="submitted && controlsFrom.direccionDomiciolRepresentante.errors"
-                         class="invalid-feedback"
-                         style="display: block;">
-                        <div *ngIf="controlsFrom.direccionDomiciolRepresentante.errors.required">
-                            Dirección es
-                            requerido
-                        </div>
-                    </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
@@ -581,14 +566,6 @@
                                class="form-control"
                                value=""
                                disabled>
-                    </div>
-                    <div *ngIf="submitted && controlsFrom.direccionDomiciolRepresentante.errors"
-                         class="invalid-feedback"
-                         style="display: block;">
-                        <div *ngIf="controlsFrom.direccionDomiciolRepresentante.errors.required">Dirección
-                            es
-                            requerido
-                        </div>
                     </div>
                 </div>
             </div>
@@ -603,14 +580,6 @@
                         <input type="text" formControlName="refenciaNegocio"
                                class="form-control"
                                value="" disabled>
-                    </div>
-                    <div *ngIf="submitted && controlsFrom.refenciaNegocio.errors"
-                         class="invalid-feedback"
-                         style="display: block;">
-                        <div *ngIf="controlsFrom.refenciaNegocio.errors.required">
-                            Referencia es
-                            requerido
-                        </div>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -627,14 +596,6 @@
                             <option value="Divorciado">- Divorciado -</option>
                         </select>
                     </div>
-                    <div *ngIf="submitted && controlsFrom.esatdo_civil.errors"
-                         class="invalid-feedback"
-                         style="display: block;">
-                        <div *ngIf="controlsFrom.esatdo_civil.errors.required">Estado civil
-                            es
-                            requerido
-                        </div>
-                    </div>
                 </div>
 
             </div>
@@ -647,13 +608,6 @@
                                class="form-control"
                                value="" disabled>
                     </div>
-                    <div *ngIf="submitted && controlsFrom.telefono.errors"
-                         class="invalid-feedback"
-                         style="display: block;">
-                        <div *ngIf="controlsFrom.telefono.errors.required">Teléfono es
-                            requerido
-                        </div>
-                    </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
@@ -662,13 +616,6 @@
                         <input type="text" formControlName="celular"
                                class="form-control"
                                value="" disabled>
-                    </div>
-                    <div *ngIf="submitted && controlsFrom.celular.errors"
-                         class="invalid-feedback"
-                         style="display: block;">
-                        <div *ngIf="controlsFrom.celular.errors.required">Teléfono celular
-                            es requerido
-                        </div>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -679,14 +626,6 @@
                         <input type="text" formControlName="correo"
                                class="form-control"
                                value="" disabled>
-                    </div>
-                    <div *ngIf="submitted && controlsFrom.correo.errors"
-                         class="invalid-feedback"
-                         style="display: block;">
-                        <div *ngIf="controlsFrom.correo.errors.required">Correo electrónico
-                            es
-                            requerido
-                        </div>
                     </div>
                 </div>
             </div>
@@ -851,14 +790,6 @@
                                class="form-control"
                                value="" disabled>
                     </div>
-                    <div *ngIf="submitted && controlsFrom.inresosMensualesVentas.errors"
-                         class="invalid-feedback"
-                         style="display: block;">
-                        <div *ngIf="controlsFrom.inresosMensualesVentas.errors.required">
-                            Ingresos mensuales es
-                            requerido
-                        </div>
-                    </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
@@ -890,14 +821,6 @@
                                class="form-control"
                                value="" disabled>
                     </div>
-                    <div *ngIf="submitted && controlsFrom.gastosMensuales.errors"
-                         class="invalid-feedback"
-                         style="display: block;">
-                        <div *ngIf="controlsFrom.gastosMensuales.errors.required">Gastos
-                            mensuales es
-                            requerido
-                        </div>
-                    </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
@@ -906,14 +829,6 @@
                         <input type="text" formControlName="gastosFamilaires"
                                class="form-control"
                                value="" disabled>
-                    </div>
-                    <div *ngIf="submitted && controlsFrom.gastosFamilaires.errors"
-                         class="invalid-feedback"
-                         style="display: block;">
-                        <div *ngIf="controlsFrom.gastosFamilaires.errors.required">Gastos
-                            familiares es
-                            requerido
-                        </div>
                     </div>
                 </div>
                 <div class="col-md-4">

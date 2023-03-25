@@ -83,7 +83,7 @@
                             <div class="badge badge-light-success">{{credito.estado}}</div>
                         </td>
                         <td>
-                            <button type="button" (click)="viewDataUser(modalSLC,credito.empresaInfo)"
+                            <button *ngIf="isObjectEmpty(credito.empresaInfo)" type="button" (click)="viewDataUser(modalSLC,credito.empresaInfo)"
                                     class="btn btn-outline-primary"
                                     rippleEffect>
                                 Enlace
@@ -166,14 +166,6 @@
                                class="form-control"
                                value="" disabled>
                     </div>
-                    <div *ngIf="submitted && controlsFrom.comercial.errors"
-                         class="invalid-feedback"
-                         style="display: block;">
-                        <div *ngIf="controlsFrom.comercial.errors.required">Nombre comercial
-                            es
-                            requerido
-                        </div>
-                    </div>
                 </div>
             </div>
             <div class="row">
@@ -186,14 +178,6 @@
                                value=""
                                disabled>
                     </div>
-                    <div *ngIf="submitted && controlsFrom.actividadEconomica.errors"
-                         class="invalid-feedback"
-                         style="display: block;">
-                        <div *ngIf="controlsFrom.actividadEconomica.errors.required">
-                            Actividad económica es
-                            requerido
-                        </div>
-                    </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
@@ -205,14 +189,6 @@
                                value=""
                                disabled>
                     </div>
-                    <div *ngIf="submitted && controlsFrom.direccionDomiciolRepresentante.errors"
-                         class="invalid-feedback"
-                         style="display: block;">
-                        <div *ngIf="controlsFrom.direccionDomiciolRepresentante.errors.required">
-                            Dirección es
-                            requerido
-                        </div>
-                    </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
@@ -222,14 +198,6 @@
                                class="form-control"
                                value=""
                                disabled>
-                    </div>
-                    <div *ngIf="submitted && controlsFrom.direccionEmpresa.errors"
-                         class="invalid-feedback"
-                         style="display: block;">
-                        <div *ngIf="controlsFrom.direccionEmpresa.errors.required">Dirección
-                            es
-                            requerido
-                        </div>
                     </div>
                 </div>
             </div>
@@ -244,14 +212,6 @@
                         <input type="text" formControlName="referenciaDomicilio"
                                class="form-control"
                                value="" disabled>
-                    </div>
-                    <div *ngIf="submitted && controlsFrom.referenciaDomicilio.errors"
-                         class="invalid-feedback"
-                         style="display: block;">
-                        <div *ngIf="controlsFrom.referenciaDomicilio.errors.required">
-                            Referencia es
-                            requerido
-                        </div>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -268,14 +228,6 @@
                             <option value="Divorciado">- Divorciado -</option>
                         </select>
                     </div>
-                    <div *ngIf="submitted && controlsFrom.esatdo_civil.errors"
-                         class="invalid-feedback"
-                         style="display: block;">
-                        <div *ngIf="controlsFrom.esatdo_civil.errors.required">Estado civil
-                            es
-                            requerido
-                        </div>
-                    </div>
                 </div>
 
             </div>
@@ -288,13 +240,6 @@
                                class="form-control"
                                value="" disabled>
                     </div>
-                    <div *ngIf="submitted && controlsFrom.telefono.errors"
-                         class="invalid-feedback"
-                         style="display: block;">
-                        <div *ngIf="controlsFrom.telefono.errors.required">Teléfono es
-                            requerido
-                        </div>
-                    </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
@@ -303,13 +248,6 @@
                         <input type="text" formControlName="celular"
                                class="form-control"
                                value="" disabled>
-                    </div>
-                    <div *ngIf="submitted && controlsFrom.celular.errors"
-                         class="invalid-feedback"
-                         style="display: block;">
-                        <div *ngIf="controlsFrom.celular.errors.required">Teléfono celular
-                            es requerido
-                        </div>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -320,14 +258,6 @@
                         <input type="text" formControlName="correo"
                                class="form-control"
                                value="" disabled>
-                    </div>
-                    <div *ngIf="submitted && controlsFrom.correo.errors"
-                         class="invalid-feedback"
-                         style="display: block;">
-                        <div *ngIf="controlsFrom.correo.errors.required">Correo electrónico
-                            es
-                            requerido
-                        </div>
                     </div>
                 </div>
             </div>
@@ -492,14 +422,6 @@
                                class="form-control"
                                value="" disabled>
                     </div>
-                    <div *ngIf="submitted && controlsFrom.inresosMensualesVentas.errors"
-                         class="invalid-feedback"
-                         style="display: block;">
-                        <div *ngIf="controlsFrom.inresosMensualesVentas.errors.required">
-                            Ingresos mensuales es
-                            requerido
-                        </div>
-                    </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
@@ -531,14 +453,6 @@
                                class="form-control"
                                value="" disabled>
                     </div>
-                    <div *ngIf="submitted && controlsFrom.gastosMensuales.errors"
-                         class="invalid-feedback"
-                         style="display: block;">
-                        <div *ngIf="controlsFrom.gastosMensuales.errors.required">Gastos
-                            mensuales es
-                            requerido
-                        </div>
-                    </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
@@ -547,14 +461,6 @@
                         <input type="text" formControlName="gastosFamilaires"
                                class="form-control"
                                value="" disabled>
-                    </div>
-                    <div *ngIf="submitted && controlsFrom.gastosFamilaires.errors"
-                         class="invalid-feedback"
-                         style="display: block;">
-                        <div *ngIf="controlsFrom.gastosFamilaires.errors.required">Gastos
-                            familiares es
-                            requerido
-                        </div>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -597,8 +503,7 @@
         <div class="modal-body flex-grow-1">
 
             <div class="form-group">
-                <label>Copia de cédula y Ruc</label>
-
+                <label>Copia de cédula Representante Legal</label>
                 <div class="custom-file">
                     <label class="form-check-label mr-2" for="checkIdentificacion">Valido</label>
                     <input class="form-check-input" type="checkbox" id="checkIdentificacion"
@@ -608,13 +513,30 @@
                     </a>
                     <div *ngIf="submitted && controlsFrom.checkIdentificacion.errors" class="invalid-feedback"
                          style="display: block;">
-                        <div *ngIf="controlsFrom.checkIdentificacion.errors.required">Copia de cédula y Ruc es
-                            requerido
+                        <div *ngIf="controlsFrom.checkIdentificacion.errors.required">
+                            Copia de cédula requerido
                         </div>
                     </div>
                 </div>
             </div>
             <div class="form-group">
+                <label>RUC del negocio</label>
+                <div class="custom-file">
+                    <label class="form-check-label mr-2" for="checkRuc">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkRuc"
+                           formControlName="checkRuc"/>
+                    <a *ngIf="credito.ruc" href="{{credito.ruc}}" target="_blank">
+                        Ver
+                    </a>
+                    <div *ngIf="submitted && controlsFrom.checkRuc.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.checkRuc.errors.required">
+                            Ruc es requerido
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" *ngIf="!this.ingresoNegocioSuperior">
                 <label>Foto tamaño carnet</label>
                 <div class="custom-file">
                     <label class="form-check-label mr-2" for="checkFotoCarnet">Valido</label>
@@ -632,7 +554,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label>Papeleta de votación</label>
+                <label>Copia de papeleta de votación Representante Legal</label>
 
                 <div class="custom-file">
                     <label class="form-check-label mr-2" for="checkPapeletaVotacion">Valido</label>
@@ -668,9 +590,7 @@
                 </div>
             </div>
             <div *ngIf="!soltero" class="form-group">
-                <label>Papeleta de votación de cónyuge</label>
-
-
+                <label>Copia de papeleta de votación cónyuge</label>
                 <div class="custom-file">
                     <label class="form-check-label mr-2" for="checkPapeletaVotacionConyuge">Valido</label>
                     <input class="form-check-input" type="checkbox" id="checkPapeletaVotacionConyuge"
@@ -687,7 +607,7 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" *ngIf="!this.ingresoNegocioSuperior">
                 <label>
                     Copia de planilla de luz del domicilio
                 </label>
@@ -696,7 +616,7 @@
                     <label class="form-check-label mr-2" for="checkPlanillaLuzDomicilio">Valido</label>
                     <input class="form-check-input" type="checkbox" id="checkPlanillaLuzDomicilio"
                            formControlName="checkPlanillaLuzDomicilio"/>
-                    <a *ngIf="credito.checkPlanillaLuzDomicilio" href="{{credito.checkPlanillaLuzDomicilio}}"
+                    <a *ngIf="credito.planillaLuzDomicilio" href="{{credito.planillaLuzDomicilio}}"
                        target="_blank">
                         Ver
                     </a>
@@ -708,7 +628,7 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" *ngIf="!this.ingresoNegocioSuperior">
                 <label>
                     Copia de planilla de luz del Negocio
                 </label>
@@ -728,55 +648,91 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" *ngIf="!this.ingresoNegocioSuperior">
                 <label>
-                    3 Copias de Facturas de Ventas del negocio de los últimos 2 meses
+                    Copia de Factura de Ventas del negocio del último mes (factura de hace 1 mes)
                 </label>
 
                 <div class="custom-file">
-                    <label class="form-check-label mr-2" for="checkfacturasVentas2meses">Valido</label>
-                    <input class="form-check-input" type="checkbox" id="checkfacturasVentas2meses"
-                           formControlName="checkfacturasVentas2meses"/>
+                    <label class="form-check-label mr-2" for="checkFacturasVentas2meses">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkFacturasVentas2meses"
+                           formControlName="checkFacturasVentas2meses"/>
                     <a *ngIf="credito.facturasVentas2meses" href="{{credito.facturasVentas2meses}}" target="_blank">
                         Ver
                     </a>
-                    <div *ngIf="submitted && controlsFrom.checkfacturasVentas2meses.errors" class="invalid-feedback"
+                    <div *ngIf="submitted && controlsFrom.checkFacturasVentas2meses.errors" class="invalid-feedback"
                          style="display: block;">
-                        <div *ngIf="controlsFrom.checkfacturasVentas2meses.errors.required">Facturas de Ventas últimos 2
+                        <div *ngIf="controlsFrom.checkFacturasVentas2meses.errors.required">Facturas de Ventas últimos 2
                             meses es
                             requerido
                         </div>
                     </div>
                 </div>
-
             </div>
-            <div class="form-group">
+            <div class="form-group" *ngIf="!this.ingresoNegocioSuperior">
                 <label>
-                    3 Copias de Facturas de Ventas del último mes o Certificado de la Asociación
+                    Copia de Factura de Ventas del negocio del penúltimo mes (factura de hace 2 meses)
                 </label>
-
                 <div class="custom-file">
-                    <label class="form-check-label mr-2" for="checkfacturasVentasCertificado">Valido</label>
-                    <input class="form-check-input" type="checkbox" id="checkfacturasVentasCertificado"
-                           formControlName="checkfacturasVentasCertificado"/>
-                    <a *ngIf="credito.facturasVentasCertificado" href="{{credito.facturasVentasCertificado}}"
-                       target="_blank">
+                    <label class="form-check-label mr-2" for="checkFacturasVentas2meses2">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkFacturasVentas2meses2"
+                           formControlName="checkFacturasVentas2meses2"/>
+                    <a *ngIf="credito.facturasVentas2meses2" href="{{credito.facturasVentas2meses2}}" target="_blank">
                         Ver
                     </a>
-                    <div *ngIf="submitted && controlsFrom.checkfacturasVentasCertificado.errors"
-                         class="invalid-feedback"
+                    <div *ngIf="submitted && controlsFrom.checkFacturasVentas2meses2.errors" class="invalid-feedback"
                          style="display: block;">
-                        <div *ngIf="controlsFrom.checkfacturasVentasCertificado.errors.required">Facturas de Ventas es
+                        <div *ngIf="controlsFrom.checkFacturasVentas2meses2.errors.required">Facturas de Ventas últimos 2
+                            meses es
                             requerido
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" *ngIf="!this.ingresoNegocioSuperior">
                 <label>
-                    Factura pendiente de pago
+                    Copia de Factura de Compra del negocio del último mes (factura de hace 1 mes)
                 </label>
-
+                <div class="custom-file">
+                    <label class="form-check-label mr-2" for="checkFacturasCompras2meses">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkFacturasCompras2meses"
+                           formControlName="checkFacturasCompras2meses"/>
+                    <a *ngIf="credito.facturasCompras2meses" href="{{credito.facturasCompras2meses}}"
+                       target="_blank">
+                        Ver
+                    </a>
+                    <div *ngIf="submitted && controlsFrom.checkFacturasCompras2meses.errors"
+                         class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.checkFacturasCompras2meses.errors.required">Facturas de Ventas es
+                            requerido
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" *ngIf="!this.ingresoNegocioSuperior">
+                <label>
+                    Copia de Factura de Compra del negocio del penúltimo mes (factura de hace 2 meses)
+                </label>
+                <div class="custom-file">
+                    <label class="form-check-label mr-2" for="checkFacturasCompras2meses2">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkFacturasCompras2meses2"
+                           formControlName="checkFacturasCompras2meses2"/>
+                    <a *ngIf="credito.facturasCompras2meses2" href="{{credito.facturasCompras2meses2}}" target="_blank">
+                        Ver
+                    </a>
+                    <div *ngIf="submitted && controlsFrom.checkFacturasCompras2meses2.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.checkFacturasCompras2meses2.errors.required">
+                            Factura pendiente es requerido
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" *ngIf="!this.ingresoNegocioSuperior">
+                <label>
+                    Factura pendiente de pago del proveedor
+                </label>
                 <div class="custom-file">
                     <label class="form-check-label mr-2" for="checkFacturasPendiente">Valido</label>
                     <input class="form-check-input" type="checkbox" id="checkFacturasPendiente"
@@ -792,11 +748,10 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" *ngIf="!this.ingresoNegocioSuperior">
                 <label>
-                    Copia de matrícula del vehículo
+                    Copia de matrícula del vehículo (obligatorio)
                 </label>
-
                 <div class="custom-file">
                     <label class="form-check-label mr-2" for="checkMatriculaVehiculo">Valido</label>
                     <input class="form-check-input" type="checkbox" id="checkMatriculaVehiculo"
@@ -813,10 +768,10 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group">
-                <label>Copia de pago de impuesto predial
+            <div class="form-group" *ngIf="!this.ingresoNegocioSuperior">
+                <label>
+                    Copia de pago de impuesto predial o copia de escrituras
                 </label>
-
                 <div class="custom-file">
                     <label class="form-check-label mr-2" for="checkImpuestoPredial">Valido</label>
                     <input class="form-check-input" type="checkbox" id="checkImpuestoPredial"
@@ -832,6 +787,217 @@
                     </div>
                 </div>
             </div>
+            <div class="form-group" *ngIf="this.ingresoNegocioSuperior">
+                <label>
+                    Nombramiento del Representante Legal inscrito en el Registro Mercantil
+                </label>
+                <div class="custom-file">
+                    <label class="form-check-label mr-2" for="checkNombramientoRepresentante">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkNombramientoRepresentante"
+                           formControlName="checkNombramientoRepresentante"/>
+                    <a *ngIf="credito.nombramientoRepresentante" href="{{credito.nombramientoRepresentante}}" target="_blank">
+                        Ver
+                    </a>
+                    <div *ngIf="submitted && controlsFrom.checkNombramientoRepresentante.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.checkNombramientoRepresentante.errors.required">
+                            Copia de pago de impuesto predial es requerido
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" *ngIf="this.ingresoNegocioSuperior">
+                <label>
+                    Certificado de cumplimiento de la Superintendencia de Compañías
+                </label>
+                <div class="custom-file">
+                    <label class="form-check-label mr-2" for="checkCertificadoSuperintendencia">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkCertificadoSuperintendencia"
+                           formControlName="checkCertificadoSuperintendencia"/>
+                    <a *ngIf="credito.certificadoSuperintendencia" href="{{credito.certificadoSuperintendencia}}" target="_blank">
+                        Ver
+                    </a>
+                    <div *ngIf="submitted && controlsFrom.checkCertificadoSuperintendencia.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.checkCertificadoSuperintendencia.errors.required">
+                            Copia de pago de impuesto predial es requerido
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" *ngIf="this.ingresoNegocioSuperior">
+                <label>
+                    Certificado de cumplimiento de obligaciones patronales con el IESS. (En caso de que la empresa no
+                    cuente con empleados se requiere una declaración juramentada)
+                </label>
+                <div class="custom-file">
+                    <label class="form-check-label mr-2" for="checkCertificadoPatronales">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkCertificadoPatronales"
+                           formControlName="checkCertificadoPatronales"/>
+                    <a *ngIf="credito.certificadoPatronales" href="{{credito.certificadoPatronales}}" target="_blank">
+                        Ver
+                    </a>
+                    <div *ngIf="submitted && controlsFrom.checkCertificadoPatronales.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.checkCertificadoPatronales.errors.required">
+                            Copia de pago de impuesto predial es requerido
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" *ngIf="this.ingresoNegocioSuperior">
+                <label>
+                    Nómina de socios y/o accionistas
+                </label>
+                <div class="custom-file">
+                    <label class="form-check-label mr-2" for="checkNominaSocios">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkNominaSocios"
+                           formControlName="checkNominaSocios"/>
+                    <a *ngIf="credito.nominaSocios" href="{{credito.nominaSocios}}" target="_blank">
+                        Ver
+                    </a>
+                    <div *ngIf="submitted && controlsFrom.checkNominaSocios.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.checkNominaSocios.errors.required">
+                            Copia de pago de impuesto predial es requerido
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" *ngIf="this.ingresoNegocioSuperior">
+                <label>
+                    Acta de Junta General u órgano competente autorizando la contratación del crédito
+                </label>
+                <div class="custom-file">
+                    <label class="form-check-label mr-2" for="checkActaJuntaGeneral">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkActaJuntaGeneral"
+                           formControlName="checkActaJuntaGeneral"/>
+                    <a *ngIf="credito.actaJuntaGeneral" href="{{credito.actaJuntaGeneral}}" target="_blank">
+                        Ver
+                    </a>
+                    <div *ngIf="submitted && controlsFrom.checkActaJuntaGeneral.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.checkActaJuntaGeneral.errors.required">
+                            Copia de pago de impuesto predial es requerido
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" *ngIf="this.ingresoNegocioSuperior">
+                <label>
+                    Certificado bancario
+                </label>
+                <div class="custom-file">
+                    <label class="form-check-label mr-2" for="checkCertificadoBancario">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkCertificadoBancario"
+                           formControlName="checkCertificadoBancario"/>
+                    <a *ngIf="credito.certificadoBancario" href="{{credito.certificadoBancario}}" target="_blank">
+                        Ver
+                    </a>
+                    <div *ngIf="submitted && controlsFrom.checkCertificadoBancario.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.checkCertificadoBancario.errors.required">
+                            Copia de pago de impuesto predial es requerido
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" *ngIf="this.ingresoNegocioSuperior">
+                <label>
+                    Dos referencias comerciales (en caso de importaciones adjuntar copias de facturas)
+                </label>
+                <div class="custom-file">
+                    <label class="form-check-label mr-2" for="checkReferenciasComerciales">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkReferenciasComerciales"
+                           formControlName="checkReferenciasComerciales"/>
+                    <a *ngIf="credito.referenciasComerciales" href="{{credito.referenciasComerciales}}" target="_blank">
+                        Ver
+                    </a>
+                    <div *ngIf="submitted && controlsFrom.checkReferenciasComerciales.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.checkReferenciasComerciales.errors.required">
+                            Copia de pago de impuesto predial es requerido
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" *ngIf="this.ingresoNegocioSuperior">
+                <label>
+                    Balance de pérdidas y ganancias
+                </label>
+                <div class="custom-file">
+                    <label class="form-check-label mr-2" for="checkBalancePerdidasGanancias">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkBalancePerdidasGanancias"
+                           formControlName="checkBalancePerdidasGanancias"/>
+                    <a *ngIf="credito.balancePerdidasGanancias" href="{{credito.balancePerdidasGanancias}}" target="_blank">
+                        Ver
+                    </a>
+                    <div *ngIf="submitted && controlsFrom.checkBalancePerdidasGanancias.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.checkBalancePerdidasGanancias.errors.required">
+                            Copia de pago de impuesto predial es requerido
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" *ngIf="this.ingresoNegocioSuperior">
+                <label>
+                    Balance de resultados
+                </label>
+                <div class="custom-file">
+                    <label class="form-check-label mr-2" for="checkBalanceResultados">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkBalanceResultados"
+                           formControlName="checkBalanceResultados"/>
+                    <a *ngIf="credito.balanceResultados" href="{{credito.balanceResultados}}" target="_blank">
+                        Ver
+                    </a>
+                    <div *ngIf="submitted && controlsFrom.checkBalanceResultados.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.checkBalanceResultados.errors.required">
+                            Copia de pago de impuesto predial es requerido
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" *ngIf="this.ingresoNegocioSuperior">
+                <label>
+                    Declaración del IVA de los últimos seis meses
+                </label>
+                <div class="custom-file">
+                    <label class="form-check-label mr-2" for="checkDeclaracionIva">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkDeclaracionIva"
+                           formControlName="checkDeclaracionIva"/>
+                    <a *ngIf="credito.declaracionIva" href="{{credito.declaracionIva}}" target="_blank">
+                        Ver
+                    </a>
+                    <div *ngIf="submitted && controlsFrom.checkDeclaracionIva.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.checkDeclaracionIva.errors.required">
+                            Copia de pago de impuesto predial es requerido
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" *ngIf="this.ingresoNegocioSuperior">
+                <label>
+                    Estados de cuenta de tarjeta de crédito (empresas unipersonales)
+                </label>
+                <div class="custom-file">
+                    <label class="form-check-label mr-2" for="checkEstadoCuentaTarjeta">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkEstadoCuentaTarjeta"
+                           formControlName="checkEstadoCuentaTarjeta"/>
+                    <a *ngIf="credito.estadoCuentaTarjeta" href="{{credito.estadoCuentaTarjeta}}" target="_blank">
+                        Ver
+                    </a>
+                    <div *ngIf="submitted && controlsFrom.checkEstadoCuentaTarjeta.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.checkEstadoCuentaTarjeta.errors.required">
+                            Copia de pago de impuesto predial es requerido
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!--inputs-->
             <div class="form-group">
                 <label for="solicitudCredito">Procesar solicitud de crédito</label>
@@ -839,7 +1005,7 @@
                     <input type="file" class="custom-file-input" id="solicitudCredito"
                            formControlName="solicitudCredito"
                            (change)="subirDoc( $event, 'solicitudCredito')"
-                           accept="image/jpeg,image/png,application/pdf"/>
+                           accept="application/pdf"/>
                     <label class="custom-file-label"
                            for="solicitudCredito">{{actualizarCreditoForm.get('solicitudCredito').value}}</label>
                     <div *ngIf="submitted && controlsFrom.solicitudCredito.errors" class="invalid-feedback"
@@ -1017,25 +1183,26 @@
                     Buró crediticio (GRP-BP)
                 </label>
                 <div class="custom-file">
-                    <label class="form-check-label mr-2" for="checkBuroCreditoGRP">Valido</label>
-                    <input class="form-check-input" type="checkbox" id="checkBuroCreditoGRP"
-                           formControlName="checkBuroCreditoGRP"/>
-                    <a *ngIf="credito.impuestoPredial" href="{{credito.impuestoPredial}}" target="_blank">
+                    <label class="form-check-label mr-2" for="checkBuroCredito">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkBuroCredito"
+                           formControlName="checkBuroCredito"/>
+                    <a *ngIf="credito.buroCredito" href="{{credito.buroCredito}}" target="_blank">
                         Ver
                     </a>
-                    <div *ngIf="submitted && controlsFrom.checkBuroCreditoGRP.errors" class="invalid-feedback"
+                    <div *ngIf="submitted && controlsFrom.checkBuroCredito.errors" class="invalid-feedback"
                          style="display: block;">
-                        <div *ngIf="controlsFrom.checkBuroCreditoGRP.errors.required">
+                        <div *ngIf="controlsFrom.checkBuroCredito.errors.required">
                             Buró crediticio (GRP-BP) es requerido
                         </div>
                     </div>
                 </div>
             </div>
             <div class="form-group">
-                <label>Calificación de Buró de Crédito</label>
+                <label>Calificación de Buró GRP</label>
                 <div class="custom-file">
                     <input type="number" class="form-control" id="calificacionBuro"
                            formControlName="calificacionBuro"
+                           disabled
                     />
 
                     <div *ngIf="submitted && controlsFrom.calificacionBuro.errors"

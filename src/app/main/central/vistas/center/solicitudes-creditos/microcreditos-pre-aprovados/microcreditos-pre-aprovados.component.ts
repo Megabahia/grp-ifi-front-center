@@ -62,6 +62,7 @@ export class MicrocreditosPreAprovadosComponent implements OnInit, AfterViewInit
     public submitted = false;
     public cargando = false;
     public actualizarCreditoFormData;
+  public ingresoNegocioSuperior = false;
 
     constructor(
         private _solicitudCreditosService: SolicitudesCreditosService,
@@ -156,8 +157,12 @@ export class MicrocreditosPreAprovadosComponent implements OnInit, AfterViewInit
         return this.formSolicitud.controls['conyuge'] as FormGroup;
     }
 
+    isObjectEmpty(obj) {
+      return !!Object.keys(obj).length;
+    }
+
     viewDataUser(modal, empresa) {
-        const infoEmpresa = JSON.parse(empresa);
+        const infoEmpresa = empresa;
         this.empresa = infoEmpresa;
         console.log('infoEmpresa', infoEmpresa);
         this.declareFormularios();
@@ -190,7 +195,10 @@ export class MicrocreditosPreAprovadosComponent implements OnInit, AfterViewInit
         this.submitted = false;
         this.actualizarCreditoFormData = new FormData();
         this.pantalla = 1;
-        this.soltero = (credito.estadoCivil === 'Soltero' || credito.estadoCivil === 'Divorciado');
+        this.soltero = (credito.estadoCivil === 'Solter@' || credito.estadoCivil === 'Soltero' ||
+          credito.user.estadoCivil === 'Solter@' || credito.user.estadoCivil === 'Divorciado' ||
+          credito.estadoCivil === 'Divorciad@' || credito.estadoCivil === 'Divorciado');
+        this.ingresoNegocioSuperior = (credito.monto >= 8000);
         this.actualizarCreditoForm = this._formBuilder.group(
             {
                 id: [credito._id, [Validators.required]],
@@ -215,18 +223,36 @@ export class MicrocreditosPreAprovadosComponent implements OnInit, AfterViewInit
                 // buroCredito: ['', [Validators.required]], //
                 // observacion: [this.credito.observacion ? this.credito.observacion : '', [Validators.required]], //
                 // checks
-                checkIdentificacion: ['', [Validators.requiredTrue]], //
-                checkFotoCarnet: ['', [Validators.requiredTrue]], //
-                checkPapeletaVotacion: ['', [Validators.requiredTrue]], //
-                checkIdentificacionConyuge: ['', this.soltero ? [] : [Validators.requiredTrue]], //
-                checkPapeletaVotacionConyuge: ['', this.soltero ? [] : [Validators.requiredTrue]], //
-                checkPlanillaLuzDomicilio: ['', [Validators.requiredTrue]], //
-                checkPlanillaLuzNegocio: ['', [Validators.requiredTrue]], //
-                checkfacturasVentas2meses: ['', [Validators.requiredTrue]], //
-                checkfacturasVentasCertificado: ['', [Validators.requiredTrue]], //
-                checkFacturasPendiente: ['', [Validators.requiredTrue]], //
-                checkMatriculaVehiculo: [''], //
-                checkImpuestoPredial: [''], //
+              checkIdentificacion: ['', [Validators.requiredTrue]], //
+              checkRuc: ['', !this.ingresoNegocioSuperior ? [Validators.requiredTrue] : []],
+              checkFotoCarnet: ['', !this.ingresoNegocioSuperior ? [Validators.requiredTrue] : []],
+              checkPapeletaVotacion: ['', [Validators.requiredTrue]], //
+              checkIdentificacionConyuge: ['', !this.soltero ? [Validators.requiredTrue] : []],
+              checkPapeletaVotacionConyuge: ['', !this.soltero ? [Validators.requiredTrue] : []],
+              checkPlanillaLuzDomicilio: ['', !this.ingresoNegocioSuperior ? [Validators.requiredTrue] : []],
+              checkPlanillaLuzNegocio: ['', !this.ingresoNegocioSuperior ? [Validators.requiredTrue] : []],
+              checkFacturasVentas2meses: ['', !this.ingresoNegocioSuperior ? [Validators.requiredTrue] : []],
+              checkFacturasVentas2meses2: ['', !this.ingresoNegocioSuperior ? [Validators.requiredTrue] : []],
+              checkFacturasCompras2meses: ['', !this.ingresoNegocioSuperior ? [Validators.requiredTrue] : []],
+              checkFacturasCompras2meses2: ['', !this.ingresoNegocioSuperior ? [Validators.requiredTrue] : []],
+              checkFacturasPendiente: ['', !this.ingresoNegocioSuperior ? [Validators.requiredTrue] : []],
+
+              checkNombramientoRepresentante: ['', this.ingresoNegocioSuperior ? [Validators.requiredTrue] : []],
+              checkCertificadoSuperintendencia: ['', this.ingresoNegocioSuperior ? [Validators.requiredTrue] : []],
+              checkCertificadoPatronales: ['', this.ingresoNegocioSuperior ? [Validators.requiredTrue] : []],
+              checkNominaSocios: ['', this.ingresoNegocioSuperior ? [Validators.requiredTrue] : []],
+              checkActaJuntaGeneral: ['', this.ingresoNegocioSuperior ? [Validators.requiredTrue] : []],
+              checkCertificadoBancario: ['', this.ingresoNegocioSuperior ? [Validators.requiredTrue] : []],
+              checkReferenciasComerciales: ['', this.ingresoNegocioSuperior ? [Validators.requiredTrue] : []],
+              checkBalancePerdidasGanancias: ['', this.ingresoNegocioSuperior ? [Validators.requiredTrue] : []],
+              checkBalanceResultados: ['', this.ingresoNegocioSuperior ? [Validators.requiredTrue] : []],
+              checkDeclaracionIva: ['', this.ingresoNegocioSuperior ? [Validators.requiredTrue] : []],
+              checkEstadoCuentaTarjeta: ['', this.ingresoNegocioSuperior ? [Validators.requiredTrue] : []],
+
+              checkMatriculaVehiculo: ['', !this.ingresoNegocioSuperior ? [Validators.requiredTrue] : []],
+              checkImpuestoPredial: ['', !this.ingresoNegocioSuperior ? [Validators.requiredTrue] : []],
+              checkBuroCredito: ['', [Validators.requiredTrue]],
+              checkCalificacionBuro: ['', [Validators.requiredTrue]],
                 // checkBuroCredito: ['', [Validators.requiredTrue]], //
                 // checkObservacion: ['', [Validators.requiredTrue]], //
                 checkSolicitudCredito: ['', [Validators.requiredTrue]], //
@@ -235,8 +261,6 @@ export class MicrocreditosPreAprovadosComponent implements OnInit, AfterViewInit
                 checkCodigoCuentaCreada: ['', [Validators.requiredTrue]], //
                 checkBuroCreditoIfis: ['', [Validators.requiredTrue]], //
                 checkCalificacionBuroIfis: ['', [Validators.requiredTrue]], //
-                checkBuroCreditoGRP: ['', [Validators.requiredTrue]], //
-                checkCalificacionBuro: ['', [Validators.requiredTrue]], //
             });
       console.log('tipo de checks', typeof credito.checks);
       this.checks = (typeof credito.checks === 'object') ? credito.checks : JSON.parse(credito.checks);
@@ -259,6 +283,7 @@ export class MicrocreditosPreAprovadosComponent implements OnInit, AfterViewInit
     actualizarSolicitudCredito(estado?: string) {
         this.submitted = true;
         if (this.actualizarCreditoForm.invalid) {
+          console.log('form', this.actualizarCreditoForm);
             return;
         }
         const {
