@@ -64,6 +64,7 @@
                         <th>Solicitud de crédito</th>
                         <th>Observaciones</th>
                         <th>Documentos habilitantes</th>
+                        <th>DOCUMENTOS FIRMADOS</th>
                         <th>Acciones</th>
                     </tr>
                     </thead>
@@ -98,7 +99,14 @@
                         </td>
                         <td *ngIf="credito.estado !== 'Aprobado'">
                         </td>
-
+                        <td>
+                            <a type="button"
+                                    href="https://coopsanjose-personas.crediventa.com/#/personas/firmar-documentos"
+                                    class="btn btn-outline-primary"
+                                    rippleEffect>
+                                Ver
+                            </a>
+                        </td>
 
                         <td class="d-flex">
                             <a *ngIf="credito.estado == 'Nuevo'" href="javascript:void(0)" class="avatar bg-info mr-1" data-target="#gestionar"
