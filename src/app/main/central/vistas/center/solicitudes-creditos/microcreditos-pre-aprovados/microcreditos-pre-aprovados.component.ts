@@ -63,6 +63,8 @@ export class MicrocreditosPreAprovadosComponent implements OnInit, AfterViewInit
     public cargando = false;
     public actualizarCreditoFormData;
   public ingresoNegocioSuperior = false;
+  private motivo: string;
+  private estadoCredito: any;
 
     constructor(
         private _solicitudCreditosService: SolicitudesCreditosService,
@@ -85,8 +87,9 @@ export class MicrocreditosPreAprovadosComponent implements OnInit, AfterViewInit
                 comercial: ['', [Validators.required]], //
                 actividadEconomica: ['', [Validators.required]], //
                 direccionDomiciolRepresentante: ['', [Validators.required]], //
-                direccionEmpresa: ['', [Validators.required]], //
-                referenciaDomicilio: ['', [Validators.required]], //
+                callePrincipal: ['', [Validators.required]],
+                calleSecundaria: ['', [Validators.required]],
+                refenciaNegocio: ['', [Validators.required]],
                 esatdo_civil: ['', [Validators.required]], //
                 correo: ['', [Validators.required]], //
                 telefono: ['', [Validators.required]], //
@@ -94,9 +97,29 @@ export class MicrocreditosPreAprovadosComponent implements OnInit, AfterViewInit
                 conyuge: this._formBuilder.group({
                     nombreConyuge: [''], //
                     telefonoConyuge: [''], //
-                    correoConyuge: [''],
+                    cedulaConyuge: [''],
                 }),
                 familiares: this._formBuilder.array([]),
+                comerciales: this._formBuilder.array([
+                this._formBuilder.group({
+                  nombresDuenoComercial: [''],
+                  negocioDuenoComercial: [''],
+                  telefonoDuenoComercial: [''],
+                  direccionDuenoComercial: [''],
+                }),
+                this._formBuilder.group({
+                  nombresDuenoComercial: [''],
+                  negocioDuenoComercial: [''],
+                  telefonoDuenoComercial: [''],
+                  direccionDuenoComercial: [''],
+                }),
+                this._formBuilder.group({
+                  nombresDuenoComercial: [''],
+                  negocioDuenoComercial: [''],
+                  telefonoDuenoComercial: [''],
+                  direccionDuenoComercial: [''],
+                }),
+              ]),
                 inresosMensualesVentas: ['', [Validators.required]], //
                 sueldoConyuge: [''], //
                 otrosIngresos: [''], //
@@ -182,10 +205,11 @@ export class MicrocreditosPreAprovadosComponent implements OnInit, AfterViewInit
     }
     agregarFamiliar() {
         const cuentaForm = this._formBuilder.group({
-            nombreFamiliar: [''], //
-            apellidoFamiliar: [''], //
-            telefonoFamiliar: [''], //
-            direccionFamiliar: [''],
+          tipoPariente: [''],
+          nombreFamiliar: [''],
+          apellidoFamiliar: [''],
+          telefonoFamiliar: [''],
+          direccionFamiliar: [''],
         });
         this.familiares.push(cuentaForm);
     }
@@ -282,10 +306,12 @@ export class MicrocreditosPreAprovadosComponent implements OnInit, AfterViewInit
 
     actualizarSolicitudCredito(estado?: string) {
         this.submitted = true;
+      if (this.estadoCredito !== 'Por Completar' && this.estadoCredito !== 'Negado') {
         if (this.actualizarCreditoForm.invalid) {
-          console.log('form', this.actualizarCreditoForm);
-            return;
+          console.log(' no valido form', this.actualizarCreditoForm);
+          return;
         }
+      }
         const {
             id,
             identificacion,
@@ -336,15 +362,20 @@ export class MicrocreditosPreAprovadosComponent implements OnInit, AfterViewInit
         this.cargando = true;
         this.actualizarCreditoFormData.delete('estado');
         this.actualizarCreditoFormData.append('estado', estado);
-        this.actualizarCreditoFormData.delete('checks');
-        this.actualizarCreditoFormData.append('checks', JSON.stringify(this.checks));
+        this.actualizarCreditoFormData.delete('motivo');
+        this.actualizarCreditoFormData.append('motivo', this.motivo);
+        if (estado !== 'Por Completar') {
+          this.actualizarCreditoFormData.delete('checks');
+          this.actualizarCreditoFormData.append('checks', JSON.stringify(this.checks));
+        }
         console.log('this.actualizarCreditoFormData', this.actualizarCreditoFormData);
         this._solicitudCreditosService.actualizarSolictudesCreditos(this.actualizarCreditoFormData).subscribe((info) => {
+                this.cerrarModal();
                 this.cargando = false;
-                if (estado === 'Negado') {
-                    this.pantalla = 0;
+                if (estado === 'Negado' || estado === 'Por Completar') {
+                  this.pantalla = 0;
                 } else {
-                    this.pantalla = 3;
+                  this.pantalla = 3;
                 }
                 this.obtenerSolicitudesCreditos();
                 this._solicitudCreditosService.deleteDocumentFirebase(this.actualizarCreditoFormData.get('id'));
@@ -385,4 +416,25 @@ export class MicrocreditosPreAprovadosComponent implements OnInit, AfterViewInit
             });
     }
 
+  cerrarModal() {
+    this.modalService.dismissAll();
+  }
+
+  abrirModalMotivo(modalMotivo, estadoCredito) {
+    if (estadoCredito === 'Aprobado') {
+      console.log('form', this.actualizarCreditoForm);
+      this.submitted = true;
+      if (this.actualizarCreditoForm.invalid) {
+        console.log('invalid Form');
+        return;
+      }
+    }
+    this.motivo = '';
+    this.estadoCredito = estadoCredito;
+    this.modalService.open(modalMotivo, {
+        centered: true,
+        size: 'lg' // size: 'xs' | 'sm' | 'lg' | 'xl'
+      }
+    );
+  }
 }
