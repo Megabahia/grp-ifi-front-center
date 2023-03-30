@@ -38,4 +38,13 @@ export class SolicitudesCreditosService {
     actualizarAWS() {
         return this._httpClient.get<any>(`${environment.apiUrl}/corp/creditoPersonas/pruebaConsumer`);
     }
+    obtenerRequisitosCreditoPreAprobado(datos) {
+        return this._httpClient.post<any>(`${environment.apiUrl}/central/param/list/tipo/todos/free`, datos);
+    }
+    obtenerParametroNombreTipo(nombre, tipo) {
+        return this._httpClient.post<any>(
+          `${environment.apiUrl}/central/param/list/listOne`,
+          { nombre, tipo }
+        );
+    }
 }

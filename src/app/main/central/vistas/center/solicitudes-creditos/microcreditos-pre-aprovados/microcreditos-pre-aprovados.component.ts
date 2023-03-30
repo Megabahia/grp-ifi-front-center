@@ -34,24 +34,12 @@ export class MicrocreditosPreAprovadosComponent implements OnInit, AfterViewInit
     public gastosSolicitante;
     public pantalla = 0;
     public credito;
-    public checks = [
-        {'label': 'identificacion', 'valor': false},
-        {'label': 'Foto Carnet', 'valor': false},
-        {'label': 'Ruc', 'valor': false},
-        {'label': 'Papeleta votación Representante Legal ', 'valor': false},
-        {'label': 'Identificacion conyuge', 'valor': false},
-        {'label': 'Papeleta votacion conyuge', 'valor': false},
-        {'label': 'Planilla luz Negocio', 'valor': false},
-        {'label': 'Planilla luz Domicilio', 'valor': false},
-        {'label': '3 Copias de Facturas de Ventas del negocio de los últimos 2 meses', 'valor': false},
-        {'label': '3 facturas de Compra del negocio de los últimos 2 meses', 'valor': false},
-        {'label': 'Facturas pendiente de pago', 'valor': false},
-        {'label': 'Justificación otros inresos mensuales ', 'valor': false},
-        {'label': 'Matricula vehiculo', 'valor': false},
-        {'label': 'Copia de pago impuesto predial o copia de escrituras', 'valor': false},
-        {'label': 'Registro de Referencias Familiares y Comerciales.\n', 'valor': false},
-        {'label': 'Buro credito', 'valor': false},
-    ];
+    public checks = [];
+    public checksSolteroInferior: any = [];
+    public checksSolteroSuperior: any = [];
+    public checksCasadoInferior: any = [];
+    public checksCasadoSuperior: any = [];
+    public montoLimite: any = 8000;
     public remover = ['buroCredito', 'evaluacionCrediticia', 'identificacion', 'papeletaVotacion',
         'identificacionConyuge', 'mecanizadoIess', 'papeletaVotacionConyuge', 'planillaLuzNegocio',
         'planillaLuzDomicilio', 'facturas', 'matriculaVehiculo', 'impuestoPredial', 'fotoCarnet',
@@ -73,6 +61,37 @@ export class MicrocreditosPreAprovadosComponent implements OnInit, AfterViewInit
         private _formBuilder: FormBuilder,
         private datePipe: DatePipe,
     ) {
+      this._solicitudCreditosService.obtenerRequisitosCreditoPreAprobado({tipo: 'MICROCREDITO_CASADO_UNION_LIBRE'}).subscribe((item) => {
+        item.map((fila) => {
+          if (fila.valor === 'INFERIOR') {
+            this.checksCasadoInferior = fila.config.map((index) => {
+              return {'label': index, 'valor': false};
+            });
+          }
+          if (fila.valor === 'SUPERIOR') {
+            this.checksCasadoSuperior = fila.config.map((index) => {
+              return {'label': index, 'valor': false};
+            });
+          }
+        });
+      });
+      this._solicitudCreditosService.obtenerRequisitosCreditoPreAprobado({tipo: 'MICROCREDITO_SOLTERO_DIVORCIADO'}).subscribe((item) => {
+        item.map((fila) => {
+          if (fila.valor === 'INFERIOR') {
+            this.checksSolteroInferior = fila.config.map((index) => {
+              return {'label': index, 'valor': false};
+            });
+          }
+          if (fila.valor === 'SUPERIOR') {
+            this.checksSolteroSuperior = fila.config.map((index) => {
+              return {'label': index, 'valor': false};
+            });
+          }
+        });
+      });
+      this._solicitudCreditosService.obtenerParametroNombreTipo('MONTO', 'REQUISITOS_MICROCREDIOS').subscribe((item) => {
+        this.montoLimite = item.valor;
+      });
     }
 
     ngOnInit(): void {
@@ -222,7 +241,7 @@ export class MicrocreditosPreAprovadosComponent implements OnInit, AfterViewInit
         this.soltero = (credito.estadoCivil === 'Solter@' || credito.estadoCivil === 'Soltero' ||
           credito.user.estadoCivil === 'Solter@' || credito.user.estadoCivil === 'Divorciado' ||
           credito.estadoCivil === 'Divorciad@' || credito.estadoCivil === 'Divorciado');
-        this.ingresoNegocioSuperior = (credito.monto >= 8000);
+      this.ingresoNegocioSuperior = (credito.monto >= this.montoLimite);
         this.actualizarCreditoForm = this._formBuilder.group(
             {
                 id: [credito._id, [Validators.required]],
