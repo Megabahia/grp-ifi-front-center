@@ -2,17 +2,17 @@ import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {NgbModal, NgbPagination} from '@ng-bootstrap/ng-bootstrap';
 import {Subject} from 'rxjs';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {SolicitudesCreditosService} from '../solicitudes-creditos.service';
-import {CoreSidebarService} from '../../../../../../../@core/components/core-sidebar/core-sidebar.service';
 import {DatePipe} from '@angular/common';
+import {SolicitudesCreditosService} from '../../solicitudes-creditos.service';
+import {CoreSidebarService} from '../../../../../../../../@core/components/core-sidebar/core-sidebar.service';
 
 @Component({
   selector: 'app-empleados-preaprovaods',
-  templateUrl: './empleados-preaprovaods.component.html',
-  styleUrls: ['./empleados-preaprovaods.component.scss'],
+  templateUrl: './ifis-empleados-preaprovaods.component.html',
+  styleUrls: ['./ifis-empleados-preaprovaods.component.scss'],
   providers: [DatePipe],
 })
-export class EmpleadosPreaprovaodsComponent implements OnInit, AfterViewInit {
+export class IfisEmpleadosPreaprovaodsComponent implements OnInit, AfterViewInit {
 
   @ViewChild(NgbPagination) paginator: NgbPagination;
 
@@ -99,7 +99,7 @@ export class EmpleadosPreaprovaodsComponent implements OnInit, AfterViewInit {
       page_size: this.page_size,
       page: this.page - 1,
       tipoCredito: 'Empleado-PreAprobado',
-      cargarOrigen: 'BIGPUNTOS'
+      cargarOrigen: 'IFIS',
     }).subscribe(info => {
       this.collectionSize = info.cont;
       this.listaCreditos = info.info;

@@ -180,6 +180,7 @@ export class MicrocreditosPreAprovadosComponent implements OnInit, AfterViewInit
             page_size: this.page_size,
             page: this.page - 1,
             tipoCredito: 'Pymes-PreAprobado',
+          cargarOrigen: 'BIGPUNTOS'
         }).subscribe(info => {
             console.log('info', info);
             this.collectionSize = info.cont;

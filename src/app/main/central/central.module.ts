@@ -51,6 +51,15 @@ import { EmpleadosComponent as EmpleadosCorp } from './vistas/corp/empleados/emp
 import { SolicitudPagoEmpleadosComponent } from './vistas/center/solicitud-pago-empleados/solicitud-pago-empleados.component';
 import {UploadLineasCreditos} from './vistas/corp/cargarLineasCreditos/vistas/upload/upload-lineas-creditos.component';
 import {ViewFileComponent} from './vistas/corp/cargarLineasCreditos/vistas/view-file/view-file.component';
+import {
+  IfisEmpleadosPreaprovaodsComponent
+} from './vistas/center/solicitudes-creditos/ifis/empleados-preaprovaods/ifis-empleados-preaprovaods.component';
+import {
+  IfisNegocioPropioPreaprovaodsComponent
+} from './vistas/center/solicitudes-creditos/ifis/negocio-propio-preaprovaods/ifis-negocio-propio-preaprovaods.component';
+import {
+  IfisMicrocreditosPreAprovadosComponent
+} from './vistas/center/solicitudes-creditos/ifis/microcreditos-pre-aprovados/ifis-microcreditos-pre-aprovados.component';
 
 const routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -158,6 +167,24 @@ const routes = [
             // data: {roles: [Role.BigPuntos]},
             canActivate: [AuthGuard]
           },
+          {
+            path: 'ifis/negocios-propios-pre-aprobados',
+            component: IfisNegocioPropioPreaprovaodsComponent,
+            // data: {roles: [Role.BigPuntos]},
+            canActivate: [AuthGuard]
+          },
+          {
+            path: 'ifis/empelados-pre-aprobados',
+            component: IfisEmpleadosPreaprovaodsComponent,
+            // data: {roles: [Role.BigPuntos]},
+            canActivate: [AuthGuard]
+          },
+          {
+            path: 'ifis/microcreditPreAprovado',
+            component: IfisMicrocreditosPreAprovadosComponent,
+            // data: {roles: [Role.BigPuntos]},
+            canActivate: [AuthGuard]
+          },
         ]
       },
       {
@@ -216,6 +243,9 @@ const routes = [
     SolicitudPagoEmpleadosComponent,
     UploadLineasCreditos,
     ViewFileComponent,
+    IfisEmpleadosPreaprovaodsComponent,
+    IfisNegocioPropioPreaprovaodsComponent,
+    IfisMicrocreditosPreAprovadosComponent,
   ],
   imports: [
     CoreCommonModule,

@@ -99,6 +99,7 @@ export class EmpleadosComponent implements OnInit, AfterViewInit {
             page_size: this.page_size,
             page: this.page - 1,
             tipoCredito: 'Empleado',
+            cargarOrigen: 'BIGPUNTOS'
         }).subscribe(info => {
             this.collectionSize = info.cont;
             this.listaCreditos = info.info;

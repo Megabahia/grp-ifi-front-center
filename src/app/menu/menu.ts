@@ -203,6 +203,32 @@ export const menu: CoreMenu[] = [
                 icon: 'circle',
                 url: 'central/center/solicitudes-creditos/empelados-pre-aprobados'
               },
+              {
+                id: 'creditoComsumoIFI',
+                title: 'IFIS Preaprobados',
+                // translate: 'MENU.HOME',
+                // role: [Role.BigPuntos],
+                type: 'collapsible',
+                icon: 'credit-card',
+                children: [
+                  {
+                    id: 'preaprobado-negociosPropiosIFI',
+                    title: 'Negocios propios',
+                    // translate: 'MENU.APPS.EMAIL',
+                    type: 'item',
+                    icon: 'circle',
+                    url: 'central/center/solicitudes-creditos/ifis/negocios-propios-pre-aprobados'
+                  },
+                  {
+                    id: 'preaprobado-empleadosIFI',
+                    title: 'Empleados',
+                    // translate: 'MENU.APPS.EMAIL',
+                    type: 'item',
+                    icon: 'circle',
+                    url: 'central/center/solicitudes-creditos/ifis/empelados-pre-aprobados'
+                  },
+                ]
+              }
             ]
           },
           {
@@ -229,6 +255,24 @@ export const menu: CoreMenu[] = [
                 icon: 'circle',
                 url: 'central/center/solicitudes-creditos/microcreditNormales'
               },
+              {
+                id: 'microcreditNormalesIFI',
+                title: 'Pymes Ifis',
+                // translate: 'MENU.HOME',
+                // role: [Role.BigPuntos],
+                type: 'collapsible',
+                icon: 'credit-card',
+                children: [
+                  {
+                    id: 'preaprobado-negociosPropiosIFI',
+                    title: 'PYMES IFIs',
+                    // translate: 'MENU.APPS.EMAIL',
+                    type: 'item',
+                    icon: 'circle',
+                    url: 'central/center/solicitudes-creditos/ifis/microcreditPreAprovado'
+                  },
+                ]
+              }
             ]
           },
         ]

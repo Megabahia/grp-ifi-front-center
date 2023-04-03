@@ -2,36 +2,37 @@ import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {NgbModal, NgbPagination} from '@ng-bootstrap/ng-bootstrap';
 import {Subject} from 'rxjs';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {SolicitudesCreditosService} from '../solicitudes-creditos.service';
-import {CoreSidebarService} from '../../../../../../../@core/components/core-sidebar/core-sidebar.service';
 import {DatePipe} from '@angular/common';
+import {SolicitudesCreditosService} from '../../solicitudes-creditos.service';
+import {CoreSidebarService} from '../../../../../../../../@core/components/core-sidebar/core-sidebar.service';
 
 @Component({
-  selector: 'app-empleados-preaprovaods',
-  templateUrl: './empleados-preaprovaods.component.html',
-  styleUrls: ['./empleados-preaprovaods.component.scss'],
+  selector: 'app-negocio-propio-preaprovaods',
+  templateUrl: './ifis-negocio-propio-preaprovaods.component.html',
+  styleUrls: ['./ifis-negocio-propio-preaprovaods.component.scss'],
   providers: [DatePipe],
+
 })
-export class EmpleadosPreaprovaodsComponent implements OnInit, AfterViewInit {
+export class IfisNegocioPropioPreaprovaodsComponent implements OnInit, AfterViewInit {
 
-  @ViewChild(NgbPagination) paginator: NgbPagination;
+@ViewChild(NgbPagination) paginator: NgbPagination;
 
-  public page = 1;
-  public page_size: any = 4;
-  public maxSize;
-  public collectionSize;
-  private _unsubscribeAll: Subject<any>;
+public page = 1;
+public page_size: any = 4;
+public maxSize;
+public collectionSize;
+private _unsubscribeAll: Subject<any>;
 
   // Variables
-  public listaCreditos;
-  public userViewData;
-  private ocupacionSolicitante;
-  public referenciasSolicitante;
-  public ingresosSolicitante;
-  public gastosSolicitante;
-  public pantalla = 0;
-  public credito;
-  public checks = [
+public listaCreditos;
+public userViewData;
+private ocupacionSolicitante;
+public referenciasSolicitante;
+public ingresosSolicitante;
+public gastosSolicitante;
+public pantalla = 0;
+public credito;
+public checks = [
     {'label': 'Identificacion', 'valor': false},
     {'label': 'Foto Carnet', 'valor': false},
     {'label': 'Papeleta votacion', 'valor': false},
@@ -46,11 +47,11 @@ export class EmpleadosPreaprovaodsComponent implements OnInit, AfterViewInit {
     {'label': 'Observación', 'valor': false},
   ];
   // Formulario
-  public soltero = false;
-  public actualizarCreditoForm: FormGroup;
-  public submitted = false;
-  public cargando = false;
-  public actualizarCreditoFormData;
+public soltero = false;
+public actualizarCreditoForm: FormGroup;
+public submitted = false;
+public cargando = false;
+public actualizarCreditoFormData;
   public casaPropia = false;
   private motivo: string;
   private estadoCredito: any;
@@ -61,7 +62,7 @@ export class EmpleadosPreaprovaodsComponent implements OnInit, AfterViewInit {
       private _coreSidebarService: CoreSidebarService,
       private _formBuilder: FormBuilder,
       private datePipe: DatePipe,
-  ) {
+) {
   }
 
   ngOnInit(): void {
@@ -98,8 +99,8 @@ export class EmpleadosPreaprovaodsComponent implements OnInit, AfterViewInit {
     this._solicitudCreditosService.obtenerSolicitudesCreditos({
       page_size: this.page_size,
       page: this.page - 1,
-      tipoCredito: 'Empleado-PreAprobado',
-      cargarOrigen: 'BIGPUNTOS'
+      tipoCredito: 'Negocio-PreAprobado',
+      cargarOrigen: 'IFIS',
     }).subscribe(info => {
       this.collectionSize = info.cont;
       this.listaCreditos = info.info;
@@ -147,12 +148,12 @@ export class EmpleadosPreaprovaodsComponent implements OnInit, AfterViewInit {
       checkCalificacionBuroIfis: ['', [Validators.requiredTrue]],
       checkBuroRevisado: ['', [Validators.requiredTrue]],
       checkIdenficicacion: ['', [Validators.requiredTrue]],
-      checkFotoCarnet: ['', [Validators.requiredTrue]],
       checkPapeletaVotacion: ['', [Validators.requiredTrue]],
       checkIdentificacionConyuge: ['', this.soltero ? [] : [Validators.requiredTrue]],
       checkPapeletaVotacionConyuge: ['', this.soltero ? [] : [Validators.requiredTrue]],
+      checkPlanillaLuzNegocio: ['', [Validators.requiredTrue]],
       checkPlanillaLuzDomicilio: ['', [Validators.requiredTrue]],
-      checkMecanizadoIess: ['', [Validators.requiredTrue]],
+      checkFacturas: ['', [Validators.requiredTrue]],
       checkMatriculaVehiculo: [''],
       checkImpuestoPredial: [''],
       checkBuroCredito: ['', [Validators.requiredTrue]],
@@ -188,7 +189,7 @@ export class EmpleadosPreaprovaodsComponent implements OnInit, AfterViewInit {
         return;
       }
     }
-    console.log('');
+    console.log('paso');
     const {
       id,
       identificacion,
@@ -216,18 +217,27 @@ export class EmpleadosPreaprovaodsComponent implements OnInit, AfterViewInit {
       }
     });
     this.checks = [
-      {'label': 'Identificacion', 'valor': resto.checkIdenficicacion},
+      {'label': 'identificacion', 'valor': resto.checkIdentificacion},
       {'label': 'Foto Carnet', 'valor': resto.checkFotoCarnet},
-      {'label': 'Papeleta votacion', 'valor': resto.checkPapeletaVotacion},
+      {'label': 'Ruc', 'valor': resto.checkIdentificacion},
+      {'label': 'Papeleta votación Representante Legal ', 'valor': resto.checkPapeletaVotacion},
       {'label': 'Identificacion conyuge', 'valor': resto.checkIdentificacionConyuge},
       {'label': 'Papeleta votacion conyuge', 'valor': resto.checkPapeletaVotacionConyuge},
-      {'label': 'Planilla luz domicilio', 'valor': resto.checkPlanillaLuzDomicilio},
-      {'label': 'Mecanizado Iess', 'valor': resto.checkMecanizadoIess},
+      {'label': 'Planilla luz Domicilio', 'valor': resto.checkPlanillaLuzDomicilio},
+      {'label': 'Planilla luz Negocio', 'valor': resto.checkPlanillaLuzNegocio},
+      {'label': 'Copia de factura de venta del ultimo mes', 'valor': resto.checkfacturasVentas2meses},
+      {'label': 'Copia de factura de venta del penúltimo mes (hace dos meses)', 'valor': resto.checkfacturasVentas2meses2},
+      {'label': 'Copia de factura del antepenúltimo mes (hace tres meses)', 'valor': resto.checkfacturasVentas2meses3},
+      {
+        'label': 'Certificado de la Asociación (este campo aplica si usted es transportista: Bus o Taxi)',
+        'valor': resto.checkfacturasVentasCertificado
+      },
+      {'label': 'Facturas pendiente de pago', 'valor': resto.checkFacturasPendiente},
+      {'label': 'Justificación otros ingresos mensuales ', 'valor': resto.checkMatriculaVehiculo}, // no hay
       {'label': 'Matricula vehiculo', 'valor': resto.checkMatriculaVehiculo},
-      {'label': 'Impuesto predial', 'valor': resto.checkImpuestoPredial},
+      {'label': 'Copia de pago impuesto predial o copia de escrituras', 'valor': resto.checkImpuestoPredial},
+      {'label': 'Registro de Referencias Familiares y Comerciales.', 'valor': resto.checkImpuestoPredial}, // no hay
       {'label': 'Buro credito', 'valor': resto.checkBuroCredito},
-      {'label': 'Calificacion buro', 'valor': resto.checkCalificacionBuro},
-      {'label': 'Observación', 'valor': resto.checkObservacion},
     ];
     if (this.soltero) {
       this.checks.splice(3, 2);
@@ -244,14 +254,14 @@ export class EmpleadosPreaprovaodsComponent implements OnInit, AfterViewInit {
     console.log('this.actualizarCreditoFormData', this.actualizarCreditoFormData);
     this._solicitudCreditosService.actualizarSolictudesCreditos(this.actualizarCreditoFormData).subscribe((info) => {
         this.cerrarModal();
-          this.cargando = false;
+        this.cargando = false;
         if (estado === 'Negado' || estado === 'Por Completar') {
           this.pantalla = 0;
         } else {
           this.pantalla = 3;
         }
-          this.obtenerSolicitudesCreditos();
-          this._solicitudCreditosService.deleteDocumentFirebase(this.actualizarCreditoFormData.get('id'));
+        this.obtenerSolicitudesCreditos();
+        this._solicitudCreditosService.deleteDocumentFirebase(this.actualizarCreditoFormData.get('id'));
         },
         (error) => {
           this.cargando = false;
@@ -311,12 +321,5 @@ export class EmpleadosPreaprovaodsComponent implements OnInit, AfterViewInit {
 
   cerrarModal() {
     this.modalService.dismissAll();
-  }
-
-  consumirAWS() {
-    this._solicitudCreditosService.actualizarAWS().subscribe((info) => {
-      console.log(info);
-      this.obtenerSolicitudesCreditos();
-    });
   }
 }

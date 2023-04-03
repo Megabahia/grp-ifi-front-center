@@ -100,6 +100,7 @@ public actualizarCreditoFormData;
       page_size: this.page_size,
       page: this.page - 1,
       tipoCredito: 'Negocio-PreAprobado',
+      cargarOrigen: 'BIGPUNTOS'
     }).subscribe(info => {
       this.collectionSize = info.cont;
       this.listaCreditos = info.info;
