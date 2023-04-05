@@ -126,7 +126,7 @@
                                     <input type="file" class="custom-file-input" id="pagare"
                                            formControlName="pagare"
                                            (change)="subirDoc( $event, 'pagare')"
-                                           accept="image/jpeg,image/png,application/pdf"/>
+                                           accept="application/pdf"/>
                                     <label class="custom-file-label"
                                            for="pagare">{{actualizarCreditoForm.get('pagare').value}}</label>
                                     <div *ngIf="submitted && controlsFrom.pagare.errors" class="invalid-feedback"
@@ -146,7 +146,7 @@
                                     <input type="file" class="custom-file-input" id="contratosCuenta"
                                            formControlName="contratosCuenta"
                                            (change)="subirDoc( $event, 'contratosCuenta')"
-                                           accept="image/jpeg,image/png,application/pdf"/>
+                                           accept="application/pdf"/>
                                     <label class="custom-file-label"
                                            for="contratosCuenta">{{actualizarCreditoForm.get('contratosCuenta').value}}</label>
                                     <div *ngIf="submitted && controlsFrom.contratosCuenta.errors"
@@ -168,7 +168,7 @@
                                     <input type="file" class="custom-file-input" id="tablaAmortizacion"
                                            formControlName="tablaAmortizacion"
                                            (change)="subirDoc( $event, 'tablaAmortizacion')"
-                                           accept="image/jpeg,image/png,application/pdf"/>
+                                           accept="application/pdf"/>
                                     <label class="custom-file-label"
                                            for="tablaAmortizacion">{{actualizarCreditoForm.get('tablaAmortizacion').value}}</label>
                                     <div *ngIf="submitted && controlsFrom.tablaAmortizacion.errors"
