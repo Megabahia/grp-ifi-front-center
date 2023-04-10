@@ -54,7 +54,9 @@ export class ValoresProcesoComponent implements OnInit {
       tablaAmortizacion: ['', [Validators.required, ValidacionesPropias.pdfValido]],
     });
     console.log('this.credito', this.credito);
-    if (this.credito.empresaInfo) {
+    if (Object.keys(this.credito.empresaInfo).length === 0) {
+      this.microEmpresa = false;
+    } else {
       this.microEmpresa = true;
     }
   }

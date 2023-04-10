@@ -127,7 +127,7 @@
 <!-- INICIO MODAL USER -->
 <ng-template #modalSLC let-modal>
     <div class="modal-header">
-        <h4 class="modal-title" id="myModalLabel1">Buró de crédito</h4>
+        <h4 class="modal-title" id="myModalLabel1">Solicitud de Crédito</h4>
         <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -157,6 +157,51 @@
                 <input
                         type="text"
                         value="{{userViewData.apellidos}}"
+                        class="form-control"
+                        disabled
+                />
+            </div>
+            <div class="form-group col-md-4">
+                <label class="form-label">Número de identificación</label>
+                <input
+                        type="text"
+                        value="{{userViewData.documento}}"
+                        class="form-control"
+                        disabled
+                />
+            </div>
+            <div class="form-group col-md-4">
+                <label class="form-label">Correo electronico</label>
+                <input
+                        type="text"
+                        value="{{userViewData.email}}"
+                        class="form-control"
+                        disabled
+                />
+            </div>
+            <div class="form-group col-md-4">
+                <label class="form-label">Número WhatsApp</label>
+                <input
+                        type="text"
+                        value="{{userViewData.whatsapp}}"
+                        class="form-control"
+                        disabled
+                />
+            </div>
+            <div class="form-group col-md-4">
+                <label class="form-label">Número de celular</label>
+                <input
+                        type="text"
+                        value="{{userViewData.celular}}"
+                        class="form-control"
+                        disabled
+                />
+            </div>
+            <div class="form-group col-md-4">
+                <label class="form-label">Tipo de persona</label>
+                <input
+                        type="text"
+                        value="{{userViewData.tipoPersona}}"
                         class="form-control"
                         disabled
                 />
