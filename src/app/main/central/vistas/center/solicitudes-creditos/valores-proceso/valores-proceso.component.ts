@@ -48,6 +48,7 @@ export class ValoresProcesoComponent implements OnInit {
       gastosAdministrativos: [this.credito.gastosAdministrativos, [Validators.required]],
       montoLiquidar: [this.credito.montoLiquidar, [Validators.required]],
       montoDisponible: [this.credito.montoLiquidar, [Validators.required]],
+      cuota: [0, []],
       solicitudCredito: [this.credito.solicitudCredito],
       pagare: ['', [Validators.required, ValidacionesPropias.pdfValido]],
       contratosCuenta: ['', [Validators.required, ValidacionesPropias.pdfValido]],
@@ -80,6 +81,9 @@ export class ValoresProcesoComponent implements OnInit {
       return;
     }
     this.cargando = true;
+    const montoAprobado = this.actualizarCreditoForm.get('montoAprobado').value || 0;
+    const cuota = new Decimal(montoAprobado).div(12).toDecimalPlaces(2).toNumber();
+    this.actualizarCreditoForm.get('cuota').setValue(cuota);
     const creditoValores = Object.values(this.actualizarCreditoForm.value);
     const creditoLlaves = Object.keys(this.actualizarCreditoForm.value);
     const remover = ['buroCredito', 'evaluacionCrediticia', 'identificacion', 'papeletaVotacion', 'identificacionConyuge', 'mecanizadoIess',
