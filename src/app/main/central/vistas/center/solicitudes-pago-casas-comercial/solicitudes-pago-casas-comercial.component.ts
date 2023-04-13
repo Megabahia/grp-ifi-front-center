@@ -75,6 +75,7 @@ export class SolicitudesPagoCasasComercialComponent implements OnInit, AfterView
     })
       .subscribe((info) => {
         this.obtenerSolicitudesCreditos();
+        this._modalService.dismissAll();
       });
   }
 
@@ -85,8 +86,8 @@ export class SolicitudesPagoCasasComercialComponent implements OnInit, AfterView
       fechaFirma: this.fechaActual()
     })
       .subscribe((info) => {
-        this._modalService.dismissAll();
         this.obtenerSolicitudesCreditos();
+        this._modalService.dismissAll();
       });
   }
 
