@@ -148,19 +148,22 @@ public actualizarCreditoFormData;
       checkCalificacionBuroIfis: ['', [Validators.requiredTrue]],
       checkBuroRevisado: ['', [Validators.requiredTrue]],
       checkIdenficicacion: ['', [Validators.requiredTrue]],
+      checkRuc: ['', [Validators.requiredTrue]],
       checkPapeletaVotacion: ['', [Validators.requiredTrue]],
       checkIdentificacionConyuge: ['', this.soltero ? [] : [Validators.requiredTrue]],
       checkPapeletaVotacionConyuge: ['', this.soltero ? [] : [Validators.requiredTrue]],
       checkPlanillaLuzNegocio: ['', [Validators.requiredTrue]],
       checkPlanillaLuzDomicilio: ['', [Validators.requiredTrue]],
-      checkFacturas: ['', [Validators.requiredTrue]],
+      checkfacturasVentas2meses: ['', [Validators.requiredTrue]],
+      checkfacturasVentas2meses2: ['', [Validators.requiredTrue]],
+      checkfacturasVentas2meses3: ['', [Validators.requiredTrue]],
+      checkfacturasVentasCertificado: ['', credito.facturasVentasCertificado !== null ? [Validators.requiredTrue] : []],
       checkMatriculaVehiculo: [''],
       checkImpuestoPredial: [''],
       checkBuroCredito: ['', [Validators.requiredTrue]],
       checkCalificacionBuro: ['', [Validators.requiredTrue]],
       checkObservacion: ['', [Validators.requiredTrue]],
     });
-    console.log('tipo de checks', typeof credito.checks);
     this.checks = (typeof credito.checks === 'object') ? credito.checks : JSON.parse(credito.checks);
   }
 

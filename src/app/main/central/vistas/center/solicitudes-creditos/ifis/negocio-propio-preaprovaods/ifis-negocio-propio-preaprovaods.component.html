@@ -132,7 +132,7 @@
 <!-- INICIO MODAL USER -->
 <ng-template #modalSLC let-modal>
     <div class="modal-header">
-        <h4 class="modal-title" id="myModalLabel1">Buró de crédito</h4>
+        <h4 class="modal-title" id="myModalLabel1">Solicitud de Crédito</h4>
         <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -162,6 +162,51 @@
                 <input
                         type="text"
                         value="{{userViewData.apellidos}}"
+                        class="form-control"
+                        disabled
+                />
+            </div>
+            <div class="form-group col-md-4">
+                <label class="form-label">Número de identificación</label>
+                <input
+                        type="text"
+                        value="{{userViewData.documento}}"
+                        class="form-control"
+                        disabled
+                />
+            </div>
+            <div class="form-group col-md-4">
+                <label class="form-label">Correo electronico</label>
+                <input
+                        type="text"
+                        value="{{userViewData.email}}"
+                        class="form-control"
+                        disabled
+                />
+            </div>
+            <div class="form-group col-md-4">
+                <label class="form-label">Número WhatsApp</label>
+                <input
+                        type="text"
+                        value="{{userViewData.whatsapp}}"
+                        class="form-control"
+                        disabled
+                />
+            </div>
+            <div class="form-group col-md-4">
+                <label class="form-label">Número de celular</label>
+                <input
+                        type="text"
+                        value="{{userViewData.celular}}"
+                        class="form-control"
+                        disabled
+                />
+            </div>
+            <div class="form-group col-md-4">
+                <label class="form-label">Tipo de persona</label>
+                <input
+                        type="text"
+                        value="{{userViewData.tipoPersona}}"
                         class="form-control"
                         disabled
                 />
@@ -633,7 +678,7 @@
             </div>
 
             <div class="form-group">
-                <label>Copia de cédula y Ruc</label>
+                <label>Copia de cédula</label>
 
 
                 <div class="custom-file">
@@ -645,8 +690,27 @@
                     </a>
                     <div *ngIf="submitted && controlsFrom.checkIdenficicacion.errors" class="invalid-feedback"
                          style="display: block;">
-                        <div *ngIf="controlsFrom.checkIdenficicacion.errors.required">Copia de cédula y Ruc es
+                        <div *ngIf="controlsFrom.checkIdenficicacion.errors.required">Copia de cédula es
                             requerido
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Copia de Ruc</label>
+
+
+                <div class="custom-file">
+                    <label class="form-check-label mr-2" for="checkRuc">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkRuc"
+                           formControlName="checkRuc"/>
+                    <a *ngIf="credito.ruc" href="{{credito.ruc}}" target="_blank">
+                        Ver
+                    </a>
+                    <div *ngIf="submitted && controlsFrom.checkRuc.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.checkRuc.errors.required">
+                            Copia de Ruc es requerido
                         </div>
                     </div>
                 </div>
@@ -748,26 +812,81 @@
 
 
             <div class="form-group">
-                <label>2 Copias de Facturas de Ventas del último mes o Certificado de la Asociación
+                <label>
+                    Copia de factura de venta del último mes (hace 1 mes)
                 </label>
-
-
                 <div class="custom-file">
-                    <label class="form-check-label mr-2" for="checkFacturas">Valido</label>
-                    <input class="form-check-input" type="checkbox" id="checkFacturas"
-                           formControlName="checkFacturas"/>
-                    <a *ngIf="credito.planillaLuzDomicilio"  href="{{credito.planillaLuzDomicilio}}" target="_blank">
+                    <label class="form-check-label mr-2" for="checkfacturasVentas2meses">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkfacturasVentas2meses"
+                           formControlName="checkfacturasVentas2meses"/>
+                    <a *ngIf="credito.facturasVentas2meses"  href="{{credito.facturasVentas2meses}}" target="_blank">
                         Ver
                     </a>
-                    <div *ngIf="submitted && controlsFrom.checkFacturas.errors" class="invalid-feedback"
+                    <div *ngIf="submitted && controlsFrom.checkfacturasVentas2meses.errors" class="invalid-feedback"
                          style="display: block;">
-                        <div *ngIf="controlsFrom.checkFacturas.errors.required">Copias de Facturas de Ventas es
+                        <div *ngIf="controlsFrom.checkfacturasVentas2meses.errors.required">Copias de Facturas de Ventas es
                             requerido
                         </div>
                     </div>
                 </div>
             </div>
-
+            <div class="form-group">
+                <label>
+                    Copia de factura de venta del penúltimo mes (hace 2 meses)
+                </label>
+                <div class="custom-file">
+                    <label class="form-check-label mr-2" for="checkfacturasVentas2meses2">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkfacturasVentas2meses2"
+                           formControlName="checkfacturasVentas2meses2"/>
+                    <a *ngIf="credito.facturasVentas2meses2"  href="{{credito.facturasVentas2meses2}}" target="_blank">
+                        Ver
+                    </a>
+                    <div *ngIf="submitted && controlsFrom.checkfacturasVentas2meses2.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.checkfacturasVentas2meses2.errors.required">Copias de Facturas de Ventas es
+                            requerido
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>
+                    Copia de factura de venta del antepenúltimo mes (hace 3 meses)
+                </label>
+                <div class="custom-file">
+                    <label class="form-check-label mr-2" for="checkfacturasVentas2meses3">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkfacturasVentas2meses3"
+                           formControlName="checkfacturasVentas2meses3"/>
+                    <a *ngIf="credito.facturasVentas2meses3"  href="{{credito.facturasVentas2meses3}}" target="_blank">
+                        Ver
+                    </a>
+                    <div *ngIf="submitted && controlsFrom.checkfacturasVentas2meses3.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.checkfacturasVentas2meses3.errors.required">Copias de Facturas de Ventas es
+                            requerido
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>
+                    Certificado de Asociación (en caso de ser Bus o Taxi)
+                </label>
+                <div class="custom-file">
+                    <label class="form-check-label mr-2" for="checkfacturasVentasCertificado">Valido</label>
+                    <input class="form-check-input" type="checkbox" id="checkfacturasVentasCertificado"
+                           formControlName="checkfacturasVentasCertificado"/>
+                    <a *ngIf="credito.facturasVentasCertificado" href="{{credito.facturasVentasCertificado}}" target="_blank">
+                        Ver
+                    </a>
+                    <div *ngIf="submitted && controlsFrom.checkfacturasVentasCertificado.errors" class="invalid-feedback"
+                         style="display: block;">
+                        <div *ngIf="controlsFrom.checkfacturasVentasCertificado.errors.required">
+                            Certificado de la Asociación es requerido
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <div class="form-group">
                 <label>Copia de matrícula del vehículo (opcional)
