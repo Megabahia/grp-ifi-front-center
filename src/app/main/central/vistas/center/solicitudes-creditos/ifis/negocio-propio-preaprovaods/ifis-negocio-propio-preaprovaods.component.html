@@ -86,7 +86,7 @@
                             <div class="badge badge-light-success">{{credito.estado}}</div>
                         </td>
                         <td>
-                            <button *ngIf="credito.estado !== 'Aprobado' && credito.estado !== 'Negado' && credito.estado !== 'Por completar'"
+                            <button *ngIf="credito.estado !== 'Aprobado' && credito.estado !== 'Negado' && credito.estado !== 'Por Completar'"
                                     type="button" class="btn btn-outline-primary"
                                     rippleEffect
                                     (click)="verDocumentos(credito)">Ver
@@ -685,7 +685,7 @@
                     <label class="form-check-label mr-2" for="checkIdenficicacion">Valido</label>
                     <input class="form-check-input" type="checkbox" id="checkIdenficicacion"
                            formControlName="checkIdenficicacion"/>
-                    <a *ngIf="credito.idenficicacion" href="{{credito.idenficicacion}}" target="_blank">
+                    <a *ngIf="credito.identificacion" href="{{credito.identificacion}}" target="_blank">
                         Ver
                     </a>
                     <div *ngIf="submitted && controlsFrom.checkIdenficicacion.errors" class="invalid-feedback"
