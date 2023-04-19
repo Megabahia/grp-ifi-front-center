@@ -60,13 +60,14 @@ import {
 import {
   IfisMicrocreditosPreAprovadosComponent
 } from './vistas/center/solicitudes-creditos/ifis/microcreditos-pre-aprovados/ifis-microcreditos-pre-aprovados.component';
+import {MatTreeModule} from '@angular/material/tree';
+
 
 const routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
   {
     path: 'inicio',
     component: PrincipalComponent,
-    data: { roles: [Role.SuperMonedas] },
     canActivate: [AuthGuard]
     // data: { animation: 'auth' }
   },
@@ -262,7 +263,8 @@ const routes = [
     ShareIconsModule,
     ShareButtonsModule,
     QRCodeModule,
-    FlatpickrModule.forRoot()
+    FlatpickrModule.forRoot(),
+    MatTreeModule,
   ],
   exports: [
 

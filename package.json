@@ -18,7 +18,7 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "11.2.1",
-    "@angular/cdk": "11.2.1",
+    "@angular/cdk": "^11.2.13",
     "@angular/common": "11.2.1",
     "@angular/compiler": "11.2.1",
     "@angular/core": "11.2.1",
@@ -27,6 +27,7 @@
     "@angular/forms": "11.2.1",
     "@angular/google-maps": "11.2.1",
     "@angular/localize": "11.2.1",
+    "@angular/material": "^11.2.13",
     "@angular/platform-browser": "11.2.1",
     "@angular/platform-browser-dynamic": "11.2.1",
     "@angular/router": "11.2.1",
@@ -89,9 +90,9 @@
     "rxjs": "6.6.3",
     "sweetalert2": "9.17.2",
     "tslib": "2.1.0",
+    "validate-document-ecuador": "^1.0.3",
     "xlsx": "^0.18.5",
     "xlsx-js-style": "^1.0.0",
-    "validate-document-ecuador": "^1.0.3",
     "zone.js": "0.11.4"
   },
   "devDependencies": {

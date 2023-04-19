@@ -24,6 +24,7 @@ import {ErrorInterceptor} from './auth/helpers/error.interceptor';
 import {AngularFireModule} from '@angular/fire';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {environment} from '../environments/environment';
+import {MatTreeModule} from '@angular/material/tree';
 
 const appRoutes: Routes = [
     {
@@ -79,6 +80,8 @@ const appRoutes: Routes = [
     //  Firebase
         AngularFireModule.initializeApp(environment.firebaseConfig),
         AngularFirestoreModule, // for firestore
+
+        MatTreeModule,
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

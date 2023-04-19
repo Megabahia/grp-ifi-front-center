@@ -32,6 +32,21 @@ export class AppComponent implements OnInit, OnDestroy {
 
   // Private
   private _unsubscribeAll: Subject<any>;
+  private usuario;
+
+  renderMenu(menu2) {
+    menu2.map((item) => {
+      if (item.children) {
+        this.renderMenu(item.children);
+      } else {
+        if (this.usuario?.roles[0].config.includes(item.url)) {
+          item.hidden = false;
+        } else {
+          item.hidden = true;
+        }
+      }
+    });
+  }
 
   /**
    * Constructor
@@ -59,7 +74,9 @@ export class AppComponent implements OnInit, OnDestroy {
     private _coreTranslationService: CoreTranslationService,
     private _translateService: TranslateService
   ) {
+    this.usuario = this._coreMenuService.grpSanjoseCenterUser;
     // Get the application main menu
+    this.renderMenu(menu);
     this.menu = menu;
 
     // Register the menu to the menu service

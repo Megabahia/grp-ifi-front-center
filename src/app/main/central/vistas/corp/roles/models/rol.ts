@@ -5,5 +5,5 @@ export class Rol {
     codigo: string;
     nombre: string;
     descripcion: string;
-    config: string;
+    config: any;
 }

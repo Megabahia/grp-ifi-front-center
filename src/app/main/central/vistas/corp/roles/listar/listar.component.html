@@ -150,10 +150,43 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label>Configuración</label>
-                            <textarea class="form-control" rows="1" name="config" [ngModelOptions]="{standalone: true}" [(ngModel)]="rol.config" placeholder="{}"></textarea>
-                        </div>
+                        <!--                        <div class="form-group">-->
+                        <!--                            <label>Configuración</label>-->
+                        <!--                            <textarea class="form-control" rows="1" name="config" [ngModelOptions]="{standalone: true}" [(ngModel)]="rol.config" placeholder="{}"></textarea>-->
+                        <!--                        </div>-->
+                        <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+                            <!-- This is the tree node template for leaf nodes -->
+                            <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+                                <!-- use a disabled button to provide padding for tree leaf -->
+                                <input type="checkbox" formArrayName="config" [value]="node.name"
+                                       [checked]="checklistSelection.isSelected(node)"
+                                       (change)="todoLeafItemSelectionToggle(node)"
+                                />
+                                <button mat-icon-button disabled>{{node.title}}</button>
+
+                            </mat-tree-node>
+                            <!-- This is the tree node template for expandable nodes -->
+                            <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+                                <input type="checkbox" formArrayName="config" [value]="node.name"
+                                       [checked]="descendantsAllSelected(node)"
+                                       [indeterminate]="descendantsPartiallySelected(node)"
+                                       (change)="todoItemSelectionToggle(node)"
+                                />
+                                <button mat-icon-button matTreeNodeToggle
+                                        [attr.aria-label]="'Toggle ' + node.name">
+                                    {{ node.title}}
+                                </button>
+                            </mat-tree-node>
+                        </mat-tree>
+
+                        <!--                        <div *ngFor="let country of menuList; let i=index">-->
+                        <!--                            <input type="checkbox" formArrayName="config" [value]="country.url" (change)="onCheckboxChange($event)"-->
+                        <!--                            />-->
+                        <!--                            {{ country.title}}-->
+                        <!--                            <div *ngIf="country.children">-->
+                        <!--                                -->
+                        <!--                            </div>-->
+                        <!--                        </div>-->
                         <button class="btn btn-primary mr-1" [disabled]="cargandoRol" (click)="guardarRol()"> <span *ngIf="cargandoRol" class="spinner-border spinner-border-sm mr-1"></span>Guardar</button>
                         <button (click)="toggleSidebar('guardarRol','')" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
                     </div>
