@@ -5,6 +5,7 @@ import { CoreConfigService } from '../../../../@core/services/config.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { AuthenticationService } from '../../../auth/service/authentication.service';
+import {environment} from "../../../../environments/environment";
 
 @Component({
   selector: 'app-login',
@@ -44,7 +45,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private _router: Router,
     private _authenticationService: AuthenticationService
   ) {
-    this.siteKey = '6LfO5vYjAAAAACAmaBylqU676NuFuyfER8sMrzid';
+    this.siteKey = environment.setKey;
     this._unsubscribeAll = new Subject();
 
     // Configure the layout

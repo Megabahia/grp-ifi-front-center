@@ -2,6 +2,7 @@ export const environment = {
   production: true,
   hmr: false,
   apiUrl: 'https://api-coopsanjose.crediventa.com',
+  setKey: '6LfAGqglAAAAAPaFslJtvy-z_gGBvonQ6B5VxAM_',
   firebaseConfig: {
     apiKey: 'AIzaSyBu94RM9ISoQ3TiqJO6u-hATlChbGn5080',
     authDomain: 'grp-sanjose.firebaseapp.com',
