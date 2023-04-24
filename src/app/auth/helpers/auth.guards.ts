@@ -39,6 +39,8 @@ export class AuthGuard implements CanActivate {
             if (!JSON.parse(grpSanjoseCenterUser.roles[0].config).includes(state.url.slice(1))) {
                 this._router.navigate(['/pages/miscellaneous/not-authorized']);
                 return false;
+            } else {
+                return true;
             }
 
 

@@ -1,20 +1,18 @@
 <div class="auth-wrapper auth-v2">
   <div class="auth-inner row m-0">
-    <!-- Brand logo-->
-    <a class="brand-logo" href="javascript:void(0);">
-      <img src="{{ coreConfig.app.appLogoImage }}" alt="brand-logo" width="200" />
-      <img src="../../../../assets/images/logo/san-jose-v.png" alt="brand-logo" width="200" />
-
-    </a>
-    <!-- /Brand logo-->
     <!-- Left Text-->
     <div class="d-none d-lg-flex col-lg-8 align-items-center p-5">
       <div class="d-block">
+        <div class="text-center pl-5">
+          <img src="{{ coreConfig.app.appLogoImage }}" alt="brand-logo" width="200" />
+          <h1 class="pl-5 text-primary"><b>Coloca tus créditos a través de</b></h1>
+          <img src="../../../../assets/images/logo/credicompra.png" alt="brand-logo" width="100" />
+        </div>
         <div class="w-100 d-lg-flex align-items-center justify-content-center px-5">
           <img [src]="
                   coreConfig.layout.skin === 'dark'
-                    ? 'assets/images/pages/login-v2.svg'
-                    : 'assets/images/pages/login-v2.svg'
+                    ? 'assets/images/pages/login/login-2.png'
+                    : 'assets/images/pages/login/login-2.png'
                 " alt="Super monedas" />
         </div>
 
@@ -89,6 +87,11 @@
           </button>
         </form>
 
+        <div class="text-center mt-3">
+          <span class="azul2"><b>Powered by</b></span>
+          <br>
+          <img src="/assets/images/logo/red-pyme.png" width="100px">
+        </div>
       </div>
     </div>
     <!-- /Login-->
