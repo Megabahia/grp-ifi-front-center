@@ -1,12 +1,98 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {Component, Injectable, OnInit, ViewChild} from '@angular/core';
 import { NgbPagination, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Subject } from 'rxjs';
+import {BehaviorSubject, Subject} from 'rxjs';
 import { Rol } from '../models/rol';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import {FormGroup, FormBuilder, Validators, FormArray, FormControl} from '@angular/forms';
 import { RolesService } from '../roles.service';
 import { DatePipe } from '@angular/common';
 import { CoreSidebarService } from '../../../../../../../@core/components/core-sidebar/core-sidebar.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import {menu} from '../../../../../../menu/menu';
+import {FlatTreeControl} from '@angular/cdk/tree';
+import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
+import {SelectionModel} from '@angular/cdk/collections';
+
+const TREE_DATA: any[] = [
+  {
+    name: 'Fruit',
+    children: [{name: 'Apple'}, {name: 'Banana'}, {name: 'Fruit loops'}],
+  },
+  {
+    name: 'Vegetables',
+    children: [
+      {
+        name: 'Green',
+        children: [{name: 'Broccoli'}, {name: 'Brussels sprouts'}],
+      },
+      {
+        name: 'Orange',
+        children: [{name: 'Pumpkins'}, {name: 'Carrots'}],
+      },
+    ],
+  },
+];
+
+export class TodoItemNode {
+  children: TodoItemNode[];
+  item: string;
+}
+
+@Injectable()
+export class ChecklistDatabase {
+  dataChange = new BehaviorSubject<TodoItemNode[]>([]);
+
+  get data(): TodoItemNode[] {
+    return this.dataChange.value;
+  }
+
+  constructor() {
+    this.initialize();
+  }
+
+  initialize() {
+    // Build the tree nodes from Json object. The result is a list of `TodoItemNode` with nested
+    //     file node as children.
+    const data = this.buildFileTree(TREE_DATA, 0);
+
+    // Notify the change.
+    this.dataChange.next(data);
+  }
+
+  /**
+   * Build the file structure tree. The `value` is the Json object, or a sub-tree of a Json object.
+   * The return value is the list of `TodoItemNode`.
+   */
+  buildFileTree(obj: {[key: string]: any}, level: number): TodoItemNode[] {
+    return Object.keys(obj).reduce<TodoItemNode[]>((accumulator, key) => {
+      const value = obj[key];
+      const node = new TodoItemNode();
+      node.item = key;
+
+      if (value != null) {
+        if (typeof value === 'object') {
+          node.children = this.buildFileTree(value, level + 1);
+        } else {
+          node.item = value;
+        }
+      }
+
+      return accumulator.concat(node);
+    }, []);
+  }
+
+  /** Add an item to to-do list */
+  insertItem(parent: any, name: string) {
+    if (parent.children) {
+      parent.children.push({item: name} as any);
+      this.dataChange.next(this.data);
+    }
+  }
+
+  updateItem(node: any, name: string) {
+    node.item = name;
+    this.dataChange.next(this.data);
+  }
+}
 
 @Component({
   selector: 'app-listar',
@@ -33,6 +119,80 @@ export class ListarComponent implements OnInit {
   public mensaje = "";
   public cargandoRol = false;
 
+  private _transformer = (node: any, level: number) => {
+    return {
+      expandable: !!node.children && node.children.length > 0,
+      name: node.url,
+      title: node.title,
+      level: level,
+    };
+  };
+
+  treeControl = new FlatTreeControl<any>(
+    node => node.level,
+    node => node.expandable,
+  );
+
+  treeFlattener = new MatTreeFlattener(
+    this._transformer,
+    node => node.level,
+    node => node.expandable,
+    node => node.children,
+  );
+  dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+  hasChild = (_: number, node: any) => node.expandable;
+
+  checklistSelection = new SelectionModel<any>(true /* multiple */);
+
+  todoLeafItemSelectionToggle(node: any): void {
+    this.checklistSelection.toggle(node);
+    this.checkAllParentsSelection(node);
+  }
+
+  checkAllParentsSelection(node: any): void {
+    let parent: any | null = this.getParentNode(node);
+    while (parent) {
+      this.checkRootNodeSelection(parent);
+      parent = this.getParentNode(parent);
+    }
+  }
+
+  checkRootNodeSelection(node: any): void {
+    const nodeSelected = this.checklistSelection.isSelected(node);
+    const descendants = this.treeControl.getDescendants(node);
+    const descAllSelected =
+      descendants.length > 0 &&
+      descendants.every(child => {
+        // this.onCheckboxChange(child);
+        return this.checklistSelection.isSelected(child);
+      });
+    if (nodeSelected && !descAllSelected) {
+      this.checklistSelection.deselect(node);
+    } else if (!nodeSelected && descAllSelected) {
+      this.checklistSelection.select(node);
+    }
+  }
+
+  getParentNode(node: any): any | null {
+    const currentLevel = this.getLevel(node);
+
+    if (currentLevel < 1) {
+      return null;
+    }
+
+    const startIndex = this.treeControl.dataNodes.indexOf(node) - 1;
+
+    for (let i = startIndex; i >= 0; i--) {
+      const currentNode = this.treeControl.dataNodes[i];
+      if (this.getLevel(currentNode) < currentLevel) {
+        return currentNode;
+      }
+    }
+    return null;
+  }
+
+  getLevel = (node: any) => node.level;
+
   constructor(
     private datePipe: DatePipe,
     private _coreSidebarService: CoreSidebarService,
@@ -49,13 +209,51 @@ export class ListarComponent implements OnInit {
       descripcion: "",
       nombre: ""
     }
+    this.dataSource.data = menu;
+  }
+  onCheckboxChange(event: any) {
+    const selectedCountries = (this.rolesForm.controls['config'] as FormArray);
+    if (event.target.checked) {
+      selectedCountries.push(new FormControl(event.target.value));
+    } else {
+      const index = selectedCountries.controls
+        .findIndex(x => x.value === event.target.value);
+      selectedCountries.removeAt(index);
+    }
+  }
+  descendantsAllSelected(node: any): boolean {
+    const descendants = this.treeControl.getDescendants(node);
+    const descAllSelected =
+      descendants.length > 0 &&
+      descendants.every(child => {
+        return this.checklistSelection.isSelected(child);
+      });
+    return descAllSelected;
+  }
+  /** Toggle the to-do item selection. Select/deselect all the descendants node */
+  todoItemSelectionToggle(node: any, event?): void {
+    this.checklistSelection.toggle(node);
+    const descendants = this.treeControl.getDescendants(node);
+    this.checklistSelection.isSelected(node)
+      ? this.checklistSelection.select(...descendants)
+      : this.checklistSelection.deselect(...descendants);
+
+    // Force update for the parent
+    descendants.forEach(child => this.checklistSelection.isSelected(child));
+    this.checkAllParentsSelection(node);
   }
 
+  descendantsPartiallySelected(node: any): boolean {
+    const descendants = this.treeControl.getDescendants(node);
+    const result = descendants.some(child => this.checklistSelection.isSelected(child));
+    return result && !this.descendantsAllSelected(node);
+  }
   ngOnInit(): void {
     this.rolesForm = this._formBuilder.group({
       codigo: ['', [Validators.required]],
       descripcion: ['', [Validators.required]],
       nombre: ['', [Validators.required]],
+      config:  new FormArray([])
     });
   }
   ngAfterViewInit() {
@@ -94,6 +292,13 @@ export class ListarComponent implements OnInit {
     this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
   }
   guardarRol() {
+    const values = this.checklistSelection.selected;
+    this.rol.config = JSON.stringify(values.reduce((acumulador, item) => {
+      if (item && item.name !== undefined) {
+        return [...acumulador, item.name];
+      }
+      return acumulador;
+    }, []));
     this.rolSubmitted = true;
     if (this.rolesForm.invalid) {
       return;

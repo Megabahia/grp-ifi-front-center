@@ -150,34 +150,34 @@
                                 </div>
                             </div>
                         </div>
-                        <!--                        <div class="form-group">-->
-                        <!--                            <label>Configuración</label>-->
-                        <!--                            <textarea class="form-control" rows="1" name="config" [ngModelOptions]="{standalone: true}" [(ngModel)]="rol.config" placeholder="{}"></textarea>-->
-                        <!--                        </div>-->
-                        <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-                            <!-- This is the tree node template for leaf nodes -->
-                            <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
-                                <!-- use a disabled button to provide padding for tree leaf -->
-                                <input type="checkbox" formArrayName="config" [value]="node.name"
-                                       [checked]="checklistSelection.isSelected(node)"
-                                       (change)="todoLeafItemSelectionToggle(node)"
-                                />
-                                <button mat-icon-button disabled>{{node.title}}</button>
+                        <div class="form-group">
+                            <label>Configuración</label>
+                            <textarea class="form-control" rows="1" name="config" [ngModelOptions]="{standalone: true}" [(ngModel)]="rol.config" placeholder="{}"></textarea>
+                        </div>
+<!--                        <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">-->
+<!--                            &lt;!&ndash; This is the tree node template for leaf nodes &ndash;&gt;-->
+<!--                            <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>-->
+<!--                                &lt;!&ndash; use a disabled button to provide padding for tree leaf &ndash;&gt;-->
+<!--                                <input type="checkbox" formArrayName="config" [value]="node.name"-->
+<!--                                       [checked]="checklistSelection.isSelected(node)"-->
+<!--                                       (change)="todoLeafItemSelectionToggle(node)"-->
+<!--                                />-->
+<!--                                <button mat-icon-button disabled>{{node.title}}</button>-->
 
-                            </mat-tree-node>
-                            <!-- This is the tree node template for expandable nodes -->
-                            <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
-                                <input type="checkbox" formArrayName="config" [value]="node.name"
-                                       [checked]="descendantsAllSelected(node)"
-                                       [indeterminate]="descendantsPartiallySelected(node)"
-                                       (change)="todoItemSelectionToggle(node)"
-                                />
-                                <button mat-icon-button matTreeNodeToggle
-                                        [attr.aria-label]="'Toggle ' + node.name">
-                                    {{ node.title}}
-                                </button>
-                            </mat-tree-node>
-                        </mat-tree>
+<!--                            </mat-tree-node>-->
+<!--                            &lt;!&ndash; This is the tree node template for expandable nodes &ndash;&gt;-->
+<!--                            <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>-->
+<!--                                <input type="checkbox" formArrayName="config" [value]="node.name"-->
+<!--                                       [checked]="descendantsAllSelected(node)"-->
+<!--                                       [indeterminate]="descendantsPartiallySelected(node)"-->
+<!--                                       (change)="todoItemSelectionToggle(node)"-->
+<!--                                />-->
+<!--                                <button mat-icon-button matTreeNodeToggle-->
+<!--                                        [attr.aria-label]="'Toggle ' + node.name">-->
+<!--                                    {{ node.title}}-->
+<!--                                </button>-->
+<!--                            </mat-tree-node>-->
+<!--                        </mat-tree>-->
 
                         <!--                        <div *ngFor="let country of menuList; let i=index">-->
                         <!--                            <input type="checkbox" formArrayName="config" [value]="country.url" (change)="onCheckboxChange($event)"-->

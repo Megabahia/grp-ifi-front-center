@@ -243,7 +243,7 @@
                             <select class="form-control" name="roles" formControlName="roles"
                                 [(ngModel)]="usuario.roles">
                                 <option value="">- Seleccione -</option>
-                                <option value="{{rol._id}}" *ngFor="let rol of listaRoles">{{rol.nombre}}</option>
+                                <option value="{{rol.nombre}}" *ngFor="let rol of listaRoles">{{rol.nombre}}</option>
                             </select>
                             <div *ngIf="usuarioSubmitted && usuForm.roles.errors" class="invalid-feedback"
                                 style="display: block;">
