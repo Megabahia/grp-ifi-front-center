@@ -4,9 +4,10 @@
     <div class="d-none d-lg-flex col-lg-8 align-items-center p-5">
       <div class="d-block">
         <div class="text-center pl-5">
-          <img src="{{ coreConfig.app.appLogoImage }}" alt="brand-logo" width="200" />
-          <h1 class="pl-5 text-primary"><b>Coloca tus créditos a través de</b></h1>
-          <img src="../../../../assets/images/logo/credicompra.png" alt="brand-logo" width="100" />
+          <img src="{{ coreConfig.app.appLogoImage }}" alt="brand-logo" width="400" />
+          <h1 class="pl-5 text-primary">
+            <b>Coloca tus créditos a través de</b> <img src="/assets/images/logo/credicompra.png" alt="brand-logo" width="100"  class="ml-1 mb-3"/>
+          </h1>
         </div>
         <div class="w-100 d-lg-flex align-items-center justify-content-center px-5">
           <img [src]="
@@ -86,28 +87,9 @@
           <button [disabled]="loading" class="btn btn-primary btn-block" tabindex="4" rippleEffect>
             <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>Iniciar
           </button>
-
-          <footer>
-
-            <div class="w-100 p-3">
-              <p class="h2 font-weight-bolder azul2 text-center">Powered by</p>
-
-
-              <div class="text-center">
-              <img src="../../../../assets/images/cambios/GlobalRedpymeLog.jpg" alt="Descripción de la imagen" width="200" >
-            </div>
-
-            </div>
-
-          </footer>
-
         </form>
 
-        <div class="text-center mt-3">
-          <span class="azul2"><b>Powered by</b></span>
-          <br>
-          <img src="/assets/images/logo/red-pyme.png" width="100px">
-        </div>
+        <app-footer></app-footer>
       </div>
     </div>
 

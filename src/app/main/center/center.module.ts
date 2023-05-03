@@ -18,6 +18,7 @@ import { Ng2FlatpickrModule } from 'ng2-flatpickr';
 import { PerfilUsuarioComponent } from './perfil-usuario/perfil-usuario.component';
 import { Role } from 'app/auth/models';
 import {NgxCaptchaModule} from 'ngx-captcha';
+import {SharedModule} from '../shared/shared.module';
 
 const routes = [
   {
@@ -65,6 +66,7 @@ const routes = [
     NgbModule,
     Ng2FlatpickrModule,
     NgxCaptchaModule,
+    SharedModule,
   ]
 })
 export class CenterModule { }
