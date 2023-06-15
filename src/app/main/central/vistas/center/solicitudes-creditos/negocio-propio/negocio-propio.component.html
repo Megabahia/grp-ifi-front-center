@@ -194,6 +194,33 @@
                 />
             </div>
             <div class="form-group col-md-4">
+                <label class="form-label">País</label>
+                <input
+                        type="text"
+                        class="form-control"
+                        value="{{userViewData.pais}}"
+                        disabled
+                />
+            </div>
+            <div class="form-group col-md-4">
+                <label class="form-label">Provincia</label>
+                <input
+                        type="text"
+                        class="form-control"
+                        value="{{userViewData.provincia}}"
+                        disabled
+                />
+            </div>
+            <div class="form-group col-md-4">
+                <label class="form-label">Ciudad</label>
+                <input
+                        type="text"
+                        class="form-control"
+                        value="{{userViewData.ciudad}}"
+                        disabled
+                />
+            </div>
+            <div class="form-group col-md-4">
                 <label class="form-label">Dirección del domicilio</label>
                 <input
                         type="text"
@@ -277,6 +304,28 @@
                     <label for="apellido[{{i}}]">Apellido</label>
                     <input disabled="true" type="text" class="form-control"
                            value="{{referencia.apellido}}">
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="pais[{{i}}]">País</label>
+                    <input disabled="true" type="text" class="form-control"
+                           value="{{referencia.pais}}">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="provincia[{{i}}]">Provincia</label>
+                    <input disabled="true" type="text" class="form-control"
+                           value="{{referencia.provincia}}">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="ciudad[{{i}}]">Ciudad</label>
+                    <input disabled="true" type="text" class="form-control"
+                           value="{{referencia.ciudad}}">
                 </div>
             </div>
 

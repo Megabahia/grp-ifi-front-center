@@ -229,6 +229,9 @@ export class MicrocreditosPreAprovadosComponent implements OnInit, AfterViewInit
           nombreFamiliar: [''],
           apellidoFamiliar: [''],
           telefonoFamiliar: [''],
+          pais: [''],
+          provincia: [''],
+          ciudad: [''],
           direccionFamiliar: [''],
         });
         this.familiares.push(cuentaForm);
