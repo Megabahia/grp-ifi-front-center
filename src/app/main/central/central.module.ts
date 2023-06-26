@@ -21,6 +21,7 @@ import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
 import { ShareIconsModule } from 'ngx-sharebuttons/icons';
 import { QRCodeModule } from 'angularx-qrcode';
 import { ListarComponent as EmpresasComponent } from './vistas/corp/empresas/listar/listar.component';
+import { ListarComponent as EmpleadosCorp1 } from './vistas/corp/empleados/listar/listar.component';
 import { ListarComponent as UsuariosCorpComponent } from './vistas/corp/usuarios/listar/listar.component';
 import { ListarComponent as RolesCorpComponent } from './vistas/corp/roles/listar/listar.component';
 import { ListarComponent as UsuariosCenterComponent } from './vistas/center/usuarios/listar/listar.component';
@@ -75,6 +76,12 @@ const routes = [
     path: 'corp', children: [
       {
         path: '', redirectTo: 'cargar_empleados', pathMatch: 'full'
+      },
+      {
+        path: 'empresas', component: EmpresasComponent, canActivate: [AuthGuard]
+      },
+      {
+        path: 'empleados', component: EmpleadosCorp1, canActivate: [AuthGuard]
       },
       {
         path: 'cargar_empleados', component: EmpleadosCorp, canActivate: [AuthGuard]
@@ -214,6 +221,7 @@ const routes = [
     PrincipalComponent,
     PerfilUsuarioComponent,
     EmpresasComponent,
+    EmpleadosCorp1,
     UsuariosCorpComponent,
     RolesCorpComponent,
     UsuariosCenterComponent,
