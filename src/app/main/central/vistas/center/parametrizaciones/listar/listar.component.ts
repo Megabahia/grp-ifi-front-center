@@ -36,6 +36,8 @@ export class ListarComponent implements OnInit {
   public mensaje = "";
   public idPadre = "";
   private _unsubscribeAll: Subject<any>;
+  public searchValueNombre = '';
+  public searchValueDescripcion = '';
 
   constructor(
     private paramService: ParametrizacionesService,
@@ -53,16 +55,17 @@ export class ListarComponent implements OnInit {
   }
   inicializarParametrizacion() {
     return {
-      id: "",
-      descripcion: "",
-      idPadre: "",
-      // maximo: "",
-      // minimo: "",
-      nombre: "",
-      tipo: "",
-      tipoVariable: "",
-      valor: ""
-    }
+      id: '',
+      descripcion: '',
+      idPadre: '',
+      // '',
+      // '',
+      nombre: '',
+      tipo: '',
+      tipoVariable: '',
+      valor: '',
+      config: '',
+    };
   }
 
   ngOnInit(): void {
@@ -71,7 +74,8 @@ export class ListarComponent implements OnInit {
       tipo: ['', [Validators.required]],
       descripcion: ['', [Validators.required]],
       tipoVariable: ['', [Validators.required]],
-      valor: ['', [Validators.required]]
+      valor: ['', [Validators.required]],
+      config: [''],
     });
   }
   ngAfterViewInit() {
@@ -117,8 +121,8 @@ export class ListarComponent implements OnInit {
       {
         page: this.page - 1,
         page_size: this.pageSize,
-        // tipo: this.tiposOpciones,
-        // nombre: this.nombreBuscar
+        tipo: this.searchValueNombre,
+        descripcion: this.searchValueDescripcion
       }
     ).subscribe((info) => {
       this.parametros = info.info;
@@ -193,5 +197,8 @@ export class ListarComponent implements OnInit {
     // Unsubscribe from all subscriptions
     this._unsubscribeAll.next();
     this._unsubscribeAll.complete();
+  }
+  filterUpdate(event) {
+    this.obtenerListaParametros();
   }
 }
