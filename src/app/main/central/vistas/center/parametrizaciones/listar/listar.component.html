@@ -24,6 +24,35 @@
                 </div>
             </div> -->
             <!-- users filter end -->
+            <div class="card">
+
+                <div class="row">
+                    <div class="col-5 text-center mx-1">
+                        <label>
+                            Tipo Parametro:
+                        </label>
+                        <input
+                                [(ngModel)]="searchValueNombre"
+                                name="searchValueNombre"
+                                type="search"
+                                class="form-control"
+                                (keyup)="filterUpdate($event)"
+                        />
+                    </div>
+                    <div class="col-6 text-center mb-1">
+                        <label>
+                            Descripción:
+                        </label>
+                        <input
+                                [(ngModel)]="searchValueDescripcion"
+                                name="searchValueDescripcion"
+                                type="search"
+                                class="form-control"
+                                (keyup)="filterUpdate($event)"
+                        />
+                    </div>
+                </div>
+            </div>
             <!-- list section start -->
             <div class="card">
 
@@ -184,6 +213,11 @@
                             <div *ngIf="paramSubmitted && paramForm.valor.errors" class="invalid-feedback" style="display: block;">
                                 <div *ngIf="paramForm.valor.errors.required">Valor es requerido</div>
                             </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="config">Configuracion:</label>
+                            <input type="text" id="config" class="form-control dt-email" name="config"
+                                   formControlName="config" [(ngModel)]="parametrizacion.config"/>
                         </div>
                         <div class="form-group">
                             <label class="form-label" for="">Padre:</label>

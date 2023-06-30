@@ -10,4 +10,5 @@ export class Parametrizacion {
     idPadre: string;
     // minimo: string;
     // maximo: string;
+    config: {  };
 }

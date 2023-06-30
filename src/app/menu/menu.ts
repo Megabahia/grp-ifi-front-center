@@ -20,6 +20,24 @@ export const menu: CoreMenu[] = [
     icon: 'package',
     children: [
       {
+        id: 'empresasCorp',
+        title: 'Empresas',
+        // translate: 'MENU.HOME',
+        // role: [Role.BigPuntos],
+        type: 'item',
+        icon: 'briefcase',
+        url: 'central/corp/empresas',
+      },
+      {
+        id: 'empleadosEmpresas',
+        title: 'EMPLEADOS DE EMPRESAS',
+        // translate: 'MENU.HOME',
+        // role: [Role.BigPuntos],
+        type: 'item',
+        icon: 'briefcase',
+        url: 'central/corp/empleados',
+      },
+      {
         id: 'cargarEmpleados',
         title: 'Cargar Empleados IFIS',
         // translate: 'MENU.HOME',

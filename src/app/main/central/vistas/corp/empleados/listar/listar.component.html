@@ -1,0 +1,203 @@
+<div class="content-wrapper" *ngIf="pantalla==1">
+    <!-- <div class="content-header row">
+        <div class="col-12 mb-2">
+            <div class="row breadcrumbs-top">
+                <div class="col-12">
+                    <h2 class="content-header-title float-left mb-0">Calificar compras</h2>
+                    <div class="breadcrumb-wrapper">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a class="text-primary" href="index.html">Inicio</a>
+                            </li>
+                            <li class="breadcrumb-item"><a class="text-primary" href="mis-facturas.html">Calificar
+                                    compras</a>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <div class="content-body">
+        <!-- users list start -->
+        <section class="app-user-list">
+            <!-- <div class="card">
+                <div class="card-header">
+                    <h4 class="text-primary d-block">Califica aquí tus compras, por cada compra que califiques reciben 10 super monedas.</h4>
+                </div>
+            </div> -->
+            <!-- <div class="card">
+                <div class="card-header">
+                    <h6 class="d-block">Filtros de búsqueda</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i data-feather='calendar'></i></span>
+                                    </div>
+                                    <input type="text" class="form-control form-control-sm flatpickr-range flatpickr-input" placeholder="- Rango de fechas">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div> -->
+
+            <!-- users filter end -->
+            <!-- list section start -->
+            <div class="card">
+                <div class="row m-75">
+                    <div class="col-lg-12 col-xl-6">
+                        <label>Mostrar</label>
+                        <select class="form-control-sm" [(ngModel)]="page_size" (change)="obtenerListaEmpresas()">
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+
+                    </div>
+                    <div class="col-lg-12 col-xl-6 text-right">
+                        <a (click)="toggleSidebar('guardarEmpleados','')" class="btn btn-primary">
+                            Añadir empleados
+                        </a>
+                    </div>
+                </div>
+                <div class="card-datatable table-responsive pt-0">
+
+                    <table class="user-list-table table table-striped">
+                        <thead class="thead-light">
+                        <tr>
+                            <th>Nombre</th>
+                            <th>País</th>
+                            <th>Provincia</th>
+                            <th>Ciudad</th>
+                            <th>Dirección</th>
+                            <th>RUC</th>
+                            <th>Empleados</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let empresa of empresas">
+                            <td>
+                                {{empresa.nombreEmpresa}}
+                            </td>
+                            <td>
+                                {{empresa.pais}}
+                            </td>
+                            <td>
+                                {{empresa.provincia}}
+                            </td>
+
+                            <td>
+                                {{empresa.ciudad}}
+                            </td>
+                            <td>
+                                {{empresa.direccion}}
+                            </td>
+                            <td>
+                                {{empresa.ruc}}
+                            </td>
+                            <td>
+                                <button (click)="cambiarPantalla(empresa._id)" container="body"
+                                   placement="top" ngbTooltip="Editar"
+                                        class="btn btn-primary"
+                                >
+                                    Ver empleados
+                                </button>
+                                <!--                                <a href="javascript:void(0);" container="body" placement="top" ngbTooltip="Eliminar" (click)="eliminarEmpresaModal(empresa._id)"><i class="mr-1" size="18" data-feather="trash"></i-->
+                                <!--                                ></a>-->
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Modal to add new user starts-->
+                <ngb-pagination #paginator [collectionSize]="collectionSize" [(page)]="page" [pageSize]="page_size"
+                                [maxSize]="5" [ellipses]="false" [boundaryLinks]="true"></ngb-pagination>
+                <!-- Modal to add new user Ends-->
+            </div>
+            <!-- list section end -->
+        </section>
+        <!-- users list ends -->
+    </div>
+</div>
+
+<core-sidebar class="modal modal-slide-in sidebar-todo-modal fade" name="guardarEmpleados"
+              overlayClass="modal-backdrop">
+    <div class="slideout-content">
+        <!-- Modal to add new user starts-->
+        <div class="modalsd modal-slide-in sdfade new-user-modal" id="modals-slide-in">
+            <div class="modal-dialog">
+                <form class="add-new-user modal-content pt-0" [formGroup]="empleadosForm">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                            (click)="toggleSidebar('guardarEmpleados',0)">
+                        ×
+                    </button>
+                    <div class="modal-header mb-1">
+                        <h5 class="modal-title" id="exampleModalLabel">Añadir Empleados</h5>
+                    </div>
+                    <div class="modal-body flex-grow-1">
+                        <div class="form-group">
+                            <label for="empresa">Tipo de empresa</label>
+                            <select class="form-control" id="empresa" name="empresa" formControlName="empresa">
+                                <option value="">- Seleccione -</option>
+                                <option *ngFor="let tipoEmpresaOp of empresas"
+                                        value="{{tipoEmpresaOp.ruc}}">{{tipoEmpresaOp.nombreEmpresa}}</option>
+
+                            </select>
+                            <div *ngIf="submitted && empForm.empresa.errors" class="invalid-feedback"
+                                 style="display: block;">
+                                <div *ngIf="empForm.empresa.errors.required">Empresa es requerido
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="customFile1">Archivo</label>
+                            <a href="assets/anexos/empresa_empelados.xlsx" download>Plantilla de documento</a>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="customFile1" formControlName="archivo"
+                                       (change)="subirArchivo($event)"
+                                       accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"/>
+                                <label class="custom-file-label" for="customFile1">{{empForm.archivo.value}}</label>
+                                <div *ngIf="submitted && empForm.archivo.errors" class="invalid-feedback"
+                                     style="display: block;">
+                                    <div *ngIf="empForm.archivo.errors.required">Archivo es requerido</div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary mr-1" [disabled]="cargandoEmpresa" (click)="guardarEmpleados()">
+                            <span *ngIf="cargandoEmpresa" class="spinner-border spinner-border-sm mr-1"></span> Guardar
+                        </button>
+                        <button (click)="toggleSidebar('guardarEmpleados','')" class="btn btn-outline-secondary"
+                                data-dismiss="modal">Cancelar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- Modal to add new user Ends-->
+    </div>
+
+</core-sidebar>
+
+<ng-template #mensajeModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Mensaje</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss( 'Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div [innerHTML]="mensaje"></div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="modal.dismiss( 'Cross click')">Cerrar</button>
+    </div>
+</ng-template>
+
+<app-empleados-empresas *ngIf="pantalla==2" [empresaId]="empresaId" (pantalla)="listarEmpresas($event)"></app-empleados-empresas>
