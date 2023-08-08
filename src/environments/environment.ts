@@ -5,7 +5,7 @@
 export const environment = {
     production: false,
     hmr: false,
-    apiUrl: 'http://209.145.61.41:8001',
+    apiUrl: 'https://api-ifi-test.bigpuntos.com/',
     setKey: '6LfAGqglAAAAAPaFslJtvy-z_gGBvonQ6B5VxAM_',
     firebaseConfig : {
         apiKey: 'AIzaSyCJjLY5GLMkwBgxQqyj2q-GDOEjHNg07ig',
