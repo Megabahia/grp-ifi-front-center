@@ -5,6 +5,15 @@ import {CoreMenuService} from '../../../../../../@core/components/core-menu/core
 import {Subject} from 'rxjs';
 import {PagoProveedoresService} from './pago-proveedores.service';
 
+/**
+ * IFIS
+ * Center
+ * Esta pantalla sirve para mostrar las solicitudes de credito de proveedores
+ * Rutas:
+ * `${environment.apiUrl}/corp/pagoProveedores/list/`,
+ * `${environment.apiUrl}/corp/pagoProveedores/update/${datos._id}`,
+ */
+
 @Component({
   selector: 'app-solicitudes-pago-proveedores',
   templateUrl: './solicitudes-pago-proveedores.component.html',

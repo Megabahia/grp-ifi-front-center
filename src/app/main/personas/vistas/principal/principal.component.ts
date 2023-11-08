@@ -1,27 +1,35 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { CoreMenuService } from '@core/components/core-menu/core-menu.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { User } from 'app/auth/models';
-import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
-import { Subject } from 'rxjs';
-import { PrincipalService } from './principal.service';
+import {Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import {CoreMenuService} from '@core/components/core-menu/core-menu.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {User} from 'app/auth/models';
+import {SwiperConfigInterface} from 'ngx-swiper-wrapper';
+import {Subject} from 'rxjs';
+import {PrincipalService} from './principal.service';
+
+/**
+ * IFIS
+ * Center
+ * Esta pantalla sirve para mostrar informacion
+ * Rutas:
+ * `${environment.apiUrl}/core/monedas/usuario/${id}`
+ * `${environment.apiUrl}/central/productos/list/`,
+ * `${environment.apiUrl}/central/productos/listOne/${id}`,
+ * `${environment.apiUrl}/central/param/list/listOne`,
+ */
 
 @Component({
   selector: 'app-principal',
   templateUrl: './principal.component.html',
   styleUrls: ['./principal.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  host: { class: 'ecommerce-application' }
+  host: {class: 'ecommerce-application'}
 })
-export class PrincipalComponent implements OnInit {
+export class PrincipalComponent implements OnInit, OnDestroy {
   @ViewChild('DetalleProducto') DetalleProducto;
   @ViewChild('CanjearProducto') CanjearProducto;
 
   // public
-  public contentHeader: object;
   public wishlist;
-  public cartList;
-  public relatedProducts;
   public productos;
   public producto;
   private _unsubscribeAll: Subject<any>;
@@ -42,7 +50,7 @@ export class PrincipalComponent implements OnInit {
       cont: 0,
       info: []
 
-    }
+    };
   }
 
   ngOnInit(): void {
@@ -51,7 +59,7 @@ export class PrincipalComponent implements OnInit {
     });
     this._principalService.obtenerProductosMostrar(
       {
-        tipo: "premios"
+        tipo: 'premios'
       }
     ).subscribe(info => {
       this.productos = info;
@@ -83,6 +91,7 @@ export class PrincipalComponent implements OnInit {
       };
     });
   }
+
   obtenerProducto(id) {
     this._principalService.obtenerProducto(id).subscribe(info => {
       this.producto = info;
@@ -90,7 +99,7 @@ export class PrincipalComponent implements OnInit {
         centered: true,
         size: 'lg'
       });
-    })
+    });
   }
 
   comprarProducto() {

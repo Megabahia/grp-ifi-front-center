@@ -6,6 +6,16 @@ import { User } from 'app/auth/models';
 import { Subject } from 'rxjs';
 import { MonedasOtorgadasService } from './monedas-otorgadas.service';
 
+/**
+ * IFIS
+ * Personas
+ * ESta pantalla sirve para mostrar las monedas otorgadas
+ * Rutas:
+ * `${environment.apiUrl}/central/param/list/listOne`,
+ * `${environment.apiUrl}/core/monedas/list/otorgadas/`,
+ * `${environment.apiUrl}/corp/empresas/list/logos`,
+ */
+
 @Component({
   selector: 'app-monedas-otorgadas',
   templateUrl: './monedas-otorgadas.component.html',

@@ -1,11 +1,24 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
-import { NgbModal, NgbPagination } from '@ng-bootstrap/ng-bootstrap';
-import { Subject } from 'rxjs';
-import { ParametrizacionesService } from '../../parametrizaciones/parametrizaciones.service';
-import { Publicacion } from '../models/publicacion';
-import { PublicacionesService } from '../publicaciones.service';
+import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {CoreSidebarService} from '@core/components/core-sidebar/core-sidebar.service';
+import {NgbModal, NgbPagination} from '@ng-bootstrap/ng-bootstrap';
+import {Subject} from 'rxjs';
+import {ParametrizacionesService} from '../../parametrizaciones/parametrizaciones.service';
+import {Publicacion} from '../models/publicacion';
+import {PublicacionesService} from '../publicaciones.service';
+
+/**
+ * IFIS
+ * Center
+ * ESta pantalla sirve para listar las publicaciones
+ * Rutas:
+ * `${environment.apiUrl}/corp/empresas/listOne/filtros/`,
+ * `${environment.apiUrl}/central/publicaciones/update/${id}`,
+ * `${environment.apiUrl}/central/publicaciones/create/`,
+ * `${environment.apiUrl}/central/publicaciones/listFull/`,
+ * `${environment.apiUrl}/central/publicaciones/listOne/${id}`
+ * `${environment.apiUrl}/central/publicaciones/delete/${id}`,
+ */
 
 @Component({
   selector: 'app-listar',
@@ -30,11 +43,11 @@ export class ListarComponent implements OnInit {
   public publicacion: Publicacion;
   public nombreBuscar;
   public publicaciones;
-  public tipoPadre = "";
-  public fecha = "";
+  public tipoPadre = '';
+  public fecha = '';
   public padres;
-  public mensaje = "";
-  public idPadre = "";
+  public mensaje = '';
+  public idPadre = '';
   private _unsubscribeAll: Subject<any>;
 
   constructor(
@@ -44,47 +57,51 @@ export class ListarComponent implements OnInit {
     private _coreSidebarService: CoreSidebarService,
     private paramService: ParametrizacionesService,
     private changeDetector: ChangeDetectorRef,
-
   ) {
     this._unsubscribeAll = new Subject();
-    this.idPublicacion = "";
+    this.idPublicacion = '';
     this.publicacion = this.inicializarProducto();
   }
+
   get prodForm() {
     return this.publicacionForm.controls;
   }
+
   inicializarProducto(): Publicacion {
     return {
-      _id: "",
-      titulo: "",
-      subtitulo: "",
-      descripcion: "",
-      imagen: "",
-      url: "",
-    }
+      _id: '',
+      titulo: '',
+      subtitulo: '',
+      descripcion: '',
+      imagen: '',
+      url: '',
+    };
   }
+
   obtenerEmpresaId() {
     this.paramService.obtenerEmpresa({
-      nombreComercial: "Global Red Pyme"
+      nombreComercial: 'Global Red Pyme'
     }).subscribe((info) => {
       this.empresa_id = info._id;
     }, (error) => {
-      this.mensaje = "Ha ocurrido un error al actualizar su imagen";
+      this.mensaje = 'Ha ocurrido un error al actualizar su imagen';
       this.abrirModal(this.mensajeModal);
     });
   }
+
   ngOnInit(): void {
     this.publicacionForm = this._formBuilder.group({
-      titulo: ["", [Validators.required]],
+      titulo: ['', [Validators.required]],
       subtitulo: ['', [Validators.required]],
       descripcion: ['', [Validators.required]],
       // imagen: ["", [Validators.required]],
-      url: ["", [Validators.required]],
+      url: ['', [Validators.required]],
     });
     this.obtenerEmpresaId();
     this.changeDetector.detectChanges();
 
   }
+
   ngAfterViewInit() {
     this.iniciarPaginador();
 
@@ -119,26 +136,26 @@ export class ListarComponent implements OnInit {
       //   productoAct = this.publicacionessFormData;
       // }
       this.publicacionesService.actualizarPublicacion(this.publicacionessFormData, this.publicacion._id).subscribe(() => {
-        this.obtenerListaPublicaciones();
-        this.mensaje = "Producto actualizado con éxito";
-        this.abrirModal(this.mensajeModal);
-        this.loading = false;
-      },
+          this.obtenerListaPublicaciones();
+          this.mensaje = 'Producto actualizado con éxito';
+          this.abrirModal(this.mensajeModal);
+          this.loading = false;
+        },
         (error) => {
-          this.mensaje = "Ha ocurrido un error";
+          this.mensaje = 'Ha ocurrido un error';
           this.abrirModal(this.mensajeModal);
           this.loading = false;
         });
     } else {
 
       this.publicacionesService.crearPublicacion(this.publicacionessFormData).subscribe((info) => {
-        this.obtenerListaPublicaciones();
-        this.mensaje = "Producto guardado con éxito";
-        this.abrirModal(this.mensajeModal);
-        this.loading = false;
-      },
+          this.obtenerListaPublicaciones();
+          this.mensaje = 'Producto guardado con éxito';
+          this.abrirModal(this.mensajeModal);
+          this.loading = false;
+        },
         (error) => {
-          this.mensaje = "Ha ocurrido un error";
+          this.mensaje = 'Ha ocurrido un error';
           this.abrirModal(this.mensajeModal);
           this.loading = false;
         });
@@ -146,15 +163,17 @@ export class ListarComponent implements OnInit {
 
 
   }
+
   async subirImagen(event) {
 
     if (event.target.files && event.target.files[0]) {
       let imagen = event.target.files[0];
       this.imagen = imagen.name;
       this.publicacionessFormData.delete('imagen');
-      this.publicacionessFormData.append('imagen', imagen, Date.now() + "_" + imagen.name);
+      this.publicacionessFormData.append('imagen', imagen, Date.now() + '_' + imagen.name);
     }
   }
+
   obtenerListaPublicaciones() {
     this.publicacionesService.obtenerListaPublicaciones(
       {
@@ -167,8 +186,9 @@ export class ListarComponent implements OnInit {
       this.collectionSize = info.cont;
     });
   }
+
   toggleSidebar(name, id): void {
-    this.imagen = "";
+    this.imagen = '';
     if (id) {
       this.publicacionesService.obtenerPublicacion(id).subscribe((info) => {
         this.publicacion = info;
@@ -183,34 +203,40 @@ export class ListarComponent implements OnInit {
     }
     this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
   }
+
   iniciarPaginador() {
 
     this.paginator.pageChange.subscribe(() => {
       this.obtenerListaPublicaciones();
     });
   }
+
   visualizarNombreArchivo(nombre) {
     let stringArchivos = 'https://globalredpymes.s3.amazonaws.com/CENTRAL/imgProductos/';
     return nombre.replace(stringArchivos, '');
   }
+
   eliminarProductoModal(id) {
     this.idPublicacion = id;
     this.abrirModal(this.eliminarProductoMdl);
   }
+
   eliminarPublicacion() {
     this.publicacionesService.eliminarPublicacion(this.idPublicacion).subscribe((info) => {
-      this.obtenerListaPublicaciones();
-      this.mensaje = "Producto eliminado con éxito";
-      this.abrirModal(this.mensajeModal);
-    },
+        this.obtenerListaPublicaciones();
+        this.mensaje = 'Producto eliminado con éxito';
+        this.abrirModal(this.mensajeModal);
+      },
       (error) => {
-        this.mensaje = "Error al eliminar publicacion";
+        this.mensaje = 'Error al eliminar publicacion';
         this.abrirModal(this.mensajeModal);
       });
   }
+
   abrirModal(modal) {
-    this._modalService.open(modal)
+    this._modalService.open(modal);
   }
+
   cerrarModal() {
     this._modalService.dismissAll();
   }

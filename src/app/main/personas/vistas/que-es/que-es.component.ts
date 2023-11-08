@@ -1,7 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
-import { QueEsService } from './que-es.service';
-import { DomSanitizer} from '@angular/platform-browser';
+import {Component, OnInit} from '@angular/core';
+import {Subject} from 'rxjs';
+import {QueEsService} from './que-es.service';
+import {DomSanitizer} from '@angular/platform-browser';
+
+/**
+ * IFIS
+ * PErsonas
+ * Esta pantalla sirve para mostrar informacion de la
+ * Rutas:
+ * `${environment.apiUrl}/central/param/listOne/${id}`,
+ */
+
 @Component({
   selector: 'app-que-es',
   templateUrl: './que-es.component.html',
@@ -10,6 +19,7 @@ import { DomSanitizer} from '@angular/platform-browser';
 export class QueEsComponent implements OnInit {
   public videos = [];
   private _unsubscribeAll: Subject<any>;
+
   constructor(
     private _queEsService: QueEsService,
     private sanitizer: DomSanitizer
@@ -23,10 +33,12 @@ export class QueEsComponent implements OnInit {
       this.videos = JSON.parse(info.config);
     });
   }
-  obtenerURL(i){
+
+  obtenerURL(i) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(this.videos[i].url);
-     
+
   }
+
   ngOnDestroy(): void {
     // Unsubscribe from all subscriptions
     this._unsubscribeAll.next();

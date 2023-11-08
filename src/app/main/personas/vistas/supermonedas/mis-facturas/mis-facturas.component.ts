@@ -5,6 +5,20 @@ import { NgbPagination } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
 import { MisFacturasService } from './mis-facturas.service';
 
+/**
+ * IFIS
+ * Personas
+ * Esta pantalla sirve para mostrar las facturas
+ * Rutas:
+ * `${environment.apiUrl}/central/param/listar/tipo/`,
+ * `${environment.apiUrl}/central/param/list/tipo/todos/`,
+ * `${environment.apiUrl}/central/param/list/filtro/nombre`,
+ * `${environment.apiUrl}/central/param/list/listOne`,
+ * `${environment.apiUrl}/corp/empresas/listOne/filtros/`,
+ * `${environment.apiUrl}/core/monedas/create/`
+ * `${environment.apiUrl}/central/facturas/list/`,
+ */
+
 @Component({
   selector: 'app-mis-facturas',
   templateUrl: './mis-facturas.component.html',

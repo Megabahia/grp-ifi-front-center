@@ -1,11 +1,25 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgbModal, NgbPagination } from '@ng-bootstrap/ng-bootstrap';
-import { ParametrizacionesService } from '../parametrizaciones.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Parametrizacion } from '../models/parametrizaciones';
-import { DatePipe } from '@angular/common';
-import { Subject } from 'rxjs';
-import { CoreSidebarService } from '../../../../../../../@core/components/core-sidebar/core-sidebar.service';
+import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {NgbModal, NgbPagination} from '@ng-bootstrap/ng-bootstrap';
+import {ParametrizacionesService} from '../parametrizaciones.service';
+import {FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {Parametrizacion} from '../models/parametrizaciones';
+import {DatePipe} from '@angular/common';
+import {Subject} from 'rxjs';
+import {CoreSidebarService} from '../../../../../../../@core/components/core-sidebar/core-sidebar.service';
+
+/**
+ * IFIS
+ * Center
+ * ESta pantalla sirve para mostrar las parametrizaciones
+ * Rutas:
+ * `${environment.apiUrl}/central/param/create/`,
+ * `${environment.apiUrl}/central/param/update/${datos._id}`,
+ * `${environment.apiUrl}/central/param/list/`,
+ * `${environment.apiUrl}/central/param/listOne/${id}`
+ * `${environment.apiUrl}/central/param/delete/${id}`
+ * `${environment.apiUrl}/central/param/list/tipo/todos/`,
+ * `${environment.apiUrl}/central/param/exportar/`,
+ */
 
 @Component({
   selector: 'app-listar',
@@ -14,27 +28,26 @@ import { CoreSidebarService } from '../../../../../../../@core/components/core-s
   providers: [DatePipe]
 
 })
-export class ListarComponent implements OnInit {
+export class ListarComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(NgbPagination) paginator: NgbPagination;
   @ViewChild('eliminarParametroMdl') eliminarParametroMdl;
   @ViewChild('mensajeModal') mensajeModal;
   public parametrizacionForm: FormGroup;
-  public paramSubmitted: boolean = false;
+  public paramSubmitted = false;
   public page = 1;
   public pageSize: any = 10;
   public maxSize;
   public collectionSize;
   public idParametro;
-  public listaParametros;
-  public tiposOpciones: string = "";
+  public tiposOpciones = '';
   public tipos;
   public parametrizacion: Parametrizacion;
   public nombreBuscar;
   public parametros;
-  public tipoPadre = "";
+  public tipoPadre = '';
   public padres;
-  public mensaje = "";
-  public idPadre = "";
+  public mensaje = '';
+  public idPadre = '';
   private _unsubscribeAll: Subject<any>;
   public searchValueNombre = '';
   public searchValueDescripcion = '';
@@ -44,15 +57,16 @@ export class ListarComponent implements OnInit {
     private _modalService: NgbModal,
     private _formBuilder: FormBuilder,
     private _coreSidebarService: CoreSidebarService,
-
   ) {
     this._unsubscribeAll = new Subject();
-    this.idParametro = "";
+    this.idParametro = '';
     this.parametrizacion = this.inicializarParametrizacion();
   }
+
   get paramForm() {
     return this.parametrizacionForm.controls;
   }
+
   inicializarParametrizacion() {
     return {
       id: '',
@@ -78,44 +92,47 @@ export class ListarComponent implements OnInit {
       config: [''],
     });
   }
+
   ngAfterViewInit() {
     this.iniciarPaginador();
 
     this.obtenerListaParametros();
   }
+
   guardarParametro() {
     this.paramSubmitted = true;
     if (this.parametrizacionForm.invalid) {
       return;
     }
-    if (this.idParametro == "") {
+    if (this.idParametro === '') {
       this.paramService.crearParametro(this.parametrizacion).subscribe((info) => {
-        this.mensaje = "Parámetro creado correctamente";
-        this.abrirModal(this.mensajeModal);
-        this.obtenerListaParametros();
-        this.toggleSidebar('guardarParametrizacion', '');
-      },
+          this.mensaje = 'Parámetro creado correctamente';
+          this.abrirModal(this.mensajeModal);
+          this.obtenerListaParametros();
+          this.toggleSidebar('guardarParametrizacion', '');
+        },
         (error) => {
-          this.mensaje = "No se ha podido guardar el parámetro";
+          this.mensaje = 'No se ha podido guardar el parámetro';
           this.abrirModal(this.mensajeModal);
           this.toggleSidebar('guardarParametrizacion', '');
 
         });
     } else {
       this.paramService.actualizarParametro(this.parametrizacion).subscribe((info) => {
-        this.mensaje = "Parámetro actualizado con éxito";
-        this.abrirModal(this.mensajeModal);
-        this.obtenerListaParametros();
-        this.toggleSidebar('guardarParametrizacion', '');
-      },
+          this.mensaje = 'Parámetro actualizado con éxito';
+          this.abrirModal(this.mensajeModal);
+          this.obtenerListaParametros();
+          this.toggleSidebar('guardarParametrizacion', '');
+        },
         (error) => {
-          this.mensaje = "No se ha podido actualizar el parámetro";
+          this.mensaje = 'No se ha podido actualizar el parámetro';
           this.abrirModal(this.mensajeModal);
           this.toggleSidebar('guardarParametrizacion', '');
 
         });
     }
   }
+
   obtenerListaParametros() {
     this.paramService.obtenerListaParametrizaciones(
       {
@@ -129,27 +146,28 @@ export class ListarComponent implements OnInit {
       this.collectionSize = info.cont;
     });
   }
+
   toggleSidebar(name, id): void {
     this.idParametro = id;
     if (this.idParametro) {
       this.paramService.obtenerParametro(this.idParametro).subscribe((info) => {
-        this.parametrizacion = info;
+          this.parametrizacion = info;
 
-        if (info.idPadre && info.idPadre != "None") {
-          this.paramService.obtenerParametro(info.idPadre).subscribe((data) => {
-            this.tipoPadre = data.tipo;
-            this.paramService.obtenerListaPadres(data.tipo).subscribe((infoLista) => {
-              this.padres = infoLista;
+          if (info.idPadre && info.idPadre !== 'None') {
+            this.paramService.obtenerParametro(info.idPadre).subscribe((data) => {
+              this.tipoPadre = data.tipo;
+              this.paramService.obtenerListaPadres(data.tipo).subscribe((infoLista) => {
+                this.padres = infoLista;
+              });
             });
-          });
-          this.parametrizacion.idPadre = info.idPadre;
-        } else {
-          this.tipoPadre = "";
-          this.parametrizacion.idPadre = "";
-        }
-      },
+            this.parametrizacion.idPadre = info.idPadre;
+          } else {
+            this.tipoPadre = '';
+            this.parametrizacion.idPadre = '';
+          }
+        },
         (error) => {
-          this.mensaje = "No se ha podido obtener el parámetro";
+          this.mensaje = 'No se ha podido obtener el parámetro';
 
           this.abrirModal(this.mensajeModal);
         });
@@ -158,6 +176,7 @@ export class ListarComponent implements OnInit {
     }
     this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
   }
+
   iniciarPaginador() {
     this.paramService.obtenerListaTipos().subscribe((result) => {
       this.tipos = result;
@@ -171,33 +190,39 @@ export class ListarComponent implements OnInit {
     this.idParametro = id;
     this.abrirModal(this.eliminarParametroMdl);
   }
+
   eliminarParametro() {
     this.paramService.eliminarParametro(this.idParametro).subscribe(() => {
-      this.obtenerListaParametros();
-      this.mensaje = "Parámetro eliminado correctamente";
-      this.abrirModal(this.mensajeModal);
-    },
+        this.obtenerListaParametros();
+        this.mensaje = 'Parámetro eliminado correctamente';
+        this.abrirModal(this.mensajeModal);
+      },
       (error) => {
-        this.mensaje = "Ha ocurrido un error al eliminar el rol";
+        this.mensaje = 'Ha ocurrido un error al eliminar el rol';
         this.abrirModal(this.mensajeModal);
       });
   }
+
   abrirModal(modal) {
-    this._modalService.open(modal)
+    this._modalService.open(modal);
   }
+
   cerrarModal() {
     this._modalService.dismissAll();
   }
+
   async buscarPadre() {
     await this.paramService.obtenerListaPadres(this.tipoPadre).subscribe((result) => {
       this.padres = result;
     });
   }
+
   ngOnDestroy(): void {
     // Unsubscribe from all subscriptions
     this._unsubscribeAll.next();
     this._unsubscribeAll.complete();
   }
+
   filterUpdate(event) {
     this.obtenerListaParametros();
   }

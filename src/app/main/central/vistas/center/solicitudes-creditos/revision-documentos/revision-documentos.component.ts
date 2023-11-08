@@ -1,5 +1,13 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
+/**
+ * IFIS
+ * Center
+ * Esta pantalla sirve para mostrar los requisitos de los creditos
+ * Rutas:
+ * No recibe ningun llamado de rutas
+ */
+
 @Component({
   selector: 'app-revision-documentos',
   templateUrl: './revision-documentos.component.html',

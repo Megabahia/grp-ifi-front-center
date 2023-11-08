@@ -5,6 +5,15 @@ import {PagoProveedoresService} from '../solicitudes-pago-proveedores/pago-prove
 import {DatePipe} from '@angular/common';
 import {CoreMenuService} from '../../../../../../@core/components/core-menu/core-menu.service';
 
+/**
+ * IFIS
+ * Center
+ * Esta pantalla sirve para mostrar las solicitudes de credito de casas comerciales
+ * Rutas:
+ * `${environment.apiUrl}/corp/pagoProveedores/list/`,
+ * `${environment.apiUrl}/corp/pagoProveedores/update/${datos._id}`,
+ */
+
 @Component({
   selector: 'app-solicitudes-pago-casas-comercial',
   templateUrl: './solicitudes-pago-casas-comercial.component.html',

@@ -1,10 +1,22 @@
-import {AfterViewInit, Component, Input, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {NgbModal, NgbPagination} from '@ng-bootstrap/ng-bootstrap';
 import {SolicitudesCreditosService} from '../solicitudes-creditos.service';
 import {CoreSidebarService} from '../../../../../../../@core/components/core-sidebar/core-sidebar.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {DatePipe} from '@angular/common';
-import {Subject} from 'rxjs';
+
+/**
+ * IFIS
+ * Center
+ * ESta pantalla sirve para listar los creditos negocio propio
+ * Rutas:
+ * `${environment.apiUrl}/corp/creditoPersonas/list/`,
+ * `${environment.apiUrl}/corp/creditoPersonas/update/${datos.get('id')}`,
+ * `${environment.apiUrl}/corp/creditoPersonas/pruebaConsumer`
+ * `${environment.apiUrl}/corp/empresas/list/comercial`,
+ * `${environment.apiUrl}/corp/creditoPersonas/update/${datos._id}`,
+ * `${environment.apiUrl}/corp/creditoPersonas/update/${datos._id}`,
+ */
 
 @Component({
   selector: 'app-negocio-propio',
@@ -20,7 +32,6 @@ export class NegocioPropioComponent implements OnInit, AfterViewInit {
   public page_size: any = 4;
   public maxSize;
   public collectionSize;
-  private _unsubscribeAll: Subject<any>;
 
   // Variables
   public listaCreditos;
@@ -311,6 +322,7 @@ export class NegocioPropioComponent implements OnInit, AfterViewInit {
       }
     );
   }
+
   cerrarModal() {
     this.modalService.dismissAll();
   }

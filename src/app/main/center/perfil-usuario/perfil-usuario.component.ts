@@ -1,13 +1,28 @@
-import { Component, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
-import { PerfilUsuarioService } from './perfil-usuario.service';
-import { User } from '../../../auth/models/user';
-import { CoreMenuService } from '../../../../@core/components/core-menu/core-menu.service';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { InformacionBasica } from '../../personas/models/persona';
-import { DatePipe } from '@angular/common';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Subject} from 'rxjs';
+import {PerfilUsuarioService} from './perfil-usuario.service';
+import {User} from '../../../auth/models/user';
+import {CoreMenuService} from '../../../../@core/components/core-menu/core-menu.service';
+import {FormBuilder, Validators, FormGroup} from '@angular/forms';
+import {InformacionBasica} from '../../personas/models/persona';
+import {DatePipe} from '@angular/common';
 import moment from 'moment';
-import { FlatpickrOptions } from 'ng2-flatpickr';
+import {FlatpickrOptions} from 'ng2-flatpickr';
+
+/*
+* Bigpuntos
+* center
+* Esta pantalla sirve para registar el perfil del usuario
+* Rutas:
+* `${environment.apiUrl}/personas/personas/listOne/${id}`
+* `${environment.apiUrl}/personas/historialLaboral/listOne/${user_id}`
+* `${environment.apiUrl}/central/usuarios/update/${datos.id}`
+* `${environment.apiUrl}/personas/personas/update/${datos.user_id}`
+* `${environment.apiUrl}/personas/personas/update/imagen/${id}`
+* `${environment.apiUrl}/central/param/list/tipo/todos/`,
+* `${environment.apiUrl}/central/param/list/filtro/nombre`,
+* `${environment.apiUrl}/personas/historialLaboral/update/${user_id}`
+* */
 
 @Component({
   selector: 'app-perfil-usuario',
@@ -15,7 +30,7 @@ import { FlatpickrOptions } from 'ng2-flatpickr';
   styleUrls: ['./perfil-usuario.component.scss'],
   providers: [DatePipe]
 })
-export class PerfilUsuarioComponent implements OnInit {
+export class PerfilUsuarioComponent implements OnInit, OnDestroy {
   public tab;
   public usuario: User;
   public coreConfig: any;
@@ -33,6 +48,7 @@ export class PerfilUsuarioComponent implements OnInit {
   };
   // Private
   private _unsubscribeAll: Subject<any>;
+
   constructor(
     private _perfilUsuarioService: PerfilUsuarioService,
     private _coreMenuService: CoreMenuService,
@@ -40,43 +56,45 @@ export class PerfilUsuarioComponent implements OnInit {
     private datePipe: DatePipe,
   ) {
     this.informacionBasica = {
-      ciudad: "",
+      ciudad: '',
       edad: 0,
-      emailAdicional: "",
-      facebook: "",
-      fechaNacimiento: "",
-      genero: "",
-      instagram: "",
-      tiktok: "",
-      twitter: "",
-      whatsapp: "",
-      youtube: "",
-      user_id: ""
-    }
+      emailAdicional: '',
+      facebook: '',
+      fechaNacimiento: '',
+      genero: '',
+      instagram: '',
+      tiktok: '',
+      twitter: '',
+      whatsapp: '',
+      youtube: '',
+      user_id: ''
+    };
     this._unsubscribeAll = new Subject();
 
   }
+
   get f() {
     return this.personaForm.controls;
   }
+
   ngOnInit(): void {
     this.personaForm = this._formBuilder.group({
-      created_at: ['',],
-      identificacion: ['',],
-      nombres: ['',],
-      apellidos: ['',],
-      genero: ['',],
-      fechaNacimiento: ['string',],
-      edad: ['',],
-      whatsapp: ['',],
-      ciudad: ['',],
-      email: ['',],
-      emailAdicional: ['',],
-      facebook: ['',],
-      instagram: ['',],
-      twitter: ['',],
-      tiktok: ['',],
-      youtube: ['',],
+      created_at: [''],
+      identificacion: [''],
+      nombres: [''],
+      apellidos: [''],
+      genero: [''],
+      fechaNacimiento: ['string'],
+      edad: [''],
+      whatsapp: [''],
+      ciudad: [''],
+      email: [''],
+      emailAdicional: [''],
+      facebook: [''],
+      instagram: [''],
+      twitter: [''],
+      tiktok: [''],
+      youtube: [''],
     });
     this.usuario = this._coreMenuService.grpSanjoseCenterUser;
     this._perfilUsuarioService.obtenerInformacion(this.usuario.id).subscribe(info => {
@@ -89,19 +107,21 @@ export class PerfilUsuarioComponent implements OnInit {
       );
     });
   }
+
   transformarFecha(fecha) {
-    let nuevaFecha = this.datePipe.transform(fecha, 'yyyy-MM-dd');
-    return nuevaFecha;
+    return this.datePipe.transform(fecha, 'yyyy-MM-dd');
   }
+
   guardarInformacion() {
-    this.informacionBasica = { ...this.personaForm.value, fechaNacimiento: this.informacionBasica.fechaNacimiento };
+    this.informacionBasica = {...this.personaForm.value, fechaNacimiento: this.informacionBasica.fechaNacimiento};
     this.informacionBasica.user_id = this.usuario.id;
 
     this._perfilUsuarioService.guardarInformacion(this.informacionBasica).subscribe(info => {
       this.usuario.persona = info;
-      localStorage.setItem("grpSanjoseCenterUser", JSON.stringify(this.usuario));
+      localStorage.setItem('grpSanjoseCenterUser', JSON.stringify(this.usuario));
     });
   }
+
   calcularEdad() {
     this.informacionBasica.edad = moment().diff(this.f.fechaNacimiento.value[0], 'years');
     this.informacionBasica.fechaNacimiento = moment(this.f.fechaNacimiento.value[0]).format('YYYY-MM-DD');
@@ -109,19 +129,21 @@ export class PerfilUsuarioComponent implements OnInit {
       edad: this.informacionBasica.edad
     });
   }
+
   ngOnDestroy(): void {
     // Unsubscribe from all subscriptions
     this._unsubscribeAll.next();
     this._unsubscribeAll.complete();
   }
+
   async subirImagen(event) {
 
     if (event.target.files && event.target.files[0]) {
-      let imagen = event.target.files[0];
-      let nuevaImagen = new FormData();
+      const imagen = event.target.files[0];
+      const nuevaImagen = new FormData();
       nuevaImagen.append('imagen', imagen, imagen.name);
 
-      let reader = new FileReader();
+      const reader = new FileReader();
 
       reader.onload = (event: any) => {
         this.imagenTemp = event.target.result;

@@ -1,20 +1,33 @@
-import { Component, OnInit } from '@angular/core';
-import { takeUntil } from 'rxjs/operators';
-import { Validators, FormBuilder, FormGroup } from '@angular/forms';
-import { Subject } from 'rxjs';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Router, ActivatedRoute } from '@angular/router';
-import { CoreConfigService } from '../../../../../@core/services/config.service';
-import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
-import { BienvenidoService } from './bienvenido.service';
-import { CoreMenuService } from '../../../../../@core/components/core-menu/core-menu.service';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {takeUntil} from 'rxjs/operators';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {Subject} from 'rxjs';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {Router, ActivatedRoute} from '@angular/router';
+import {CoreConfigService} from '../../../../../@core/services/config.service';
+import {SwiperConfigInterface} from 'ngx-swiper-wrapper';
+import {BienvenidoService} from './bienvenido.service';
+import {CoreMenuService} from '../../../../../@core/components/core-menu/core-menu.service';
+
+/**
+ * IFIS
+ * Personas
+ * Esta pantalla sirve para mostrar informacion de inicio al ingresar al portal de personas
+ * Rutas:
+ * `${environment.apiUrl}/core/monedas/create/`
+ * `${environment.apiUrl}/central/usuarios/update/${datos.id}`,
+ * `${environment.apiUrl}/central/productos/list/`,
+ * `${environment.apiUrl}/central/param/list/listOne`,
+ * `${environment.apiUrl}/corp/empresas/listOne/filtros/`,
+ * `${environment.apiUrl}/central/productos/listOne/${id}`,
+ */
 
 @Component({
   selector: 'app-bienvenido',
   templateUrl: './bienvenido.component.html',
   styleUrls: ['./bienvenido.component.scss']
 })
-export class BienvenidoComponent implements OnInit {
+export class BienvenidoComponent implements OnInit, OnDestroy {
   //  Public
   public coreConfig: any;
   public loginForm: FormGroup;
@@ -22,7 +35,6 @@ export class BienvenidoComponent implements OnInit {
   public submitted = false;
   public returnUrl: string;
   public error = '';
-  public passwordTextType: boolean;
   productosPromocion;
   public swiperResponsive: SwiperConfigInterface;
   producto;
@@ -57,11 +69,6 @@ export class BienvenidoComponent implements OnInit {
   // Private
   private _unsubscribeAll: Subject<any>;
 
-  /**
-   * Constructor
-   *
-   * @param {CoreConfigService} _coreConfigService
-   */
   constructor(
     private _coreConfigService: CoreConfigService,
     private _formBuilder: FormBuilder,
@@ -96,22 +103,15 @@ export class BienvenidoComponent implements OnInit {
     return this.loginForm.controls;
   }
 
-  /**
-   * Toggle password
-   */
-  togglePasswordTextType() {
-    this.passwordTextType = !this.passwordTextType;
-  }
-
   completarPerfil() {
-    let usuario = this._coreMenuService.grpSanjoseCenterUser;
+    const usuario = this._coreMenuService.grpSanjoseCenterUser;
     this._bienvenidoService.cambioDeEstado(
       {
-        estado: "2",
+        estado: '2',
         id: usuario.id
       }
     ).subscribe((info) => {
-      usuario.estado = "2";
+      usuario.estado = '2';
       localStorage.setItem('grpSanjoseCenterUser', JSON.stringify(usuario));
       setTimeout(() => {
         this._router.navigate(['/']);
@@ -122,10 +122,11 @@ export class BienvenidoComponent implements OnInit {
 
     // redirect to home page
   }
+
   obtenerProductos() {
-    let subsObtenerProductos = this._bienvenidoService.obtenerProductos(
+    this._bienvenidoService.obtenerProductos(
       {
-        tipo: "presentacion",
+        tipo: 'presentacion',
       }
     ).subscribe((valor) => {
       this.productosPromocion = valor.info;
@@ -177,8 +178,9 @@ export class BienvenidoComponent implements OnInit {
     });
 
   }
+
   modalOpenVC(modalVC, id) {
-    let subsObtenerProducto = this._bienvenidoService.obtenerProducto(id).subscribe((valor) => {
+    this._bienvenidoService.obtenerProducto(id).subscribe((valor) => {
       this.producto = valor;
       this.modalService.open(modalVC, {
         centered: true,
@@ -186,6 +188,7 @@ export class BienvenidoComponent implements OnInit {
       });
     });
   }
+
   /**
    * On destroy
    */

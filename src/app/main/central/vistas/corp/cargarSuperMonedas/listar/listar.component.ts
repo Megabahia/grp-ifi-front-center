@@ -11,6 +11,19 @@ import {CoreMenuService} from '../../../../../../../@core/components/core-menu/c
 import {ParametrizacionesService} from '../../../center/parametrizaciones/parametrizaciones.service';
 import {BienvenidoService} from '../../../../../personas/vistas/bienvenido/bienvenido.service';
 
+/**
+ * IFIS
+ * center
+ * Esta pantalla sirve para cargar bigpuntos
+ * Rutas:
+ * `${environment.apiUrl}/corp/empresas/list/all`,
+ * `${environment.apiUrl}/corp/empresas/list/ifis`,
+ * `${environment.apiUrl}/corp/creditoArchivos/list/`,
+ * `${environment.apiUrl}/corp/creditoArchivos/create/`,
+ * `${environment.apiUrl}/corp/creditoArchivos/delete/${id}`
+ * `${environment.apiUrl}/corp/creditoArchivos/upload/creditos/preaprobados/automotriz/empleados/${id}`,
+ */
+
 @Component({
   selector: 'app-listar',
   templateUrl: './listar.component.html',
@@ -76,10 +89,6 @@ export class ListarComponent implements OnInit, AfterViewInit, OnDestroy {
     };
   }
 
-  get FFForm() {
-    return this.facFisiForm.controls;
-  }
-
   ngOnInit(): void {
 
     this.facFisiForm = this._formBuilder.group({
@@ -143,15 +152,6 @@ export class ListarComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  obtenerListaFacturas() {
-    this._misFacturasService.obtenerFacturas({
-      page: this.page - 1, page_size: this.page_size, user_id: this.usuario.id
-    }).subscribe(info => {
-      this.facturas = info.info;
-      this.collectionSize = info.cont;
-    });
-  }
-
   transformarFecha(fecha) {
     return this.datePipe.transform(fecha, 'yyyy-MM-dd');
   }
@@ -164,16 +164,6 @@ export class ListarComponent implements OnInit, AfterViewInit, OnDestroy {
       this.archivoFacElec = new FormData();
       this.archivoFacElec.delete('documento');
       this.archivoFacElec.append('documento', archivo, Date.now() + '_' + archivo.name);
-    }
-  }
-
-  visualizarNombreArchivo(nombre) {
-    const stringArchivos = 'https://globalredpymes.s3.amazonaws.com/CENTRAL/archivosFacturas/';
-    const stringImagenes = 'https://globalredpymes.s3.amazonaws.com/CENTRAL/imgFacturas/';
-    if (nombre.includes(stringArchivos)) {
-      return nombre.replace('https://globalredpymes.s3.amazonaws.com/CENTRAL/archivosFacturas/', '');
-    } else if (nombre.includes(stringImagenes)) {
-      return nombre.replace('https://globalredpymes.s3.amazonaws.com/CENTRAL/imgFacturas/', '');
     }
   }
 

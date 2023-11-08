@@ -1,11 +1,21 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import { Validators, FormBuilder, FormGroup } from '@angular/forms';
-import { first, takeUntil } from 'rxjs/operators';
-import { CoreConfigService } from '../../../../@core/services/config.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subject } from 'rxjs';
-import { AuthenticationService } from '../../../auth/service/authentication.service';
-import {environment} from "../../../../environments/environment";
+import {Validators, FormBuilder, FormGroup} from '@angular/forms';
+import {first, takeUntil} from 'rxjs/operators';
+import {CoreConfigService} from '../../../../@core/services/config.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Subject} from 'rxjs';
+import {AuthenticationService} from '../../../auth/service';
+import {environment} from '../../../../environments/environment';
+
+/*
+* IFIS
+* center
+* ESta pantalla sirve para iniciar sesion en la aplicacion
+* Rutas:
+* `${environment.apiUrl}/central/auth/login/`
+* `${environment.apiUrl}/central/usuarios/create/`,
+* `${environment.apiUrl}/central/auth/loginFacebook/`
+*/
 
 @Component({
   selector: 'app-login',
@@ -33,11 +43,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   // Private
   private _unsubscribeAll: Subject<any>;
 
-  /**
-   * Constructor
-   *
-   * @param {CoreConfigService} _coreConfigService
-   */
   constructor(
     private _coreConfigService: CoreConfigService,
     private _formBuilder: FormBuilder,
@@ -96,11 +101,11 @@ export class LoginComponent implements OnInit, OnDestroy {
       .pipe(first())
       .subscribe(
         data => {
-          this._router.navigate(["/"]);
+          this._router.navigate(['/']);
         },
         error => {
-        
-          this.error = "Fallo en la autenticación, vuelva a intentarlo";
+
+          this.error = 'Fallo en la autenticación, vuelva a intentarlo';
           this.loading = false;
         }
       );

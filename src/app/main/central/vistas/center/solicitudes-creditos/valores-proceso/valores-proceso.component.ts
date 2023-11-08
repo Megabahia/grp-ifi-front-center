@@ -5,6 +5,14 @@ import Decimal from 'decimal.js';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ValidacionesPropias} from '../../../../../../../utils/customer.validators';
 
+/**
+ * IFIS
+ * CEnter
+ * Esta pantalla sirve para mostrar los valores que se van a procesar a la solicitud de credito
+ * Rutas:
+ * `${environment.apiUrl}/corp/creditoPersonas/update/${datos.get('id')}`,
+ */
+
 @Component({
   selector: 'app-valores-proceso',
   templateUrl: './valores-proceso.component.html',
@@ -37,7 +45,8 @@ export class ValoresProcesoComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private _solicitudCreditosService: SolicitudesCreditosService,
     private modalService: NgbModal,
-  ) {  }
+  ) {
+  }
 
   ngOnInit(): void {
     this.actualizarCreditoFormData = new FormData();
@@ -55,11 +64,7 @@ export class ValoresProcesoComponent implements OnInit {
       tablaAmortizacion: ['', [Validators.required, ValidacionesPropias.pdfValido]],
     });
     console.log('this.credito', this.credito);
-    if (Object.keys(this.credito.empresaInfo).length === 0) {
-      this.microEmpresa = false;
-    } else {
-      this.microEmpresa = true;
-    }
+    this.microEmpresa = Object.keys(this.credito.empresaInfo).length !== 0;
   }
 
   get controlsFrom() {

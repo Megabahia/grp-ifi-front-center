@@ -5,6 +5,14 @@ import {SolicitudesCreditosService} from '../solicitudes-creditos/solicitudes-cr
 import {Subject} from 'rxjs';
 import {CoreMenuService} from '../../../../../../@core/components/core-menu/core-menu.service';
 
+/**
+ * IFIS
+ * Center
+ * ESta pantalla sirve para mostrar los creditos de consumo
+ * Rutas:
+ * `${environment.apiUrl}/corp/creditoPersonas/list/`,
+ */
+
 @Component({
   selector: 'app-consumo-creditos',
   templateUrl: './consumo-creditos.component.html',

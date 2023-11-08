@@ -1,24 +1,40 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Subject } from 'rxjs';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { BienvenidoService } from '../bienvenido/bienvenido.service';
-import { takeUntil } from 'rxjs/operators';
-import { CompletarPerfilService } from './completar-perfil.service';
-import { FlatpickrOptions } from 'ng2-flatpickr';
-import { CoreConfigService } from '../../../../../@core/services/config.service';
-import { CoreMenuService } from '../../../../../@core/components/core-menu/core-menu.service';
-import { CompletarPerfil } from '../../models/persona';
+import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Subject} from 'rxjs';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {BienvenidoService} from '../bienvenido/bienvenido.service';
+import {takeUntil} from 'rxjs/operators';
+import {CompletarPerfilService} from './completar-perfil.service';
+import {FlatpickrOptions} from 'ng2-flatpickr';
+import {CoreConfigService} from '../../../../../@core/services/config.service';
+import {CoreMenuService} from '../../../../../@core/components/core-menu/core-menu.service';
+import {CompletarPerfil} from '../../models/persona';
 import moment from 'moment';
-import { User } from '../../../../auth/models/user';
+import {User} from '../../../../auth/models/user';
+
+/**
+ * IFIS
+ * PErsonas
+ * Esta pantalla sirve para mostrar el perfil del usuario
+ * Rutas:
+ * `${environment.apiUrl}/personas/personas/listOne/${id}`,
+ * `${environment.apiUrl}/central/param/list/listOne`,
+ * `${environment.apiUrl}/central/param/list/tipo/todos/`,
+ * `${environment.apiUrl}/corp/empresas/listOne/filtros/`,
+ * `${environment.apiUrl}/personas/personas/update/imagen/${id}`,
+ * `${environment.apiUrl}/personas/personas/update/${datos.user_id}`,
+ * `${environment.apiUrl}/central/usuarios/update/${datos.id}`,
+ * `${environment.apiUrl}/personas/personas/validarCodigo/`,
+ * `${environment.apiUrl}/core/monedas/create/`,
+ */
 
 @Component({
   selector: 'app-completar-perfil',
   templateUrl: './completar-perfil.component.html',
   styleUrls: ['./completar-perfil.component.scss']
 })
-export class CompletarPerfilComponent implements OnInit {
+export class CompletarPerfilComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('startDatePicker') startDatePicker;
   @ViewChild('whatsapp') whatsapp;
   public error;
@@ -40,11 +56,6 @@ export class CompletarPerfilComponent implements OnInit {
   // Private
   private _unsubscribeAll: Subject<any>;
 
-  /**
-   * Constructor
-   *
-   * @param {CoreConfigService} _coreConfigService
-   */
   constructor(
     private _coreConfigService: CoreConfigService,
     private _coreMenuService: CoreMenuService,
@@ -55,15 +66,15 @@ export class CompletarPerfilComponent implements OnInit {
     private modalService: NgbModal
   ) {
     this.informacion = {
-      apellidos: "",
-      user_id: "",
+      apellidos: '',
+      user_id: '',
       edad: 0,
-      fechaNacimiento: "",
-      genero: "",
-      identificacion: "",
-      nombres: "",
-      whatsapp: ""
-    }
+      fechaNacimiento: '',
+      genero: '',
+      identificacion: '',
+      nombres: '',
+      whatsapp: ''
+    };
     this._unsubscribeAll = new Subject();
 
     // Configure the layout
@@ -124,29 +135,31 @@ export class CompletarPerfilComponent implements OnInit {
       });
     });
   }
+
   ngAfterViewInit(): void {
-    if (this.usuario.estado == "3") {
+    if (this.usuario.estado === '3') {
       this.modalWhatsapp(this.whatsapp);
     }
   }
 
   subirImagen(event: any) {
     if (event.target.files && event.target.files[0]) {
-      let nuevaImagen = event.target.files[0];
+      const nuevaImagen = event.target.files[0];
 
-      let reader = new FileReader();
+      const reader = new FileReader();
 
       reader.onload = (event: any) => {
         this.imagen = event.target.result;
       };
 
       reader.readAsDataURL(event.target.files[0]);
-      let imagen = new FormData();
+      const imagen = new FormData();
       imagen.append('imagen', nuevaImagen, nuevaImagen.name);
       this._completarPerfilService.subirImagenRegistro(this.usuario.id, imagen).subscribe((info) => {
       });
     }
   }
+
   calcularEdad() {
     this.informacion.edad = moment().diff(this.f.fechaNacimiento.value[0], 'years');
     this.informacion.fechaNacimiento = moment(this.f.fechaNacimiento.value[0]).format('YYYY-MM-DD');
@@ -154,6 +167,7 @@ export class CompletarPerfilComponent implements OnInit {
       edad: this.informacion.edad
     });
   }
+
   guardarRegistro() {
 
     this.submitted = true;
@@ -173,20 +187,22 @@ export class CompletarPerfilComponent implements OnInit {
     this._completarPerfilService.guardarInformacion(this.informacion).subscribe(info => {
       this._bienvenidoService.cambioDeEstado(
         {
-          estado: "3",
+          estado: '3',
           id: this.usuario.id
         }
       ).subscribe(infoCambio => {
-        this.usuario.estado = "3";
+        this.usuario.estado = '3';
         this.usuario.persona = info;
         localStorage.setItem('grpSanjoseCenterUser', JSON.stringify(this.usuario));
         this.modalWhatsapp(this.whatsapp);
       });
     });
   }
+
   modalWhatsapp(modalVC) {
     this.modalService.open(modalVC);
   }
+
   validarWhatsapp() {
     this._completarPerfilService.validarWhatsapp({
       user_id: this.usuario.id,
@@ -195,11 +211,11 @@ export class CompletarPerfilComponent implements OnInit {
       if (info.message) {
         this._bienvenidoService.cambioDeEstado(
           {
-            estado: "4",
+            estado: '4',
             id: this.usuario.id
           }
         ).subscribe(infoCambio => {
-          this.usuario.estado = "4";
+          this.usuario.estado = '4';
           localStorage.setItem('grpSanjoseCenterUser', JSON.stringify(this.usuario));
           this.modalService.dismissAll();
           setTimeout(() => {
@@ -209,9 +225,10 @@ export class CompletarPerfilComponent implements OnInit {
 
       }
     }, error => {
-      this.error = "Hay un fallo al tratar de verificar su código, intentelo nuevamente"
+      this.error = 'Hay un fallo al tratar de verificar su código, intentelo nuevamente';
     });
   }
+
   /**
    * On destroy
    */

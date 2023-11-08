@@ -1,6 +1,14 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {SolicitudesCreditosService} from '../solicitudes-creditos.service';
 
+/**
+ * IFIS
+ * CEnter
+ * ESta pantalla sirve para mostrar el resumen de la solicitud de credito
+ * Rutas:
+ * `${environment.apiUrl}/corp/creditoPersonas/listOne/${id}`
+ */
+
 @Component({
   selector: 'app-resumen',
   templateUrl: './resumen.component.html',
@@ -14,7 +22,8 @@ export class ResumenComponent implements OnInit {
 
   constructor(
     private _solicitudCreditosService: SolicitudesCreditosService,
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this._solicitudCreditosService.obtenersolicitudCredito(this.credito._id).subscribe((info) => {

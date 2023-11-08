@@ -6,6 +6,15 @@ import { User } from 'app/auth/models';
 import { Subject } from 'rxjs';
 import { MisMonedasService } from './mis-monedas.service';
 
+/**
+ * IFIS
+ * Personas
+ * Esta pantalla sirve para mostrar mis monedas
+ * Rutas:
+ * `${environment.apiUrl}/core/monedas/usuario/${id}`
+ * `${environment.apiUrl}/core/monedas/list/`,
+ */
+
 @Component({
   selector: 'app-mis-monedas',
   templateUrl: './mis-monedas.component.html',

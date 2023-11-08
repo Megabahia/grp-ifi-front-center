@@ -1,18 +1,28 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { CoreMenuService } from '@core/components/core-menu/core-menu.service';
-import { CoreConfigService } from '@core/services/config.service';
-import { User } from 'app/auth/models';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { BienvenidoService } from '../bienvenido/bienvenido.service';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {CoreMenuService} from '@core/components/core-menu/core-menu.service';
+import {CoreConfigService} from '@core/services/config.service';
+import {User} from 'app/auth/models';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
+import {BienvenidoService} from '../bienvenido/bienvenido.service';
+
+/**
+ * Bigpuntos
+ * PErsonas
+ * ESta pantalla sirve para felicitar al usuario por completar el perfil
+ * Rutas:
+ * `${environment.apiUrl}/central/param/list/listOne`,
+ * `${environment.apiUrl}/corp/empresas/listOne/filtros/`,
+ * `${environment.apiUrl}/central/usuarios/update/${datos.id}`,
+ */
 
 @Component({
   selector: 'app-felicidades-registro',
   templateUrl: './felicidades-registro.component.html',
   styleUrls: ['./felicidades-registro.component.scss']
 })
-export class FelicidadesRegistroComponent implements OnInit {
+export class FelicidadesRegistroComponent implements OnInit, OnDestroy {
   public usuario: User;
   public coreConfig: any;
 
@@ -23,7 +33,6 @@ export class FelicidadesRegistroComponent implements OnInit {
     private _bienvenidoService: BienvenidoService,
     private _coreMenuService: CoreMenuService,
     private _router: Router,
-
   ) {
     this._unsubscribeAll = new Subject();
 
@@ -54,17 +63,18 @@ export class FelicidadesRegistroComponent implements OnInit {
   empezar() {
     this._bienvenidoService.cambioDeEstado(
       {
-        estado: "5",
+        estado: '5',
         id: this.usuario.id
       }
     ).subscribe(info => {
-      this.usuario.estado = "5";
+      this.usuario.estado = '5';
       localStorage.setItem('grpSanjoseCenterUser', JSON.stringify(this.usuario));
       setTimeout(() => {
         this._router.navigate(['/']);
       }, 100);
     });
   }
+
   ngOnDestroy(): void {
     // Unsubscribe from all subscriptions
     this._unsubscribeAll.next();

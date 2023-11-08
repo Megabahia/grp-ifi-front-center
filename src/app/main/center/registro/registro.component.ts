@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CoreConfigService} from '@core/services/config.service';
@@ -6,14 +6,22 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {RegistroService} from './registro.service';
 import {Role} from '../../../auth/models/role';
-import {environment} from "../../../../environments/environment";
+import {environment} from '../../../../environments/environment';
+
+/*
+* IFIS
+* center
+* Este pantalla sirve para registar a un usuario
+* Rutas:
+* `${environment.apiUrl}/central/usuarios/create/`,
+* */
 
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.component.html',
   styleUrls: ['./registro.component.scss']
 })
-export class RegistroComponent implements OnInit {
+export class RegistroComponent implements OnInit, OnDestroy {
   //  Public
   public coreConfig: any;
   public registerForm: FormGroup;
@@ -30,11 +38,6 @@ export class RegistroComponent implements OnInit {
   public captcha: boolean;
   public siteKey: string;
 
-  /**
-   * Constructor
-   *
-   * @param {CoreConfigService} _coreConfigService
-   */
   constructor(
     private _coreConfigService: CoreConfigService,
     private _registroService: RegistroService,
@@ -136,11 +139,7 @@ export class RegistroComponent implements OnInit {
   }
 
   compararPassword() {
-    if (this.f.password.value == this.f.confirmPassword.value) {
-      this.passwordSimilar = true;
-    } else {
-      this.passwordSimilar = false;
-    }
+    this.passwordSimilar = this.f.password.value === this.f.confirmPassword.value;
   }
 
   /**
